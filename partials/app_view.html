@@ -1,0 +1,44 @@
+
+<!-- User Items -->
+<div class="row">
+    <div class="large-12 columns">
+        <!-- directive: user-items -->
+        <div user-items></div>
+    </div>
+</div>
+
+
+<!-- Item Form -->
+<div class="item-form row" ng-controller="ItemFormController">
+
+    <div class="columns large-6">
+        <!-- directive: user-files -->
+        <div user-files="activeFiles"></div>
+    </div>
+
+    <div class="columns large-6">
+
+        <div class="row">
+            <div class="large-12 columns">
+                <!-- directive: item form -->
+                <div item-form="itemForm"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="columns large-12">
+                <button class="secondary" ng-click="showImagePanel()">Insert Screenshot</button>
+                <button class="alert" ng-click="saveItem()">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- image panel -->
+    <div class="image-panel" ng-show="state.showImagePanel">
+        <!-- directive: paste-capture -->
+        <div paste-capture></div>
+        <!-- directive: image-editor -->
+        <div image-editor></div>
+    </div>
+</div>
