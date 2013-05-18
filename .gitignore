@@ -1,2 +1,3 @@
-.ftppass
-.scssc
+*.ftppass
+*.scssc
+*.sass-cache
