@@ -1,0 +1,14 @@
+<div class="auto-complete">
+
+    <input type="text"/>
+
+    <!-- filtered terms -->
+    <div class="filtered-terms">
+        <ul>
+            <li class="tag" ng-repeat="(key, value) in filteredTerms">
+                <span ng-bind-html-unsafe="value">
+            </li>
+        </ul>
+    </div>
+
+</div>

@@ -6552,10 +6552,214 @@ a.th {
   max-width: 800px;
 }
 
+@font-face {
+  font-family: 'icomoon';
+  src: url("../../fonts/icomoon.eot");
+  src: url("../../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../fonts/icomoon.woff") format("woff"), url("../../fonts/icomoon.ttf") format("truetype"), url("../../fonts/icomoon.svg#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000313}}
+[data-icon]:before {
+  font-family: 'icomoon';
+  content: attr(data-icon);
+  speak: none;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"] {
+*/
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000330}}
+.icon-erase:before, .icon-minus-sign:before, .icon-minus:before, .icon-cancel-circle:before, .icon-remove:before {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000340}}
+.icon-erase:before {
+  content: "\e000";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000343}}
+.icon-minus-sign:before {
+  content: "\f056";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000346}}
+.icon-minus:before {
+  content: "\e001";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000349}}
+.icon-cancel-circle:before {
+  content: "\e002";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000352}}
+.icon-remove:before {
+  content: "\f00d";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\000031}}
+.ps-container .ps-scrollbar-x {
+  position: absolute;
+  /* please don't change 'position' */
+  bottom: 3px;
+  /* there must be 'bottom' for ps-scrollbar-x */
+  height: 8px;
+  background-color: #aaa;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.2s linear;
+  -moz-transition: opacity .2s linear;
+  transition: opacity .2s linear;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\0000316}}
+.ps-container:hover .ps-scrollbar-x {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\0000321}}
+.ps-container .ps-scrollbar-x:hover {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+  cursor: default;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\0000327}}
+.ps-container .ps-scrollbar-x.in-scrolling {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\0000332}}
+.ps-container .ps-scrollbar-y {
+  position: absolute;
+  /* please don't change 'position' */
+  right: 3px;
+  /* there must be 'right' for ps-scrollbar-y */
+  width: 8px;
+  background-color: #aaa;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.2s linear;
+  -moz-transition: opacity .2s linear;
+  transition: opacity .2s linear;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\0000347}}
+.ps-container:hover .ps-scrollbar-y {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\0000352}}
+.ps-container .ps-scrollbar-y:hover {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+  cursor: default;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\0000358}}
+.ps-container .ps-scrollbar-y.in-scrolling {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+
+/* -----------------------------------------
+   VERTICAL TAGS
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\000034}}
+.vertical-tags {
+  padding: 10px;
+  border: 1px solid #a0a0a0;
+  background-color: #ccc;
+  border-radius: 3px;
+  /* input field */
+  /* tag list */
+  /* selected tag item */
+  /* delete icon */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000311}}
+.vertical-tags input[type="text"] {
+  padding: 1em 0.6em;
+  font-size: 1.2em;
+  margin-bottom: 6px;
+  border-radius: 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000319}}
+.vertical-tags .selected-tags {
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000324}}
+.vertical-tags .selected-tags * {
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000329}}
+.vertical-tags .selected-tags ul {
+  list-style: none;
+  list-style-image: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000336}}
+.vertical-tags .tag {
+  position: relative;
+  font-size: 1.2em;
+  line-height: 1.4em;
+  padding: 10px 60px 10px 10px;
+  background-color: #fff;
+  border-radius: 3px;
+  margin: 4px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000350}}
+.vertical-tags .tag-delete {
+  position: absolute;
+  font-size: 1.2em;
+  right: 10px;
+  width: 40px;
+  cursor: pointer;
+  /* tag icon */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000358}}
+.vertical-tags .tag-delete:before {
+  position: relative;
+  top: 1px;
+  left: 7px;
+}
+
 /* -----------------------------------------
    ANGULAR JS
 ----------------------------------------- */
-@media -sass-debug-info{filename{}line{font-family:\0000319}}
+@media -sass-debug-info{filename{}line{font-family:\0000322}}
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
@@ -6564,12 +6768,12 @@ a.th {
    MODIFIERS
 ----------------------------------------- */
 /* float */
-@media -sass-debug-info{filename{}line{font-family:\0000328}}
+@media -sass-debug-info{filename{}line{font-family:\0000331}}
 .pull-right {
   float: right;
 }
 
-@media -sass-debug-info{filename{}line{font-family:\0000331}}
+@media -sass-debug-info{filename{}line{font-family:\0000334}}
 .pull-left {
   float: left;
 }
@@ -6577,7 +6781,7 @@ a.th {
 /* -----------------------------------------
    GLOBAL
 ----------------------------------------- */
-@media -sass-debug-info{filename{}line{font-family:\0000338}}
+@media -sass-debug-info{filename{}line{font-family:\0000341}}
 html, body {
   height: 100%;
 }
@@ -6586,25 +6790,25 @@ html, body {
    FORMS
 ----------------------------------------- */
 /* form errors */
-@media -sass-debug-info{filename{}line{font-family:\0000346}}
+@media -sass-debug-info{filename{}line{font-family:\0000349}}
 input.ng-invalid, .error input, input.error, .error textarea, textarea.error {
   border-color: #ffa5a7;
   box-shadow: 0 1px 2px 0 rgba(255, 0, 0, 0.5);
 }
-@media -sass-debug-info{filename{}line{font-family:\0000350}}
+@media -sass-debug-info{filename{}line{font-family:\0000353}}
 input.ng-invalid:focus, .error input:focus, input.error:focus, .error textarea:focus, textarea.error:focus {
   border-color: #fd676f;
   background-color: #fff;
 }
 
 /* pristine form */
-@media -sass-debug-info{filename{}line{font-family:\0000357}}
+@media -sass-debug-info{filename{}line{font-family:\0000360}}
 input.ng-pristine {
   border-color: #aaa;
   background-color: #fff;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-@media -sass-debug-info{filename{}line{font-family:\0000362}}
+@media -sass-debug-info{filename{}line{font-family:\0000365}}
 input.ng-pristine:focus {
   border-color: #222222;
   background-color: #ffffff;

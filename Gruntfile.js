@@ -82,7 +82,12 @@ module.exports = function(grunt) {
             hexangular_lib: {
                 src: [
                     // utilities
-                    'lib/sugar.min.js'                             // javascript utilities
+                    'lib/sugar.min.js',                             // javascript utilities
+
+                    // jquery plugins
+                    'lib/jquery.mousewheel.js',                     // mouse wheel support
+
+                    'lib/perfect-scrollbar.js'                      // custom scrollbar
                 ],
 
                 dest: 'dist/scripts/hexangular_lib.js'
@@ -154,7 +159,7 @@ module.exports = function(grunt) {
                 }
             },
             hexangular_app: {
-                files: ['scripts/**/*.js', 'apps/**/scripts/**/*.js'],
+                files: ['scripts/**/*.js'],
                 tasks: ['includereplace', 'concat:hexangular_app'],
                 options: {
                   nospawn: false,

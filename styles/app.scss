@@ -7,11 +7,14 @@
 @import 'foundation/normalize';
 @import 'foundation/foundation';
 
+// components
+@import 'icomoon';
+
 // vendor
+@import 'vendor/perfect-scrollbar';
 
 // directives
-
-// variables
+@import 'directives/vertical_tags';
 
 /* -----------------------------------------
    ANGULAR JS

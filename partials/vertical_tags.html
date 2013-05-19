@@ -1,0 +1,16 @@
+<div class="vertical-tags">
+
+    <div auto-complete terms="tags" filtered-terms="filteredTerms"></div>
+
+    <!-- selected tags -->
+    <div class="selected-tags">
+        <ul>
+            <li class="tag" ng-repeat="(key, value) in selectedTags">
+                {{ key }}
+
+                <span class="tag-delete icon-erase" ng-click="removeTag(key)"></span>
+            </li>
+        </ul>
+    </div>
+
+</div>
