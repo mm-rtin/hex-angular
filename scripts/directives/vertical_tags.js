@@ -5,8 +5,6 @@ var App = angular.module('Hexangular');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
-    // constants
-
     return {
         restrict: 'A',
         template: '@@include("../../partials/vertical_tags.html")',
@@ -56,8 +54,6 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
                 // tagInput: keyup
                 $tagInput.on('keyup', function(e) {
-
-                    console.log('tag input keyup');
 
                     // enter key pressed
                     if (e.which === 13) {

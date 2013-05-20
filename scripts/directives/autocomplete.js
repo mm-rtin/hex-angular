@@ -110,7 +110,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 });
             }
 
-            /* keyDown -
+            /* keyDown - cycle active selections
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keyDown(e) {
 
@@ -118,7 +118,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 move(e);
             }
 
-            /* keyUp -
+            /* keyUp - filter terms if keycode meet requirements
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keyUp(e) {
 
@@ -148,7 +148,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 e.preventDefault();
             }
 
-            /* move -
+            /* move - cycle active selection through filtered terms
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function move(e) {
 
@@ -163,28 +163,25 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                             return;
                         }
                         selectTerm();
-                        e.preventDefault();
                         break;
 
                     case 27: // escape
-                        e.preventDefault();
                         break;
 
                     case 38: // up arrow
-                        e.preventDefault();
                         selectPrevious();
                         break;
 
                     case 40: // down arrow
-                        e.preventDefault();
                         selectNext();
                         break;
                 }
 
                 e.stopPropagation();
+                e.preventDefault();
             }
 
-            /* selectNext -
+            /* selectNext - select next filtered term - loop back to 0
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectNext(e) {
 
@@ -198,7 +195,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 });
             }
 
-            /* selectPrevious -
+            /* selectPrevious - select previous filtered term - loop to array length
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectPrevious(e) {
 
@@ -215,18 +212,18 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
             /* setActive -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActive(key) {
-                console.log('set active', key);
+
                 $scope.state.activeTermIndex = key;
             }
 
-            /* selectTerm -
+            /* selectTerm - select a filtered term
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectTerm() {
 
                 // get filtered term and remove strong tags
                 var activeTerm = $scope.filteredTerms[$scope.state.activeTermIndex].replace(/<\/*strong>/gi, '');
 
-                // broad cast event
+                // broadcast event
                 if ($scope.mode === 'event') {
                     $input.val('');
                     $rootScope.$broadcast($scope.eventName, activeTerm);
@@ -239,7 +236,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 hide();
             }
 
-            /* hide -
+            /* hide - clear filtered terms
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function hide(e) {
 
