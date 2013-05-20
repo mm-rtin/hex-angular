@@ -6779,13 +6779,12 @@ you can use the generic selector below, but it's slower:
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000343}}
 .vertical-tags input[type="text"] {
-  padding: 1em 0.6em;
   padding-right: 50px;
   font-size: 1.2em;
   margin-bottom: 6px;
   border-radius: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000351}}
 .vertical-tags .list-button {
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -6798,50 +6797,50 @@ you can use the generic selector below, but it's slower:
   padding: 8px;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000361}}
 .vertical-tags .list-button:hover {
   background-color: #737373;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000365}}
 .vertical-tags .list-button:before {
   font-size: 1.3em;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000373}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000372}}
 .vertical-tags .back-button {
   width: 100%;
   border-radius: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000378}}
 .vertical-tags .tag-list {
   position: relative;
   overflow: hidden;
   height: 300px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000383}}
 .vertical-tags .tag-list * {
   -webkit-user-select: none;
   -moz-user-select: -moz-none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000388}}
 .vertical-tags .tag-list ul {
   list-style: none;
   list-style-image: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003101}}
 .vertical-tags .all-tags {
-  height: 400px;
+  height: 300px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003105}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003104}}
 .vertical-tags .all-tags .tag {
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003108}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003107}}
 .vertical-tags .all-tags .tag:hover {
   background-color: #B9B9B9;
   color: #000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003112}}
 .vertical-tags .all-tags .tag.active {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -6849,12 +6848,12 @@ you can use the generic selector below, but it's slower:
   background-color: #40617B;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003117}}
 .vertical-tags .all-tags .tag.active:hover {
   background-color: #293F50;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003126}}
 .vertical-tags .tag {
   position: relative;
   font-size: 1.2em;
@@ -6867,7 +6866,7 @@ you can use the generic selector below, but it's slower:
   white-space: nowrap;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003140}}
 .vertical-tags .tag-delete {
   position: absolute;
   font-size: 1.2em;
@@ -6876,7 +6875,7 @@ you can use the generic selector below, but it's slower:
   cursor: pointer;
   /* tag icon */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003148}}
 .vertical-tags .tag-delete:before {
   position: relative;
   top: 1px;
@@ -6886,6 +6885,10 @@ you can use the generic selector below, but it's slower:
 /* -----------------------------------------
    AUTO COMPLETE
 ----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/auto_complete\.scss}line{font-family:\0000313}}
+.auto-complete .tag {
+  cursor: pointer;
+}
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/auto_complete\.scss}line{font-family:\0000316}}
 .auto-complete .tag.selected {
   background-color: #000;

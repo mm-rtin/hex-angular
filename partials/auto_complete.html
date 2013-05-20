@@ -7,10 +7,8 @@
     <!-- filtered terms -->
     <div class="filtered-terms">
         <ul>
-            <li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==activeTermIndex}">
+            <li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==state.activeTermIndex}" ng-mouseenter="setActive(key)" ng-click="selectTerm()">
                 <span ng-bind-html-unsafe="value">
-
-
             </li>
         </ul>
     </div>

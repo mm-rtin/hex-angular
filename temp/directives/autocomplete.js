@@ -7,7 +7,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
     return {
         restrict: 'A',
-        template: '<div class="auto-complete">{{ activeTerm }}<input type="text"/><!-- filtered terms --><div class="filtered-terms"><ul><li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==activeTermIndex}"><span ng-bind-html-unsafe="value"></li></ul></div></div>',
+        template: '<div class="auto-complete">{{ activeTerm }}<input type="text"/><!-- filtered terms --><div class="filtered-terms"><ul><li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==state.activeTermIndex}" ng-mouseenter="setActive(key)" ng-click="selectTerm()"><span ng-bind-html-unsafe="value"></li></ul></div></div>',
         replace: true,
         scope: {
             terms: '=',
@@ -24,6 +24,11 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
             // properties
             var active = false,
                 suppressKeyPressRepeat = false;
+
+            // scope data
+            $scope.state = {
+                'activeTermIndex': 0
+            };
 
             // wait for tags data before intialization
             $scope.$watch('terms', function(property, oldValue) {
@@ -47,9 +52,6 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
                 // input: keyup
                 $input.on('keyup', keyUp);
-
-                // input: keypress
-                $input.on('keypress', keyPress);
             }
 
             /* filterTerms - return filtered terms with term highlighted
@@ -75,7 +77,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
                 $rootScope.safeApply(function() {
                     $scope.filteredTerms = filteredResults;
-                    $scope.activeTermIndex = 0;
+                    $scope.state.activeTermIndex = 0;
                 });
             }
 
@@ -111,17 +113,8 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
             /* keyDown -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keyDown(e) {
+
                 // [40,38,9,13,27]
-                move(e);
-            }
-
-            /* keyPress -
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function keyPress(e) {
-
-                if (suppressKeyPressRepeat) {
-                    return;
-                }
                 move(e);
             }
 
@@ -169,7 +162,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                         if (!active) {
                             return;
                         }
-                        selectTerm(e);
+                        selectTerm();
                         e.preventDefault();
                         break;
 
@@ -197,10 +190,10 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
                 $rootScope.safeApply(function() {
 
-                    if ($scope.activeTermIndex < $scope.filteredTerms.length - 1) {
-                        $scope.activeTermIndex++;
+                    if ($scope.state.activeTermIndex < $scope.filteredTerms.length - 1) {
+                        $scope.state.activeTermIndex++;
                     } else {
-                        $scope.activeTermIndex = 0;
+                        $scope.state.activeTermIndex = 0;
                     }
                 });
             }
@@ -211,20 +204,27 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
                 $rootScope.safeApply(function() {
 
-                    if ($scope.activeTermIndex > 0) {
-                        $scope.activeTermIndex--;
+                    if ($scope.state.activeTermIndex > 0) {
+                        $scope.state.activeTermIndex--;
                     } else {
-                        $scope.activeTermIndex = $scope.filteredTerms.length - 1;
+                        $scope.state.activeTermIndex = $scope.filteredTerms.length - 1;
                     }
                 });
             }
 
+            /* setActive -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setActive(key) {
+                console.log('set active', key);
+                $scope.state.activeTermIndex = key;
+            }
+
             /* selectTerm -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function selectTerm(e) {
+            function selectTerm() {
 
                 // get filtered term and remove strong tags
-                var activeTerm = $scope.filteredTerms[$scope.activeTermIndex].replace(/<\/*strong>/gi, '');
+                var activeTerm = $scope.filteredTerms[$scope.state.activeTermIndex].replace(/<\/*strong>/gi, '');
 
                 // broad cast event
                 if ($scope.mode === 'event') {
@@ -239,7 +239,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 hide();
             }
 
-            /* hidde -
+            /* hide -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function hide(e) {
 
@@ -249,6 +249,11 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                     $scope.filteredTerms = [];
                 });
             }
+
+            /* Scope Methods
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            $scope.setActive = setActive;
+            $scope.selectTerm = selectTerm;
         }
     };
 

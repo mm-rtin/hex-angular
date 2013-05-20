@@ -5,13 +5,13 @@
 
     .filtered-terms {
 
-
         ul {
 
         }
     }
 
     .tag {
+        cursor: pointer;
 
         &.selected {
             background-color: #000;
