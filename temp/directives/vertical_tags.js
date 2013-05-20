@@ -9,7 +9,7 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
     return {
         restrict: 'A',
-        template: '<div class="vertical-tags"><div auto-complete terms="tags" filtered-terms="filteredTerms"></div><!-- selected tags --><div class="selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">{{ key }}<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div>',
+        template: '<div class="vertical-tags"><!-- directive: autocomplete --><div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div><!-- selected tags --><div class="selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">{{ key }}<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div>',
         replace: true,
         scope: {
             'tags': '=',
@@ -47,8 +47,10 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventListeners() {
 
-                // tagInput: keydown
-                $tagInput.on('keydown', function(e) {
+                // tagInput: keyup
+                $tagInput.on('keyup', function(e) {
+
+                    console.log('tag input keyup');
 
                     // enter key pressed
                     if (e.which === 13) {
@@ -59,9 +61,9 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                     }
                 });
 
-                // event-name listener
-                $scope.$on('event-name', function(e, eventProperties) {
-
+                // add-tag
+                $scope.$on('add-tag', function(e, tagName) {
+                    addTag(tagName);
                 });
             }
 

@@ -47,8 +47,10 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventListeners() {
 
-                // tagInput: keydown
-                $tagInput.on('keydown', function(e) {
+                // tagInput: keyup
+                $tagInput.on('keyup', function(e) {
+
+                    console.log('tag input keyup');
 
                     // enter key pressed
                     if (e.which === 13) {
@@ -59,9 +61,9 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                     }
                 });
 
-                // event-name listener
-                $scope.$on('event-name', function(e, eventProperties) {
-
+                // add-tag
+                $scope.$on('add-tag', function(e, tagName) {
+                    addTag(tagName);
                 });
             }
 
