@@ -170,6 +170,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                             return;
                         }
                         selectTerm(e);
+                        e.preventDefault();
                         break;
 
                     case 27: // escape

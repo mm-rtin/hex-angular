@@ -9,7 +9,7 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
     return {
         restrict: 'A',
-        template: '<div class="vertical-tags"><!-- directive: autocomplete --><div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div><!-- selected tags --><div class="selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">{{ key }}<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div>',
+        template: '<div class="vertical-tags" ng-class="{pane2: state.showPane2}"><div class="pane-content"><!-- tag search and list pane --><div class="pane pane1"><!-- directive: autocomplete --><div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div><div class="list-button icon-list" ng-click="state.showPane2 = true"></div><!-- selected tags --><div class="tag-list selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">{{ key }}<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div><!-- all tags pane --><div class="pane pane2"><button class="back-button icon-arrow-left" ng-click="state.showPane2 = false"> Back</button><div class="tag-list all-tags"><ul><li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">{{ value }}</li></ul></div></div></div></div>',
         replace: true,
         scope: {
             'tags': '=',
@@ -21,11 +21,17 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
             // jquery elements
             var $tagInput = $('input'),
                 $selectedTags = $('.selected-tags');
+                $allTags = $('.all-tags');
 
 
             // scope data
             $scope.verticalTags = {
                 'tagInput': ''
+            };
+
+            // state
+            $scope.state = {
+                'showPane2': false
             };
 
             createEventListeners();
@@ -41,6 +47,7 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
                 // init custom scrollbar
                 $selectedTags.perfectScrollbar({wheelSpeed:25});
+                $allTags.perfectScrollbar({wheelSpeed:25});
             }
 
             /* createEventListeners -
@@ -67,6 +74,21 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                 });
             }
 
+
+            /* toggleTag -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function toggleTag(tagName) {
+
+                // remove tag
+                if (isActive(tagName)) {
+                    removeTag(tagName);
+
+                // add tag
+                } else {
+                    addTag(tagName);
+                }
+            }
+
             /* addTag -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function addTag(tagName) {
@@ -90,10 +112,23 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                 delete $scope.selectedTags[tagName];
             }
 
+            /* isActive -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function isActive(tagName) {
+
+                if (Object.has($scope.selectedTags, tagName)) {
+                    return true;
+                }
+
+                return false;
+            }
+
             /* Scope Methods
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            $scope.toggleTag = toggleTag;
             $scope.addTag = addTag;
             $scope.removeTag = removeTag;
+            $scope.isActive = isActive;
         }
     };
 

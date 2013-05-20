@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-erase:before, .icon-minus-sign:before, .icon-minus:before, .icon-cancel-circle:before, .icon-remove:before {
+.icon-erase:before, .icon-minus-sign:before, .icon-minus:before, .icon-cancel-circle:before, .icon-remove:before, .icon-list:before, .icon-arrow-left:before, .icon-arrow-right:before, .icon-chevron-left:before, .icon-chevron-right:before {
     font-family: 'icomoon';
     speak: none;
     font-style: normal;
@@ -51,4 +51,19 @@ you can use the generic selector below, but it's slower:
 }
 .icon-remove:before {
     content: "\f00d";
+}
+.icon-list:before {
+    content: "\e003";
+}
+.icon-arrow-left:before {
+    content: "\f060";
+}
+.icon-arrow-right:before {
+    content: "\f061";
+}
+.icon-chevron-left:before {
+    content: "\f053";
+}
+.icon-chevron-right:before {
+    content: "\f054";
 }

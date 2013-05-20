@@ -21,11 +21,17 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
             // jquery elements
             var $tagInput = $('input'),
                 $selectedTags = $('.selected-tags');
+                $allTags = $('.all-tags');
 
 
             // scope data
             $scope.verticalTags = {
                 'tagInput': ''
+            };
+
+            // state
+            $scope.state = {
+                'showPane2': false
             };
 
             createEventListeners();
@@ -41,6 +47,7 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
                 // init custom scrollbar
                 $selectedTags.perfectScrollbar({wheelSpeed:25});
+                $allTags.perfectScrollbar({wheelSpeed:25});
             }
 
             /* createEventListeners -
@@ -67,6 +74,21 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                 });
             }
 
+
+            /* toggleTag -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function toggleTag(tagName) {
+
+                // remove tag
+                if (isActive(tagName)) {
+                    removeTag(tagName);
+
+                // add tag
+                } else {
+                    addTag(tagName);
+                }
+            }
+
             /* addTag -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function addTag(tagName) {
@@ -90,10 +112,23 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                 delete $scope.selectedTags[tagName];
             }
 
+            /* isActive -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function isActive(tagName) {
+
+                if (Object.has($scope.selectedTags, tagName)) {
+                    return true;
+                }
+
+                return false;
+            }
+
             /* Scope Methods
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            $scope.toggleTag = toggleTag;
             $scope.addTag = addTag;
             $scope.removeTag = removeTag;
+            $scope.isActive = isActive;
         }
     };
 

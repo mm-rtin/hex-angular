@@ -1,16 +1,41 @@
-<div class="vertical-tags">
-    <!-- directive: autocomplete -->
-    <div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div>
+<div class="vertical-tags" ng-class="{pane2: state.showPane2}">
 
-    <!-- selected tags -->
-    <div class="selected-tags">
-        <ul>
-            <li class="tag" ng-repeat="(key, value) in selectedTags">
-                {{ key }}
+    <div class="pane-content">
+        <!-- tag search and list pane -->
+        <div class="pane pane1">
 
-                <span class="tag-delete icon-erase" ng-click="removeTag(key)"></span>
-            </li>
-        </ul>
+            <!-- directive: autocomplete -->
+            <div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div>
+
+            <div class="list-button icon-list" ng-click="state.showPane2 = true"></div>
+
+            <!-- selected tags -->
+            <div class="tag-list selected-tags">
+                <ul>
+                    <li class="tag" ng-repeat="(key, value) in selectedTags">
+                        {{ key }}
+
+                        <span class="tag-delete icon-erase" ng-click="removeTag(key)"></span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- all tags pane -->
+        <div class="pane pane2">
+
+            <button class="back-button icon-arrow-left" ng-click="state.showPane2 = false"> Back</button>
+
+            <div class="tag-list all-tags">
+                <ul>
+                    <li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">
+                        {{ value }}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
     </div>
 
 </div>
