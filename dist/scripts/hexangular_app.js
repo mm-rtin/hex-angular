@@ -11,23 +11,13 @@
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     * Angular App
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    var App = angular.module('Hexangular', ['ui.keypress', 'ui.event']).
-    /**
-     * "if" filter
-     * Simple filter useful for conditionally applying CSS classes and decouple
-     * view from controller
-     */
-    filter('if', function() {
-      return function(input, value) {
-        if (typeof(input) === 'string') {
-          input = [input, ''];
-        }
-        return value? input[0] : input[1];
-      };
-    });
+    var App = angular.module('Hexangular', ['ui.keypress', 'ui.event']);
 
     App.config(['$locationProvider', '$interpolateProvider', function($location, $interpolateProvider) {
         $location.html5Mode(true);
+
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
     }]);
 
 
@@ -49,6 +39,120 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         tags: ['Playstation', 'Xbox 360', 'Nintendo Wii', 'Playstation 3', 'Playstation 2', 'Playstation 4', 'Xbox', 'Nintendo DS', 'Nintendo 3DS'],
         selectedTags: {}
     };
+
+    $scope.galleryImages = [
+        {
+            url: 'http://placekitten.com/300/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        }
+    ];
 
 
     initialize();
@@ -94,7 +198,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
     return {
         restrict: 'A',
-        template: '<div class="auto-complete">{{ activeTerm }}<input type="text"/><!-- filtered terms --><div class="filtered-terms"><ul><li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==state.activeTermIndex}" ng-mouseenter="setActive(key)" ng-click="selectTerm()"><span ng-bind-html-unsafe="value"></li></ul></div></div>',
+        template: '<div class="auto-complete">[[ activeTerm ]]<input type="text"/><!-- filtered terms --><div class="filtered-terms"><ul><li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==state.activeTermIndex}" ng-mouseenter="setActive(key)" ng-click="selectTerm()"><span ng-bind-html-unsafe="value"></li></ul></div></div>',
         replace: true,
         scope: {
             terms: '=',
@@ -197,7 +301,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 });
             }
 
-            /* keyDown -
+            /* keyDown - cycle active selections
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keyDown(e) {
 
@@ -205,7 +309,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 move(e);
             }
 
-            /* keyUp -
+            /* keyUp - filter terms if keycode meet requirements
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keyUp(e) {
 
@@ -235,7 +339,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 e.preventDefault();
             }
 
-            /* move -
+            /* move - cycle active selection through filtered terms
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function move(e) {
 
@@ -271,7 +375,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 e.stopPropagation();
             }
 
-            /* selectNext -
+            /* selectNext - select next filtered term - loop back to 0
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectNext(e) {
 
@@ -285,7 +389,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 });
             }
 
-            /* selectPrevious -
+            /* selectPrevious - select previous filtered term - loop to array length
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectPrevious(e) {
 
@@ -302,18 +406,18 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
             /* setActive -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActive(key) {
-                console.log('set active', key);
+
                 $scope.state.activeTermIndex = key;
             }
 
-            /* selectTerm -
+            /* selectTerm - select a filtered term
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectTerm() {
 
                 // get filtered term and remove strong tags
                 var activeTerm = $scope.filteredTerms[$scope.state.activeTermIndex].replace(/<\/*strong>/gi, '');
 
-                // broad cast event
+                // broadcast event
                 if ($scope.mode === 'event') {
                     $input.val('');
                     $rootScope.$broadcast($scope.eventName, activeTerm);
@@ -326,7 +430,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 hide();
             }
 
-            /* hide -
+            /* hide - clear filtered terms
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function hide(e) {
 
@@ -341,6 +445,125 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             $scope.setActive = setActive;
             $scope.selectTerm = selectTerm;
+        }
+    };
+
+}]);
+;var App = angular.module('Hexangular');
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Content Gallery Directive -
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+App.directive('contentGallery', ['$rootScope', function($rootScope) {
+
+    return {
+        restrict: 'A',
+        template: '<div class="content-gallery"><div class="gallery-container"><div class="slider-container"><div class="slider slider-[[ key ]]" ng-class="{active: key == state.currentImageIndex}" ng-repeat="(key, image) in images" ng-click="setActiveImage(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div></div>',
+        replace: false,
+        scope: {
+            images: '='
+        },
+
+        link: function($scope, $element, $attrs) {
+
+            // jquery elements
+            var $contentGallery = $element,
+                $galleryContainer = $element.find('.gallery-container'),
+                $sliderContainer = $element.find('.slider-container');
+
+            // scope data
+            $scope.state = {
+                'firstImageLoaded': false,
+                'currentImageIndex': -1,
+                'smallestHeight': 99999
+            };
+
+            // wait for images data before intialization
+            $scope.$watch('images', function(images, oldValue) {
+                initialize();
+            });
+
+            /* initialize -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function initialize() {
+
+                createEventHandlers();
+
+                Object.extended($scope.images).each(function(key, image) {
+                    loadImage(image);
+                });
+
+                console.log($scope.images);
+            }
+
+
+            /* createEventHandlers -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function createEventHandlers() {
+
+            }
+
+            /* loadImage
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function loadImage(image) {
+
+                var loadedImage = new Image();
+                loadedImage.src = image.url;
+
+                // on image load
+                loadedImage.onload = function() {
+
+                    $rootScope.safeApply(function() {
+
+                        image.width = loadedImage.width;
+                        image.height = loadedImage.height;
+
+                        // set smallest height
+                        if (image.height < $scope.smallestHeight) {
+                            $scope.state.smallestHeight = image.height;
+                        }
+
+                        if (!$scope.state.firstImageLoaded) {
+                            $scope.state.firstImageLoaded = true;
+                            setActiveImage(0);
+                        }
+                    });
+                };
+            }
+
+            /* setActiveImage -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setActiveImage(index) {
+
+                if (index < $scope.images.length) {
+
+                    // var get image object
+                    var image = $scope.images[index];
+
+                    $scope.state.currentImageIndex = index;
+
+                    $sliderContainer.css({
+                        '-webkit-transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)',
+                        '-moz-transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)',
+                        '-ms-transform': 'translate(' + -$scope.state.currentImageIndex + '%, 0px)',
+                        '-o-transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)',
+                        'transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)'
+                    });
+
+                    // get active slider element
+                    var $activeSlider = $sliderContainer.find('.slider-' + index);
+                    var activeHeight = $activeSlider.height();
+
+                    // set slider height
+                    $galleryContainer.css({
+                        'max-height': activeHeight + 'px'
+                    });
+                }
+            }
+
+            /* Scope Methods
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            $scope.setActiveImage = setActiveImage;
         }
     };
 
@@ -532,11 +755,9 @@ App.directive('modal', ['$rootScope', function($rootScope) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
-    // constants
-
     return {
         restrict: 'A',
-        template: '<div class="vertical-tags" ng-class="{pane2: state.showPane2}"><div class="pane-content"><!-- tag search and list pane --><div class="pane pane1"><!-- directive: autocomplete --><div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div><div class="list-button icon-list" ng-click="state.showPane2 = true"></div><!-- selected tags --><div class="tag-list selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">{{ key }}<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div><!-- all tags pane --><div class="pane pane2"><button class="back-button icon-arrow-left" ng-click="state.showPane2 = false"> Back</button><div class="tag-list all-tags"><ul><li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">{{ value }}</li></ul></div></div></div></div>',
+        template: '<div class="vertical-tags" ng-class="{pane2: state.showPane2}"><div class="pane-content"><!-- tag search and list pane --><div class="pane pane1"><!-- directive: autocomplete --><div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div><div class="list-button icon-list" ng-click="state.showPane2 = true"></div><!-- selected tags --><div class="tag-list selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">[[ key ]]<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div><!-- all tags pane --><div class="pane pane2"><button class="back-button icon-arrow-left" ng-click="state.showPane2 = false"> Back</button><div class="tag-list all-tags"><ul><li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">[[ value ]]</li></ul></div></div></div></div>',
         replace: true,
         scope: {
             'tags': '=',
@@ -546,9 +767,9 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
         link: function($scope, $element, $attrs) {
 
             // jquery elements
-            var $tagInput = $('input'),
-                $selectedTags = $('.selected-tags');
-                $allTags = $('.all-tags');
+            var $tagInput = $element.find('input'),
+                $selectedTags = $element.find('.selected-tags');
+                $allTags = $element.find('.all-tags');
 
 
             // scope data
@@ -584,7 +805,7 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                 // tagInput: keyup
                 $tagInput.on('keyup', function(e) {
 
-                    console.log('tag input keyup');
+                    console.log('keyup');
 
                     // enter key pressed
                     if (e.which === 13) {
@@ -666,3 +887,91 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
 App.config(['$routeProvider', function($routeProvider) {
 
 }]);
+;angular.module('fundoo.services', []).factory('createDialog', ["$document", "$compile", "$rootScope", "$controller", "$timeout",
+      function ($document, $compile, $rootScope, $controller, $timeout) {
+        var defaults = {
+          id: null,
+          title: 'Default Title',
+          backdrop: true,
+          success: {label: 'OK', fn: null},
+          controller: null, //just like route controller declaration
+          backdropClass: "modal-backdrop",
+          footerTemplate: null,
+          modalClass: "modal"
+        };
+        var body = $document.find('body');
+
+        return function Dialog(template, options, passedInLocals) {
+
+          options = angular.extend({}, defaults, options); //options defined in constructor
+
+          var idAttr = options.id ? ' id="' + options.id + '" ' : '';
+          var defaultFooter = '<button class="btn" ng-click="$modalCancel()">Close</button>' +
+            '<button class="btn btn-primary" ng-click="$modalSuccess()">{{$modalSuccessLabel}}</button>';
+          var footerTemplate = '<div class="modal-footer">' +
+            (options.footerTemplate || defaultFooter) +
+            '</div>';
+          //We don't have the scope we're gonna use yet, so just get a compile function for modal
+          var modalEl = angular.element(
+            '<div class="' + options.modalClass + ' fade"' + idAttr + '>' +
+              '  <div class="modal-header">' +
+              '    <a class="close-button" ng-click="$modalCancel()"></a>' +
+              '    <h2>{{$title}}</h2>' +
+              '  </div>' +
+              '  <div class="modal-body" ng-include="\'' + template + '\'"></div>' +
+              footerTemplate +
+              '</div>');
+
+          modalEl.css('top', $document.scrollTop() + 45);
+          modalEl.css('left', '30%');
+          modalEl.css('margin', '0 auto');
+
+          var backdropEl = angular.element('<div ng-click="$modalCancel()">');
+          backdropEl.addClass(options.backdropClass);
+          backdropEl.addClass('fade in');
+
+          var handleEscPressed = function(event) {
+            if (event.keyCode === 27) {
+              scope.$modalCancel();
+            }
+          };
+
+          var closeFn = function() {
+            body.unbind('keydown', handleEscPressed);
+            modalEl.remove();
+            if (options.backdrop) {
+              backdropEl.remove();
+            }
+          };
+
+          body.bind('keydown', handleEscPressed);
+
+          var ctrl, locals,
+            scope = options.scope || $rootScope.$new();
+
+          scope.$title = options.title;
+          scope.$modalCancel = closeFn;
+          scope.$modalSuccess = function() {
+            var callFn = options.success.fn || closeFn;
+            callFn.call(this);
+            scope.$modalCancel();
+          };
+          scope.$modalSuccessLabel = options.success.label;
+
+          if (options.controller) {
+            locals = angular.extend({$scope: scope}, passedInLocals);
+            ctrl = $controller(options.controller, locals);
+            // Yes, ngControllerController is not a typo
+            modalEl.contents().data('$ngControllerController', ctrl);
+          }
+
+          $compile(modalEl)(scope);
+          $compile(backdropEl)(scope);
+          body.append(modalEl);
+          if (options.backdrop) body.append(backdropEl);
+
+          $timeout(function() {
+            modalEl.addClass('in');
+          }, 200);
+        };
+      }]);

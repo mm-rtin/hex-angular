@@ -17,9 +17,9 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
         link: function($scope, $element, $attrs) {
 
             // jquery elements
-            var $tagInput = $('input'),
-                $selectedTags = $('.selected-tags');
-                $allTags = $('.all-tags');
+            var $tagInput = $element.find('input'),
+                $selectedTags = $element.find('.selected-tags');
+                $allTags = $element.find('.all-tags');
 
 
             // scope data
@@ -54,6 +54,8 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
                 // tagInput: keyup
                 $tagInput.on('keyup', function(e) {
+
+                    console.log('keyup');
 
                     // enter key pressed
                     if (e.which === 13) {

@@ -16,6 +16,7 @@
 // directives
 @import 'directives/vertical_tags';
 @import 'directives/auto_complete';
+@import 'directives/content_gallery';
 
 /* -----------------------------------------
    ANGULAR JS
@@ -40,7 +41,6 @@
    GLOBAL
 ----------------------------------------- */
 html, body {
-    height: 100%;
 }
 
 /* -----------------------------------------

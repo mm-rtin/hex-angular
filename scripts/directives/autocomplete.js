@@ -163,22 +163,25 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                             return;
                         }
                         selectTerm();
+                        e.preventDefault();
                         break;
 
                     case 27: // escape
+                        e.preventDefault();
                         break;
 
                     case 38: // up arrow
+                        e.preventDefault();
                         selectPrevious();
                         break;
 
                     case 40: // down arrow
+                        e.preventDefault();
                         selectNext();
                         break;
                 }
 
                 e.stopPropagation();
-                e.preventDefault();
             }
 
             /* selectNext - select next filtered term - loop back to 0

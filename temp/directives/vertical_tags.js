@@ -5,11 +5,9 @@ var App = angular.module('Hexangular');
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('verticalTags', ['$rootScope', function($rootScope) {
 
-    // constants
-
     return {
         restrict: 'A',
-        template: '<div class="vertical-tags" ng-class="{pane2: state.showPane2}"><div class="pane-content"><!-- tag search and list pane --><div class="pane pane1"><!-- directive: autocomplete --><div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div><div class="list-button icon-list" ng-click="state.showPane2 = true"></div><!-- selected tags --><div class="tag-list selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">{{ key }}<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div><!-- all tags pane --><div class="pane pane2"><button class="back-button icon-arrow-left" ng-click="state.showPane2 = false"> Back</button><div class="tag-list all-tags"><ul><li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">{{ value }}</li></ul></div></div></div></div>',
+        template: '<div class="vertical-tags" ng-class="{pane2: state.showPane2}"><div class="pane-content"><!-- tag search and list pane --><div class="pane pane1"><!-- directive: autocomplete --><div auto-complete terms="tags" filtered-terms="filteredTerms" mode="event" event-name="add-tag"></div><div class="list-button icon-list" ng-click="state.showPane2 = true"></div><!-- selected tags --><div class="tag-list selected-tags"><ul><li class="tag" ng-repeat="(key, value) in selectedTags">[[ key ]]<span class="tag-delete icon-erase" ng-click="removeTag(key)"></span></li></ul></div></div><!-- all tags pane --><div class="pane pane2"><button class="back-button icon-arrow-left" ng-click="state.showPane2 = false"> Back</button><div class="tag-list all-tags"><ul><li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">[[ value ]]</li></ul></div></div></div></div>',
         replace: true,
         scope: {
             'tags': '=',
@@ -19,9 +17,9 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
         link: function($scope, $element, $attrs) {
 
             // jquery elements
-            var $tagInput = $('input'),
-                $selectedTags = $('.selected-tags');
-                $allTags = $('.all-tags');
+            var $tagInput = $element.find('input'),
+                $selectedTags = $element.find('.selected-tags');
+                $allTags = $element.find('.all-tags');
 
 
             // scope data
@@ -57,7 +55,7 @@ App.directive('verticalTags', ['$rootScope', function($rootScope) {
                 // tagInput: keyup
                 $tagInput.on('keyup', function(e) {
 
-                    console.log('tag input keyup');
+                    console.log('keyup');
 
                     // enter key pressed
                     if (e.which === 13) {

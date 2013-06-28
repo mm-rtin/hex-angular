@@ -13,7 +13,7 @@
             <div class="tag-list selected-tags">
                 <ul>
                     <li class="tag" ng-repeat="(key, value) in selectedTags">
-                        {{ key }}
+                        [[ key ]]
 
                         <span class="tag-delete icon-erase" ng-click="removeTag(key)"></span>
                     </li>
@@ -30,7 +30,7 @@
             <div class="tag-list all-tags">
                 <ul>
                     <li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">
-                        {{ value }}
+                        [[ value ]]
                     </li>
                 </ul>
             </div>

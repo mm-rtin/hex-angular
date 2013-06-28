@@ -11,6 +11,7 @@
     &.pane2 {
 
         .pane-content {
+            left: -50%;
             @include transform(translate3d(-50%, 0px, 0px));
         }
     }
@@ -50,6 +51,8 @@
     /* list button */
     .list-button {
         @include transition(all .4s);
+        @include user-select(none);
+
         position: absolute;
         top: 14px;
         right: 13px;
@@ -70,6 +73,7 @@
 
     /* all-tags back button */
     .back-button {
+        @include user-select(none);
         width: 100%;
         border-radius: 3px;
     }
@@ -81,8 +85,7 @@
         height: 300px;
 
         * {
-            -webkit-user-select: none;
-            -moz-user-select: -moz-none;
+            @include user-select(none);
         }
 
         ul {

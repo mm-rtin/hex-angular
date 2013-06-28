@@ -1,0 +1,29 @@
+/* -----------------------------------------
+   CONTENT GALLERY
+----------------------------------------- */
+.content-gallery {
+
+    .gallery-container {
+        @include transition(all .4s);
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+    .slider-container {
+        @include transition(all .4s);
+        @include clearfix();
+        width: 10000%;
+
+        .slider {
+            @include transition(all .4s);
+            float: left;
+            width: 1%;
+
+            .image-content {
+                padding: 20px;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    }
+}

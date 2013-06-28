@@ -16,6 +16,120 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         selectedTags: {}
     };
 
+    $scope.galleryImages = [
+        {
+            url: 'http://placekitten.com/300/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        },
+        {
+            url: 'http://placekitten.com/500/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1500'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1700/1700'
+        },
+        {
+            url: 'http://placekitten.com/1700/1200'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1900/1700'
+        },
+        {
+            url: 'http://placekitten.com/1200/1700'
+        },
+        {
+            url: 'http://placekitten.com/1500/1500'
+        }
+    ];
+
 
     initialize();
 

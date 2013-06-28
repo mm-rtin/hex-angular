@@ -7,7 +7,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
     return {
         restrict: 'A',
-        template: '<div class="auto-complete">{{ activeTerm }}<input type="text"/><!-- filtered terms --><div class="filtered-terms"><ul><li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==state.activeTermIndex}" ng-mouseenter="setActive(key)" ng-click="selectTerm()"><span ng-bind-html-unsafe="value"></li></ul></div></div>',
+        template: '<div class="auto-complete">[[ activeTerm ]]<input type="text"/><!-- filtered terms --><div class="filtered-terms"><ul><li class="tag" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==state.activeTermIndex}" ng-mouseenter="setActive(key)" ng-click="selectTerm()"><span ng-bind-html-unsafe="value"></li></ul></div></div>',
         replace: true,
         scope: {
             terms: '=',
@@ -110,7 +110,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 });
             }
 
-            /* keyDown -
+            /* keyDown - cycle active selections
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keyDown(e) {
 
@@ -118,7 +118,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 move(e);
             }
 
-            /* keyUp -
+            /* keyUp - filter terms if keycode meet requirements
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keyUp(e) {
 
@@ -148,7 +148,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 e.preventDefault();
             }
 
-            /* move -
+            /* move - cycle active selection through filtered terms
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function move(e) {
 
@@ -184,7 +184,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 e.stopPropagation();
             }
 
-            /* selectNext -
+            /* selectNext - select next filtered term - loop back to 0
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectNext(e) {
 
@@ -198,7 +198,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 });
             }
 
-            /* selectPrevious -
+            /* selectPrevious - select previous filtered term - loop to array length
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectPrevious(e) {
 
@@ -215,18 +215,18 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
             /* setActive -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActive(key) {
-                console.log('set active', key);
+
                 $scope.state.activeTermIndex = key;
             }
 
-            /* selectTerm -
+            /* selectTerm - select a filtered term
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function selectTerm() {
 
                 // get filtered term and remove strong tags
                 var activeTerm = $scope.filteredTerms[$scope.state.activeTermIndex].replace(/<\/*strong>/gi, '');
 
-                // broad cast event
+                // broadcast event
                 if ($scope.mode === 'event') {
                     $input.val('');
                     $rootScope.$broadcast($scope.eventName, activeTerm);
@@ -239,7 +239,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
                 hide();
             }
 
-            /* hide -
+            /* hide - clear filtered terms
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function hide(e) {
 

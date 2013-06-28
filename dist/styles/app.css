@@ -432,7 +432,7 @@ body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003225}}
 body {
-  background: white;
+  background: #5b5b5b;
   color: #222222;
   padding: 0;
   margin: 0;
@@ -6736,13 +6736,14 @@ you can use the generic selector below, but it's slower:
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000313}}
 .vertical-tags.pane2 .pane-content {
+  left: -50%;
   -webkit-transform: translate3d(-50%, 0px, 0px);
   -moz-transform: translate3d(-50%, 0px, 0px);
   -ms-transform: translate3d(-50%, 0px, 0px);
   -o-transform: translate3d(-50%, 0px, 0px);
   transform: translate3d(-50%, 0px, 0px);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000319}}
 .vertical-tags .pane-content {
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -6759,36 +6760,40 @@ you can use the generic selector below, but it's slower:
 .vertical-tags .pane-content:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000324}}
 .vertical-tags .pane-content .pane {
   float: left;
   width: 50%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000329}}
 .vertical-tags .pane-content .pane1 {
   background-color: #ccc;
   padding: 10px;
   z-index: 2;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000335}}
 .vertical-tags .pane-content .pane2 {
   padding: 10px;
   top: 0;
   left: 0;
   z-index: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000344}}
 .vertical-tags input[type="text"] {
   padding-right: 50px;
   font-size: 1.2em;
   margin-bottom: 6px;
   border-radius: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000352}}
 .vertical-tags .list-button {
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   position: absolute;
   top: 14px;
   right: 13px;
@@ -6797,50 +6802,56 @@ you can use the generic selector below, but it's slower:
   padding: 8px;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000364}}
 .vertical-tags .list-button:hover {
   background-color: #737373;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000368}}
 .vertical-tags .list-button:before {
   font-size: 1.3em;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000375}}
 .vertical-tags .back-button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   width: 100%;
   border-radius: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000382}}
 .vertical-tags .tag-list {
   position: relative;
   overflow: hidden;
   height: 300px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000387}}
 .vertical-tags .tag-list * {
   -webkit-user-select: none;
-  -moz-user-select: -moz-none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\0000391}}
 .vertical-tags .tag-list ul {
   list-style: none;
   list-style-image: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003104}}
 .vertical-tags .all-tags {
   height: 300px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003107}}
 .vertical-tags .all-tags .tag {
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003110}}
 .vertical-tags .all-tags .tag:hover {
   background-color: #B9B9B9;
   color: #000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003115}}
 .vertical-tags .all-tags .tag.active {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
@@ -6848,12 +6859,12 @@ you can use the generic selector below, but it's slower:
   background-color: #40617B;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003120}}
 .vertical-tags .all-tags .tag.active:hover {
   background-color: #293F50;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003129}}
 .vertical-tags .tag {
   position: relative;
   font-size: 1.2em;
@@ -6866,7 +6877,7 @@ you can use the generic selector below, but it's slower:
   white-space: nowrap;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003143}}
 .vertical-tags .tag-delete {
   position: absolute;
   font-size: 1.2em;
@@ -6875,7 +6886,7 @@ you can use the generic selector below, but it's slower:
   cursor: pointer;
   /* tag icon */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/vertical_tags\.scss}line{font-family:\00003151}}
 .vertical-tags .tag-delete:before {
   position: relative;
   top: 1px;
@@ -6896,9 +6907,52 @@ you can use the generic selector below, but it's slower:
 }
 
 /* -----------------------------------------
+   CONTENT GALLERY
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\000036}}
+.content-gallery .gallery-container {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  overflow: hidden;
+  background-color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000312}}
+.content-gallery .slider-container {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  *zoom: 1;
+  width: 10000%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003101}}
+.content-gallery .slider-container:before, .content-gallery .slider-container:after {
+  content: " ";
+  display: table;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003102}}
+.content-gallery .slider-container:after {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000317}}
+.content-gallery .slider-container .slider {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  float: left;
+  width: 1%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000322}}
+.content-gallery .slider-container .slider .image-content {
+  padding: 20px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* -----------------------------------------
    ANGULAR JS
 ----------------------------------------- */
-@media -sass-debug-info{filename{}line{font-family:\0000323}}
+@media -sass-debug-info{filename{}line{font-family:\0000324}}
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
@@ -6907,12 +6961,12 @@ you can use the generic selector below, but it's slower:
    MODIFIERS
 ----------------------------------------- */
 /* float */
-@media -sass-debug-info{filename{}line{font-family:\0000332}}
+@media -sass-debug-info{filename{}line{font-family:\0000333}}
 .pull-right {
   float: right;
 }
 
-@media -sass-debug-info{filename{}line{font-family:\0000335}}
+@media -sass-debug-info{filename{}line{font-family:\0000336}}
 .pull-left {
   float: left;
 }
@@ -6920,11 +6974,6 @@ you can use the generic selector below, but it's slower:
 /* -----------------------------------------
    GLOBAL
 ----------------------------------------- */
-@media -sass-debug-info{filename{}line{font-family:\0000342}}
-html, body {
-  height: 100%;
-}
-
 /* -----------------------------------------
    FORMS
 ----------------------------------------- */
