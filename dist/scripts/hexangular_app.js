@@ -14,7 +14,7 @@
     var App = angular.module('Hexangular', ['ui.keypress', 'ui.event']);
 
     App.config(['$locationProvider', '$interpolateProvider', function($location, $interpolateProvider) {
-        $location.html5Mode(true);
+        // $location.html5Mode(true);
 
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
@@ -42,118 +42,51 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/300/1500'
+            url: 'http://placekitten.com/2004/1440'
         },
         {
-            url: 'http://placekitten.com/500/1200'
+            url: 'http://placekitten.com/1002/800'
         },
         {
-            url: 'http://placekitten.com/1200/1500'
+            url: 'http://placekitten.com/1200/800'
         },
         {
-            url: 'http://placekitten.com/1700/1200'
+            url: 'http://placekitten.com/1700/800'
         },
         {
-            url: 'http://placekitten.com/1700/1700'
+            url: 'http://placekitten.com/1700/800'
         },
         {
-            url: 'http://placekitten.com/1700/1200'
+            url: 'http://placekitten.com/1700/800'
         },
         {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1900/1700'
-        },
-        {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1500/1500'
-        },
-        {
-            url: 'http://placekitten.com/500/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1500'
-        },
-        {
-            url: 'http://placekitten.com/1700/1200'
-        },
-        {
-            url: 'http://placekitten.com/1700/1700'
-        },
-        {
-            url: 'http://placekitten.com/1700/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1900/1700'
-        },
-        {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1500/1500'
-        },
-        {
-            url: 'http://placekitten.com/500/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1500'
-        },
-        {
-            url: 'http://placekitten.com/1700/1200'
-        },
-        {
-            url: 'http://placekitten.com/1700/1700'
-        },
-        {
-            url: 'http://placekitten.com/1700/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1900/1700'
-        },
-        {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1500/1500'
-        },
-        {
-            url: 'http://placekitten.com/500/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1500'
-        },
-        {
-            url: 'http://placekitten.com/1700/1200'
-        },
-        {
-            url: 'http://placekitten.com/1700/1700'
-        },
-        {
-            url: 'http://placekitten.com/1700/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1900/1700'
-        },
-        {
-            url: 'http://placekitten.com/1200/1700'
-        },
-        {
-            url: 'http://placekitten.com/1500/1500'
+            url: 'http://placekitten.com/2004/1440'
         }
     ];
 
+    $scope.thumbnailImages = [
+        {
+            url: 'http://placekitten.com/251/150'
+        },
+        {
+            url: 'http://placekitten.com/252/150'
+        },
+        {
+            url: 'http://placekitten.com/253/150'
+        },
+        {
+            url: 'http://placekitten.com/254/150'
+        },
+        {
+            url: 'http://placekitten.com/255/150'
+        },
+        {
+            url: 'http://placekitten.com/256/150'
+        },
+        {
+            url: 'http://placekitten.com/257/150'
+        }
+    ];
 
     initialize();
 
@@ -453,33 +386,45 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Content Gallery Directive -
+* Requires Modernizr detect: cssanimations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-App.directive('contentGallery', ['$rootScope', function($rootScope) {
+App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, $timeout) {
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery"><div class="gallery-container"><div class="slider-container"><div class="slider slider-[[ key ]]" ng-class="{active: key == state.currentImageIndex}" ng-repeat="(key, image) in images" ng-click="setActiveImage(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div></div>',
+        template: '<div class="content-gallery"><div class="gallery-container" ng-class="{active: state.sliderActive}"><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentImageIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveImage(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="5"></div></div>',
         replace: false,
         scope: {
-            images: '='
+            imageList: '=',
+            thumbnailList: '='
         },
 
         link: function($scope, $element, $attrs) {
 
+            // properties
+            var sliderInTransition = false,
+                slideCount = 0,
+                cssanimations = false;
+
             // jquery elements
             var $contentGallery = $element,
                 $galleryContainer = $element.find('.gallery-container'),
-                $sliderContainer = $element.find('.slider-container');
+                $sliderContainer = $element.find('.slider-container'),
+                $activeSlider = null;
 
             // scope data
             $scope.state = {
-                'firstImageLoaded': false,
+                'sliderActive': false,
                 'currentImageIndex': -1,
-                'smallestHeight': 99999
+                'sliderContainerWidth': 0,
+                'sliderWidth': 0
             };
 
-            // wait for images data before intialization
-            $scope.$watch('images', function(images, oldValue) {
+            $scope.sliderContainerStyle = {};
+            $scope.sliderStyle = {};
+
+            // wait for imageList data before intialization
+            $scope.$watch('imageList', function(imageList, oldValue) {
                 initialize();
             });
 
@@ -489,11 +434,28 @@ App.directive('contentGallery', ['$rootScope', function($rootScope) {
 
                 createEventHandlers();
 
-                Object.extended($scope.images).each(function(key, image) {
-                    loadImage(image);
-                });
+                // modernizr detect cssanimations
+                if ($('html').hasClass('cssanimations')) {
+                    cssanimations = true;
+                }
 
-                console.log($scope.images);
+                // calculate container and slider width
+                slideCount = $scope.imageList.length;
+                $scope.state.sliderContainerWidth = slideCount * 100;
+                $scope.state.sliderWidth = 100 / slideCount;
+
+                // apply styles
+                $scope.sliderContainerStyle = {
+                    'width': $scope.state.sliderContainerWidth + '%'
+                };
+                $scope.sliderStyle = {
+                    'width': $scope.state.sliderWidth + '%'
+                };
+
+                // load images
+                $scope.imageList.each(function(image, index) {
+                    loadImage(image, index);
+                });
             }
 
 
@@ -501,11 +463,21 @@ App.directive('contentGallery', ['$rootScope', function($rootScope) {
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventHandlers() {
 
+                // window: resized
+                $(window).on('resize', function(e) {
+                    // set new gallery height
+                    setGalleryHeight();
+                });
+
+                // sliderContainer: transitionend
+                $sliderContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
+                    sliderInTransition = false;
+                });
             }
 
             /* loadImage
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function loadImage(image) {
+            function loadImage(image, index) {
 
                 var loadedImage = new Image();
                 loadedImage.src = image.url;
@@ -513,21 +485,23 @@ App.directive('contentGallery', ['$rootScope', function($rootScope) {
                 // on image load
                 loadedImage.onload = function() {
 
-                    $rootScope.safeApply(function() {
+                    // set image properties
+                    image.width = loadedImage.width;
+                    image.height = loadedImage.height;
+                    image.loaded = true;
 
-                        image.width = loadedImage.width;
-                        image.height = loadedImage.height;
+                    // set active image once first image has loaded
+                    if (index === 0) {
 
-                        // set smallest height
-                        if (image.height < $scope.smallestHeight) {
-                            $scope.state.smallestHeight = image.height;
-                        }
+                        // wait for image to render on page
+                        $timeout(function() {
 
-                        if (!$scope.state.firstImageLoaded) {
-                            $scope.state.firstImageLoaded = true;
+                            // set slider to active state
+                            $scope.state.sliderActive = true;
                             setActiveImage(0);
-                        }
-                    });
+
+                        }, 500);
+                    }
                 };
             }
 
@@ -535,30 +509,50 @@ App.directive('contentGallery', ['$rootScope', function($rootScope) {
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActiveImage(index) {
 
-                if (index < $scope.images.length) {
+                // set active if index less than imageList lenght, slider not in transitions and image at index is loaded
+                if (index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
 
-                    // var get image object
-                    var image = $scope.images[index];
+                    if (cssanimations) {
+                        sliderInTransition = true;
+                    }
 
+                    // save current index
                     $scope.state.currentImageIndex = index;
 
-                    $sliderContainer.css({
-                        '-webkit-transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)',
-                        '-moz-transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)',
-                        '-ms-transform': 'translate(' + -$scope.state.currentImageIndex + '%, 0px)',
-                        '-o-transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)',
-                        'transform': 'translate3d(' + -$scope.state.currentImageIndex + '%, 0px, 0px)'
-                    });
+                    // set active slider
+                    $activeSlider = $sliderContainer.find('.slider-' + index);
 
-                    // get active slider element
-                    var $activeSlider = $sliderContainer.find('.slider-' + index);
-                    var activeHeight = $activeSlider.height();
+                    // var get image object
+                    var image = $scope.imageList[index];
 
-                    // set slider height
-                    $galleryContainer.css({
-                        'max-height': activeHeight + 'px'
-                    });
+                    // calculate translation amount
+                    var translateAmount = index * $scope.state.sliderWidth;
+
+                    // apply transform/width styles
+                    $scope.sliderContainerStyle = {
+                        'width': (slideCount * 100) + '%',
+                        '-webkit-transform': 'translate3d(' + -translateAmount + '%, 0px, 0px)',
+                        '-moz-transform': 'translate3d(' + -translateAmount + '%, 0px, 0px)',
+                        '-ms-transform': 'translate(' + -translateAmount + '%, 0px)',
+                        '-o-transform': 'translate3d(' + -translateAmount + '%, 0px, 0px)',
+                        'transform': 'translate3d(' + -translateAmount + '%, 0px, 0px)'
+                    };
+
+                    setGalleryHeight();
                 }
+            }
+
+            /* setGalleryHeight - set gallery max height based on image width/height
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setGalleryHeight() {
+
+                // get active slider element
+                var activeHeight = $activeSlider.height();
+
+                // set slider height
+                $galleryContainer.css({
+                    'max-height': activeHeight + 'px'
+                });
             }
 
             /* Scope Methods
@@ -713,37 +707,268 @@ angular.module('ui.keypress').directive('uiKeyup', ['keypressHelper', function(k
 ;var App = angular.module('Hexangular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Modal Directive -
+* Thumbnail Gallery Directive -
+* Requires Modernizr detect: cssanimations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-App.directive('modal', ['$rootScope', function($rootScope) {
-
-    // constants
+App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope, $timeout) {
 
     return {
         restrict: 'A',
-        template: '<div class="modal reveal-modal"><div class="content" ng-transclude></div></div>',
-        replace: true,
-        transclude: true,
+        template: '<div class="thumbnail-gallery"><div class="thumbnail-viewport-container"><div class="thumbnail-container" ng-style="thumbnailContainerStyle"><div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-click="setActiveThumbnail(key)"><img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]"></div></div></div></div>',
+        replace: false,
         scope: {
-            'modalState': '='
+            thumbnailList: '=',
+            width: '@',
+            spacing: '@'
         },
 
         link: function($scope, $element, $attrs) {
+
+            // const
+
+            // properties
+            var thumbnailInTransition = false,
+                allThumbnailsLoaded = false,
+                cssanimations = false;
+
+                // viewport properties
+                vpProperties = {
+                    'width': 0,
+                    'height': 0,
+                    'fullyVisibleImages': 0,
+                    'maxTranslateAmount': 0,
+                    'innerWidth': 0
+                };
+
+                // thumbnail container properties
+                tcProperties = {
+                    'currentTranslation': 0,
+                    'thumbnailCount': 0,
+                    'width': 0
+                };
+                thumbnailDimensions = {
+                    'width': 0,
+                    'height': 0
+                };
+
+            // jquery elements
+            var $thumbnailGallery = $element,
+                $viewportContainer = $element.find('.thumbnail-viewport-container'),
+                $thumbnailContainer = $element.find('.thumbnail-container'),
+                $activeThumbnail = null;
+
+            // scope data
+            $scope.state = {
+                'currentThumbnailIndex': -1
+            };
+
+            $scope.thumbnailContainerStyle = {};
+            $scope.thumbnailStyle = {};
+            $scope.thumbnailImageStyle = {};
+
+            // wait for thumbnailList data before intialization
+            $scope.$watch('thumbnailList', function(thumbnailList, oldValue) {
+                initialize();
+            });
 
             /* initialize -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function initialize() {
 
+                createEventHandlers();
+
+                // modernizr detect cssanimations
+                if ($('html').hasClass('cssanimations')) {
+                    cssanimations = true;
+                }
+
+                // calculate container and thumbnail width
+                tcProperties.thumbnailCount = $scope.thumbnailList.length;
+
+                // apply styles
+                $scope.thumbnailStyle = {
+                };
+                $scope.thumbnailImageStyle = {
+                    'padding-right': $scope.spacing + 'px',
+                    'width': $scope.width + 'px'
+                };
             }
 
-            /* createEventListeners -
+
+            /* createEventHandlers -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function createEventListeners() {
+            function createEventHandlers() {
+
+                // window: resized
+                $(window).on('resize', function(e) {
+
+                    if (allThumbnailsLoaded) {
+                        calculateDimensions();
+                    }
+                });
+
+                // thumbnailContainer: transitionend
+                $thumbnailContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
+
+                });
+
+                // viewportContainer: all images loaded
+                $viewportContainer.imagesLoaded(function() {
+
+                    // wait for image to render on page
+                    $timeout(function() {
+
+                        allThumbnailsLoaded = true;
+
+                        calculateDimensions();
+
+                        $scope.thumbnailContainerStyle = {
+                            'width': tcProperties.width
+                        };
+
+                    }, 1000);
+                });
+            }
+
+            /* calculateDimensions -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function calculateDimensions() {
+
+                var $thumbnail = $thumbnailContainer.find('.thumbnail-0');
+
+                // thumbnail dimensions
+                thumbnailDimensions.width = $thumbnail.width() + 1;
+                thumbnailDimensions.height = $thumbnail.height();
+
+                // viewport properties
+                vpProperties.width = $viewportContainer.width();
+                vpProperties.height = $viewportContainer.height();
+                vpProperties.fullyVisibleImages = Math.floor(vpProperties.width / thumbnailDimensions.width);
+
+                // thumbnail container properties
+                tcProperties.width = tcProperties.thumbnailCount * thumbnailDimensions.width;
+
+                // calculate max translate (add in drift + spacing)
+                vpProperties.maxTranslateAmount = -(vpProperties.width - tcProperties.width + (tcProperties.thumbnailCount) + parseInt($scope.spacing, 10));
+
+                console.log(thumbnailDimensions);
+                console.log(tcProperties);
+                console.log(vpProperties);
+            }
+
+            /* setActiveThumbnail -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setActiveThumbnail(index) {
+
+                // set active if index less than thumbnailList lenght, thumbnail not in transitions and image at index is loaded
+                if (index < $scope.thumbnailList.length && !thumbnailInTransition && allThumbnailsLoaded) {
+
+                    if (cssanimations) {
+                    }
+
+                    // first image not viewable
+                    if (!isImageFullyViewable(index - 1)) {
+                        console.log('go back');
+                        setFirstViewableImage(index - 1);
+
+                    } else if (!isImageFullyViewable(index + 1)) {
+                        console.log('go forward');
+                        setLastViewableImage(index + 1);
+                    }
+
+                    // save current index
+                    $scope.state.currentThumbnailIndex = index;
+
+                    // set active thumbnail
+                    $activeThumbnail = $thumbnailContainer.find('.thumbnail-' + index);
+                }
+            }
+
+            /* isImageFullyViewable -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function isImageFullyViewable(index) {
+
+                if (index < 0) {
+                    index = 0;
+                } else if (index > tcProperties.thumbnailCount - 1) {
+                    index = tcProperties.thumbnailCount - 1;
+                }
+
+                var imageStart = getImagePosition(index);
+                var imageEnd = imageStart + thumbnailDimensions.width;
+
+                var tcViewStart = tcProperties.currentTranslation;
+                var tcViewEnd = tcProperties.currentTranslation + vpProperties.width;
+
+                if (imageStart >= tcViewStart && imageEnd <= tcViewEnd) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            /* setFirstViewableImage -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setFirstViewableImage(index) {
+
+                if (index < 0) {
+                    index = 0;
+                }
+
+                var translateAmount = getImagePosition(index);
+                translateThumbnailContainer(translateAmount);
+            }
+
+            /* setLastViewableImage -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setLastViewableImage(index) {
+
+                if (index > tcProperties.thumbnailCount - 1) {
+                    index = tcProperties.thumbnailCount - 1;
+                }
+
+                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width;
+
+                if (translateAmount > vpProperties.maxTranslateAmount) {
+                    translateAmount = vpProperties.maxTranslateAmount;
+                }
+
+                translateThumbnailContainer(translateAmount);
+            }
+
+            /* getImagePosition -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getImagePosition(index) {
+                return (thumbnailDimensions.width * index) - (index * 1);
+            }
+
+            /* enforceLimits -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function enforceLimits() {
 
             }
+
+            /* translateThumbnailContainer -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function translateThumbnailContainer(translateAmount) {
+
+                tcProperties.currentTranslation = translateAmount;
+
+                // apply transform/width styles
+                $scope.thumbnailContainerStyle = {
+                    'width': tcProperties.width,
+                    '-webkit-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                    '-moz-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                    '-ms-transform': 'translate(' + -translateAmount + 'px, 0px)',
+                    '-o-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                    'transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)'
+                };
+            }
+
 
             /* Scope Methods
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            $scope.setActiveThumbnail = setActiveThumbnail;
         }
     };
 

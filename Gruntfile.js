@@ -5,6 +5,13 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         /**~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        * clean - removes compiled and temp directories
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+        clean: {
+            dev: ['dist', 'temp']
+        },
+
+        /**~~~~~~~~~~~~~~~~~~~~~~~~~~~
         * sass -
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
         sass: {
@@ -87,7 +94,8 @@ module.exports = function(grunt) {
                     // jquery plugins
                     'lib/jquery.mousewheel.js',                     // mouse wheel support
 
-                    'lib/perfect-scrollbar.js'                      // custom scrollbar
+                    'lib/perfect-scrollbar.js',                     // custom scrollbar
+                    'lib/imagesloaded.js'                           // images loaded
                 ],
 
                 dest: 'dist/scripts/hexangular_lib.js'
@@ -179,6 +187,7 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -187,9 +196,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-include-replace');
 
     // Default Development task
-    grunt.registerTask('default', ['includereplace', 'concat', 'sass']);
+    grunt.registerTask('default', ['clean', 'includereplace', 'concat', 'sass']);
 
     // Production Task - copy partials, concat js, remove logging statements, minify scripts, compile scss
-    grunt.registerTask('production', ['includereplace', 'concat', 'removelogging', 'uglify', 'sass']);
+    grunt.registerTask('production', ['clean', 'includereplace', 'concat', 'removelogging', 'uglify', 'sass']);
 
 };

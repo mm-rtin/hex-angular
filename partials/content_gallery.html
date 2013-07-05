@@ -1,14 +1,16 @@
 <div class="content-gallery">
 
-    <div class="gallery-container">
-        <div class="slider-container">
+    <div class="gallery-container" ng-class="{active: state.sliderActive}">
+        <div class="slider-container" ng-style="sliderContainerStyle">
 
-            <div class="slider slider-[[ key ]]" ng-class="{active: key == state.currentImageIndex}" ng-repeat="(key, image) in images" ng-click="setActiveImage(key + 1)">
+            <div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentImageIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveImage(key + 1)">
                 <img class="image-content" ng-src="[[ image.url ]]">
             </div>
 
         </div>
     </div>
+
+    <div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="5"></div>
 
 </div>
 

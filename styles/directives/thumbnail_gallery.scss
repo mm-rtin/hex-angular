@@ -1,30 +1,32 @@
 /* -----------------------------------------
-   CONTENT GALLERY
+   THUMBNAIL GALLERY
 ----------------------------------------- */
-.content-gallery {
+.thumbnail-gallery {
 
-    .gallery-container {
+    .thumbnail-viewport-container {
         @include transition(all .4s);
         overflow: hidden;
-        height: 0px;
-
-        &.active {
-            height: auto;
-        }
     }
 
-    .slider-container {
+    .thumbnail-container {
         @include transition(all .4s);
         @include clearfix();
+        width: 9999px;
 
-        .slider {
+        .thumbnail {
             float: left;
+            cursor: pointer;
+            opacity: .5;
 
-            .image-content {
+            &.active {
+                opacity: 1;
+            }
+
+            .image-thumbnail {
                 max-width: 100%;
                 height: auto;
-                display: block;
                 margin: 0 auto;
+                padding-top: 5px;
             }
         }
     }

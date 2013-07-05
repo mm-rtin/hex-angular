@@ -1,0 +1,14 @@
+<div class="thumbnail-gallery">
+
+    <div class="thumbnail-viewport-container">
+        <div class="thumbnail-container" ng-style="thumbnailContainerStyle">
+
+            <div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-click="setActiveThumbnail(key)">
+                <img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]">
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
