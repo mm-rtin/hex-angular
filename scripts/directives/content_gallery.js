@@ -17,10 +17,17 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
         link: function($scope, $element, $attrs) {
 
+            // contants
+            var DEBOUNCE_TIME = 600;
+
             // properties
-            var sliderInTransition = false,
+            var ctrlModifier = false,
+                sliderInTransition = false,
                 slideCount = 0,
                 cssanimations = false;
+
+            // functions
+            var throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
 
             // jquery elements
             var $contentGallery = $element,
@@ -85,6 +92,22 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     setGalleryHeight();
                 });
 
+                // window: keyup
+                $(window).on('keydown', function(e) {
+                    throttledKeydownHandler(e.which);
+                });
+
+                // window: keyup
+                $(window).on('keyup', function(e) {
+
+                    // reset throttle
+                    throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
+
+                    if (e.which === 17) {
+                        ctrlModifier = false;
+                    }
+                });
+
                 // sliderContainer: transitionend
                 $sliderContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
                     sliderInTransition = false;
@@ -94,6 +117,37 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $scope.$on('thumbnail-gallery:set-active', function(e, index) {
                     setActiveSlide(index, false);
                 });
+            }
+
+            /* keydownHandler
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function keydownHandler(key) {
+
+                if (key === 17) {
+                    ctrlModifier = true;
+                }
+
+                // previous slide
+                if (key === 37) {
+                    $rootScope.safeApply(function() {
+                        if (ctrlModifier) {
+                            setActiveSlide(0);
+                        } else {
+                            previousSlide();
+                        }
+                    });
+
+                // next slide
+                } else if (key === 39) {
+                    $rootScope.safeApply(function() {
+                        if (ctrlModifier) {
+                            setActiveSlide(slideCount - 1);
+                        } else {
+                            nextSlide();
+                        }
+                    });
+                }
+
             }
 
             /* loadImage
@@ -119,7 +173,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                             // set slider to active state
                             $scope.state.sliderActive = true;
-                            setActiveSlide(0, false);
+                            setActiveSlide(0, true);
 
                         }, 500);
                     }
@@ -143,7 +197,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function setActiveSlide(index, emitEvent) {
 
                 // emit event by default
-                emitEvent = (typeof emitEvent === 'undefined') ? true : false;
+                emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
 
                 // set active if index greater than -1, less than imageList lenght, slider not in transitions and image at index is loaded
                 if (index > -1 && index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
@@ -178,6 +232,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // broadcast active selection
                     if (emitEvent) {
+                        console.log('emit event');
                         $scope.$broadcast('content-gallery:set-active', index);
                     }
                 }

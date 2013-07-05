@@ -165,7 +165,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     }
 
                     // previous image not in full view - go back
-                    if (!isImageFullyViewable(index - 1)) {
+                    if (!isImageFullyViewable(index - 1) && index !== tcProperties.thumbnailCount - 1) {
                         setFirstViewableImage(index - 1);
 
                     // next image not in full view - go forward
@@ -228,7 +228,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     index = tcProperties.thumbnailCount - 1;
                 }
 
-                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width;
+                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width - $scope.spacing - 2;
 
                 if (translateAmount > vpProperties.maxTranslateAmount) {
                     translateAmount = vpProperties.maxTranslateAmount;

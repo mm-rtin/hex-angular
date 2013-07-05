@@ -61,10 +61,94 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         },
         {
             url: 'http://placekitten.com/2004/1600'
+        },
+        {
+            url: 'http://placekitten.com/2004/1440'
+        },
+        {
+            url: 'http://placekitten.com/1002/800'
+        },
+        {
+            url: 'http://placekitten.com/1200/820'
+        },
+        {
+            url: 'http://placekitten.com/1500/830'
+        },
+        {
+            url: 'http://placekitten.com/1800/840'
+        },
+        {
+            url: 'http://placekitten.com/1900/850'
+        },
+        {
+            url: 'http://placekitten.com/2004/1600'
+        },
+        {
+            url: 'http://placekitten.com/2004/1440'
+        },
+        {
+            url: 'http://placekitten.com/1002/800'
+        },
+        {
+            url: 'http://placekitten.com/1200/820'
+        },
+        {
+            url: 'http://placekitten.com/1500/830'
+        },
+        {
+            url: 'http://placekitten.com/1800/840'
+        },
+        {
+            url: 'http://placekitten.com/1900/850'
+        },
+        {
+            url: 'http://placekitten.com/2004/1600'
         }
     ];
 
     $scope.thumbnailImages = [
+        {
+            url: 'http://placekitten.com/251/150'
+        },
+        {
+            url: 'http://placekitten.com/252/150'
+        },
+        {
+            url: 'http://placekitten.com/253/150'
+        },
+        {
+            url: 'http://placekitten.com/254/150'
+        },
+        {
+            url: 'http://placekitten.com/255/150'
+        },
+        {
+            url: 'http://placekitten.com/256/150'
+        },
+        {
+            url: 'http://placekitten.com/257/150'
+        },
+        {
+            url: 'http://placekitten.com/251/150'
+        },
+        {
+            url: 'http://placekitten.com/252/150'
+        },
+        {
+            url: 'http://placekitten.com/253/150'
+        },
+        {
+            url: 'http://placekitten.com/254/150'
+        },
+        {
+            url: 'http://placekitten.com/255/150'
+        },
+        {
+            url: 'http://placekitten.com/256/150'
+        },
+        {
+            url: 'http://placekitten.com/257/150'
+        },
         {
             url: 'http://placekitten.com/251/150'
         },
@@ -392,7 +476,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()"><div class="navigation-button next icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()"><div class="navigation-button previous icon-chevron-left"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="5"></div></div>',
+        template: '<div class="content-gallery"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()"><div class="navigation-button next icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()"><div class="navigation-button previous icon-chevron-left"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
         replace: false,
         scope: {
             imageList: '=',
@@ -401,10 +485,17 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
         link: function($scope, $element, $attrs) {
 
+            // contants
+            var DEBOUNCE_TIME = 600;
+
             // properties
-            var sliderInTransition = false,
+            var ctrlModifier = false,
+                sliderInTransition = false,
                 slideCount = 0,
                 cssanimations = false;
+
+            // functions
+            var throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
 
             // jquery elements
             var $contentGallery = $element,
@@ -469,6 +560,22 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     setGalleryHeight();
                 });
 
+                // window: keyup
+                $(window).on('keydown', function(e) {
+                    throttledKeydownHandler(e.which);
+                });
+
+                // window: keyup
+                $(window).on('keyup', function(e) {
+
+                    // reset throttle
+                    throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
+
+                    if (e.which === 17) {
+                        ctrlModifier = false;
+                    }
+                });
+
                 // sliderContainer: transitionend
                 $sliderContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
                     sliderInTransition = false;
@@ -478,6 +585,37 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $scope.$on('thumbnail-gallery:set-active', function(e, index) {
                     setActiveSlide(index, false);
                 });
+            }
+
+            /* keydownHandler
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function keydownHandler(key) {
+
+                if (key === 17) {
+                    ctrlModifier = true;
+                }
+
+                // previous slide
+                if (key === 37) {
+                    $rootScope.safeApply(function() {
+                        if (ctrlModifier) {
+                            setActiveSlide(0);
+                        } else {
+                            previousSlide();
+                        }
+                    });
+
+                // next slide
+                } else if (key === 39) {
+                    $rootScope.safeApply(function() {
+                        if (ctrlModifier) {
+                            setActiveSlide(slideCount - 1);
+                        } else {
+                            nextSlide();
+                        }
+                    });
+                }
+
             }
 
             /* loadImage
@@ -503,7 +641,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                             // set slider to active state
                             $scope.state.sliderActive = true;
-                            setActiveSlide(0, false);
+                            setActiveSlide(0, true);
 
                         }, 500);
                     }
@@ -527,7 +665,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function setActiveSlide(index, emitEvent) {
 
                 // emit event by default
-                emitEvent = (typeof emitEvent === 'undefined') ? true : false;
+                emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
 
                 // set active if index greater than -1, less than imageList lenght, slider not in transitions and image at index is loaded
                 if (index > -1 && index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
@@ -562,6 +700,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // broadcast active selection
                     if (emitEvent) {
+                        console.log('emit event');
                         $scope.$broadcast('content-gallery:set-active', index);
                     }
                 }
@@ -898,7 +1037,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     }
 
                     // previous image not in full view - go back
-                    if (!isImageFullyViewable(index - 1)) {
+                    if (!isImageFullyViewable(index - 1) && index !== tcProperties.thumbnailCount - 1) {
                         setFirstViewableImage(index - 1);
 
                     // next image not in full view - go forward
@@ -961,7 +1100,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     index = tcProperties.thumbnailCount - 1;
                 }
 
-                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width;
+                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width - $scope.spacing - 2;
 
                 if (translateAmount > vpProperties.maxTranslateAmount) {
                     translateAmount = vpProperties.maxTranslateAmount;
