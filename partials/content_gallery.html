@@ -1,15 +1,30 @@
 <div class="content-gallery">
 
     <div class="gallery-container" ng-class="{active: state.sliderActive}">
+
+        <!-- gallery interface -->
+        <div class="gallery-interface">
+
+            <div class="activation-area next" ng-click="nextSlide()">
+                <div class="navigation-button next icon-chevron-right"></div>
+            </div>
+
+            <div class="activation-area previous" ng-click="previousSlide()">
+                <div class="navigation-button previous icon-chevron-left"></div>
+            </div>
+        </div>
+
+        <!-- slider container -->
         <div class="slider-container" ng-style="sliderContainerStyle">
 
-            <div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentImageIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveImage(key + 1)">
+            <div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)">
                 <img class="image-content" ng-src="[[ image.url ]]">
             </div>
 
         </div>
     </div>
 
+    <!-- directive: thumbnail-gallery -->
     <div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="5"></div>
 
 </div>

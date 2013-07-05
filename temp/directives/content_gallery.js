@@ -8,7 +8,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery"><div class="gallery-container" ng-class="{active: state.sliderActive}"><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentImageIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveImage(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="5"></div></div>',
+        template: '<div class="content-gallery"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()"><div class="navigation-button next icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()"><div class="navigation-button previous icon-chevron-left"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="5"></div></div>',
         replace: false,
         scope: {
             imageList: '=',
@@ -31,7 +31,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             // scope data
             $scope.state = {
                 'sliderActive': false,
-                'currentImageIndex': -1,
+                'currentSlideIndex': -1,
                 'sliderContainerWidth': 0,
                 'sliderWidth': 0
             };
@@ -92,7 +92,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 // thumbnail-gallery:set-active
                 $scope.$on('thumbnail-gallery:set-active', function(e, index) {
-                    setActiveImage(index, false);
+                    setActiveSlide(index, false);
                 });
             }
 
@@ -119,29 +119,41 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                             // set slider to active state
                             $scope.state.sliderActive = true;
-                            setActiveImage(0, false);
+                            setActiveSlide(0, false);
 
                         }, 500);
                     }
                 };
             }
 
-            /* setActiveImage -
+            /* nextSlide -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function setActiveImage(index, emitEvent) {
+            function nextSlide() {
+                setActiveSlide($scope.state.currentSlideIndex + 1);
+            }
+
+            /* previousSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function previousSlide() {
+                setActiveSlide($scope.state.currentSlideIndex - 1);
+            }
+
+            /* setActiveSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setActiveSlide(index, emitEvent) {
 
                 // emit event by default
                 emitEvent = (typeof emitEvent === 'undefined') ? true : false;
 
-                // set active if index less than imageList lenght, slider not in transitions and image at index is loaded
-                if (index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
+                // set active if index greater than -1, less than imageList lenght, slider not in transitions and image at index is loaded
+                if (index > -1 && index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
 
                     if (cssanimations) {
-                        sliderInTransition = true;
+                        // sliderInTransition = true;
                     }
 
                     // save current index
-                    $scope.state.currentImageIndex = index;
+                    $scope.state.currentSlideIndex = index;
 
                     // set active slider
                     $activeSlider = $sliderContainer.find('.slider-' + index);
@@ -186,7 +198,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             /* Scope Methods
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            $scope.setActiveImage = setActiveImage;
+            $scope.setActiveSlide = setActiveSlide;
+            $scope.nextSlide = nextSlide;
+            $scope.previousSlide = previousSlide;
         }
     };
 
