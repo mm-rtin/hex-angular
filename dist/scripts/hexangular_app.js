@@ -46,63 +46,6 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         },
         {
             url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1800/840'
-        },
-        {
-            url: 'http://placekitten.com/1900/850'
-        },
-        {
-            url: 'http://placekitten.com/2004/1600'
-        },
-        {
-            url: 'http://placekitten.com/2004/1440'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1800/840'
-        },
-        {
-            url: 'http://placekitten.com/1900/850'
-        },
-        {
-            url: 'http://placekitten.com/2004/1600'
-        },
-        {
-            url: 'http://placekitten.com/2004/1440'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1800/840'
-        },
-        {
-            url: 'http://placekitten.com/1900/850'
-        },
-        {
-            url: 'http://placekitten.com/2004/1600'
         }
     ];
 
@@ -112,63 +55,6 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         },
         {
             url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
         }
     ];
 
@@ -592,6 +478,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function keydownHandler(key) {
 
                 if (key === 17) {
+                    // reset throttle
+                    throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
                     ctrlModifier = true;
                 }
 
@@ -700,7 +588,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // broadcast active selection
                     if (emitEvent) {
-                        console.log('emit event');
                         $scope.$broadcast('content-gallery:set-active', index);
                     }
                 }
@@ -890,7 +777,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
         link: function($scope, $element, $attrs) {
 
-            // const
+            // constants
 
             // properties
             var thumbnailInTransition = false,

@@ -18,7 +18,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
         link: function($scope, $element, $attrs) {
 
-            // const
+            // constants
 
             // properties
             var thumbnailInTransition = false,

@@ -124,6 +124,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function keydownHandler(key) {
 
                 if (key === 17) {
+                    // reset throttle
+                    throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
                     ctrlModifier = true;
                 }
 
@@ -232,7 +234,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // broadcast active selection
                     if (emitEvent) {
-                        console.log('emit event');
                         $scope.$broadcast('content-gallery:set-active', index);
                     }
                 }
