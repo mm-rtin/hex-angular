@@ -16,7 +16,11 @@
         .thumbnail {
             float: left;
             cursor: pointer;
-            opacity: .5;
+            opacity: .3;
+
+            &:hover {
+                opacity: .9;
+            }
 
             &.active {
                 opacity: 1;

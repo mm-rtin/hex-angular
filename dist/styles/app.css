@@ -6980,13 +6980,17 @@ you can use the generic selector below, but it's slower:
 .thumbnail-gallery .thumbnail-container .thumbnail {
   float: left;
   cursor: pointer;
-  opacity: .5;
+  opacity: .3;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000321}}
+.thumbnail-gallery .thumbnail-container .thumbnail:hover {
+  opacity: .9;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000325}}
 .thumbnail-gallery .thumbnail-container .thumbnail.active {
   opacity: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000329}}
 .thumbnail-gallery .thumbnail-container .thumbnail .image-thumbnail {
   max-width: 100%;
   height: auto;

@@ -89,6 +89,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $sliderContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
                     sliderInTransition = false;
                 });
+
+                // thumbnail-gallery:set-active
+                $scope.$on('thumbnail-gallery:set-active', function(e, index) {
+                    setActiveImage(index, false);
+                });
             }
 
             /* loadImage
@@ -114,7 +119,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                             // set slider to active state
                             $scope.state.sliderActive = true;
-                            setActiveImage(0);
+                            setActiveImage(0, false);
 
                         }, 500);
                     }
@@ -123,7 +128,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             /* setActiveImage -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function setActiveImage(index) {
+            function setActiveImage(index, emitEvent) {
+
+                // emit event by default
+                emitEvent = (typeof emitEvent === 'undefined') ? true : false;
 
                 // set active if index less than imageList lenght, slider not in transitions and image at index is loaded
                 if (index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
@@ -155,6 +163,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     };
 
                     setGalleryHeight();
+
+                    // broadcast active selection
+                    if (emitEvent) {
+                        $scope.$broadcast('content-gallery:set-active', index);
+                    }
                 }
             }
 

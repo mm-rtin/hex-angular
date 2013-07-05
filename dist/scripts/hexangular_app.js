@@ -48,19 +48,19 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/1002/800'
         },
         {
-            url: 'http://placekitten.com/1200/800'
+            url: 'http://placekitten.com/1200/820'
         },
         {
-            url: 'http://placekitten.com/1700/800'
+            url: 'http://placekitten.com/1500/830'
         },
         {
-            url: 'http://placekitten.com/1700/800'
+            url: 'http://placekitten.com/1800/840'
         },
         {
-            url: 'http://placekitten.com/1700/800'
+            url: 'http://placekitten.com/1900/850'
         },
         {
-            url: 'http://placekitten.com/2004/1440'
+            url: 'http://placekitten.com/2004/1600'
         }
     ];
 
@@ -473,6 +473,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $sliderContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
                     sliderInTransition = false;
                 });
+
+                // thumbnail-gallery:set-active
+                $scope.$on('thumbnail-gallery:set-active', function(e, index) {
+                    setActiveImage(index, false);
+                });
             }
 
             /* loadImage
@@ -498,7 +503,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                             // set slider to active state
                             $scope.state.sliderActive = true;
-                            setActiveImage(0);
+                            setActiveImage(0, false);
 
                         }, 500);
                     }
@@ -507,7 +512,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             /* setActiveImage -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function setActiveImage(index) {
+            function setActiveImage(index, emitEvent) {
+
+                // emit event by default
+                emitEvent = (typeof emitEvent === 'undefined') ? true : false;
 
                 // set active if index less than imageList lenght, slider not in transitions and image at index is loaded
                 if (index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
@@ -539,6 +547,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     };
 
                     setGalleryHeight();
+
+                    // broadcast active selection
+                    if (emitEvent) {
+                        $scope.$broadcast('content-gallery:set-active', index);
+                    }
                 }
             }
 
@@ -826,7 +839,12 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                             'width': tcProperties.width
                         };
 
-                    }, 1000);
+                    }, 0);
+                });
+
+                // content-gallery:set-active
+                $scope.$on('content-gallery:set-active', function(e, index) {
+                    setActiveThumbnail(index, false);
                 });
             }
 
@@ -850,15 +868,14 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                 // calculate max translate (add in drift + spacing)
                 vpProperties.maxTranslateAmount = -(vpProperties.width - tcProperties.width + (tcProperties.thumbnailCount) + parseInt($scope.spacing, 10));
-
-                console.log(thumbnailDimensions);
-                console.log(tcProperties);
-                console.log(vpProperties);
             }
 
             /* setActiveThumbnail -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function setActiveThumbnail(index) {
+            function setActiveThumbnail(index, emitEvent) {
+
+                // emit event by default
+                emitEvent = (typeof emitEvent === 'undefined') ? true : false;
 
                 // set active if index less than thumbnailList lenght, thumbnail not in transitions and image at index is loaded
                 if (index < $scope.thumbnailList.length && !thumbnailInTransition && allThumbnailsLoaded) {
@@ -866,13 +883,12 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     if (cssanimations) {
                     }
 
-                    // first image not viewable
+                    // previous image not in full view - go back
                     if (!isImageFullyViewable(index - 1)) {
-                        console.log('go back');
                         setFirstViewableImage(index - 1);
 
+                    // next image not in full view - go forward
                     } else if (!isImageFullyViewable(index + 1)) {
-                        console.log('go forward');
                         setLastViewableImage(index + 1);
                     }
 
@@ -881,6 +897,11 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                     // set active thumbnail
                     $activeThumbnail = $thumbnailContainer.find('.thumbnail-' + index);
+
+                    // emit active selection
+                    if (emitEvent) {
+                        $scope.$emit('thumbnail-gallery:set-active', index);
+                    }
                 }
             }
 
@@ -903,7 +924,6 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 if (imageStart >= tcViewStart && imageEnd <= tcViewEnd) {
                     return true;
                 }
-
                 return false;
             }
 
@@ -942,12 +962,6 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 return (thumbnailDimensions.width * index) - (index * 1);
             }
 
-            /* enforceLimits -
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function enforceLimits() {
-
-            }
-
             /* translateThumbnailContainer -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function translateThumbnailContainer(translateAmount) {
@@ -964,7 +978,6 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     'transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)'
                 };
             }
-
 
             /* Scope Methods
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
