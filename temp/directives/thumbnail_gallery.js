@@ -8,7 +8,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
     return {
         restrict: 'A',
-        template: '<div class="thumbnail-gallery"><div class="thumbnail-viewport-container"><div class="thumbnail-container" ng-style="thumbnailContainerStyle"><div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-click="setActiveThumbnail(key)"><img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]"></div></div></div></div>',
+        template: '<div class="thumbnail-gallery"><div class="thumbnail-viewport-container"><!-- thumbnail interface --><div class="activation-area previous" ng-click="previousPage()" ng-hide="isImageFullyViewable(0)"><div class="navigation-button previous icon-chevron-left"></div></div><div class="activation-area next" ng-click="nextPage()" ng-hide="isImageFullyViewable(9999)"><div class="navigation-button next icon-chevron-right"></div></div><!-- thumbnail container --><div class="thumbnail-container" ng-style="thumbnailContainerStyle"><div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-click="setActiveThumbnail(key)"><img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]"></div></div></div></div>',
         replace: false,
         scope: {
             thumbnailList: '=',
@@ -19,6 +19,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
         link: function($scope, $element, $attrs) {
 
             // constants
+            var CALCULATION_ERROR_PADDING = 2;
 
             // properties
             var thumbnailInTransition = false,
@@ -53,7 +54,8 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
             // scope data
             $scope.state = {
-                'currentThumbnailIndex': -1
+                'currentThumbnailIndex': -1,
+                'currentPageIndex': 0
             };
 
             $scope.thumbnailContainerStyle = {};
@@ -175,6 +177,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                     // save current index
                     $scope.state.currentThumbnailIndex = index;
+                    $scope.state.currentPageIndex = index;
 
                     // set active thumbnail
                     $activeThumbnail = $thumbnailContainer.find('.thumbnail-' + index);
@@ -200,7 +203,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 var imageEnd = imageStart + thumbnailDimensions.width;
 
                 var tcViewStart = tcProperties.currentTranslation;
-                var tcViewEnd = tcProperties.currentTranslation + vpProperties.width;
+                var tcViewEnd = tcProperties.currentTranslation + vpProperties.width + parseInt($scope.spacing, 10) + CALCULATION_ERROR_PADDING;
 
                 if (imageStart >= tcViewStart && imageEnd <= tcViewEnd) {
                     return true;
@@ -228,11 +231,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     index = tcProperties.thumbnailCount - 1;
                 }
 
-                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width - $scope.spacing - 2;
-
-                if (translateAmount > vpProperties.maxTranslateAmount) {
-                    translateAmount = vpProperties.maxTranslateAmount;
-                }
+                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width - parseInt($scope.spacing, 10) - CALCULATION_ERROR_PADDING;
 
                 translateThumbnailContainer(translateAmount);
             }
@@ -247,6 +246,13 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function translateThumbnailContainer(translateAmount) {
 
+                if (translateAmount > vpProperties.maxTranslateAmount) {
+                    translateAmount = vpProperties.maxTranslateAmount;
+
+                } else if (translateAmount < 0) {
+                    translateAmount = 0;
+                }
+
                 tcProperties.currentTranslation = translateAmount;
 
                 // apply transform/width styles
@@ -260,9 +266,44 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 };
             }
 
+            /* nextPage - find first non-fully visible image moving forward and set as first viewable
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function nextPage() {
+
+                var thumbInFullView = true,
+                    currentIndex = $scope.state.currentPageIndex;
+
+                while (thumbInFullView) {
+                    thumbInFullView = isImageFullyViewable(currentIndex);
+                    currentIndex++;
+                }
+
+                $scope.state.currentPageIndex = --currentIndex;
+                setFirstViewableImage($scope.state.currentPageIndex);
+            }
+
+            /* previousPage - find first non-fully visible image moving backward and set as last viewable
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function previousPage() {
+
+                var thumbInFullView = true,
+                    currentIndex = $scope.state.currentPageIndex;
+
+                while (thumbInFullView) {
+                    thumbInFullView = isImageFullyViewable(currentIndex);
+                    currentIndex--;
+                }
+
+                $scope.state.currentPageIndex = ++currentIndex;
+                setLastViewableImage($scope.state.currentPageIndex);
+            }
+
             /* Scope Methods
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             $scope.setActiveThumbnail = setActiveThumbnail;
+            $scope.isImageFullyViewable = isImageFullyViewable;
+            $scope.previousPage = previousPage;
+            $scope.nextPage = nextPage;
         }
     };
 

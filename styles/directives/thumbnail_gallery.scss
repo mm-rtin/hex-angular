@@ -3,11 +3,61 @@
 ----------------------------------------- */
 .thumbnail-gallery {
 
+    $top-margin: 5px;
+
     .thumbnail-viewport-container {
         @include transition(all .4s);
         overflow: hidden;
+        position: relative;
     }
 
+
+    /* activation area */
+    .activation-area {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 35px;
+        height: 100%;
+        cursor: pointer;
+        z-index: 1;
+
+        &:hover {
+            background-color: rgba(#000, .4);
+        }
+        &:active {
+            background-color: rgba(#000, .8);
+        }
+
+        &.next {
+            right: 0;
+        }
+        &.previous {
+            left: 0;
+        }
+    }
+
+    /* navigation button */
+    .navigation-button {
+        position: absolute;
+        margin-top: -15px;
+        top: 50%;
+        padding: 10px 10px;
+
+        &:before {
+            opacity: .7;
+            color: #fff;
+        }
+
+        &.next {
+            right: 0px;
+        }
+        &.previous {
+            left: 0px;
+        }
+    }
+
+    /* thumbnail container */
     .thumbnail-container {
         @include transition(all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
         @include clearfix();
@@ -30,7 +80,7 @@
                 max-width: 100%;
                 height: auto;
                 margin: 0 auto;
-                padding-top: 5px;
+                padding-top: $top-margin;
             }
         }
     }
