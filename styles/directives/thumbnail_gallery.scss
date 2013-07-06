@@ -21,6 +21,11 @@
         height: 100%;
         cursor: pointer;
         z-index: 1;
+        background-color: rgba(#000, 0.0);
+
+        * {
+            @include user-select(none);
+        }
 
         &:hover {
             background-color: rgba(#000, .4);

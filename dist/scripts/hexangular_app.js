@@ -979,6 +979,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 // thumbnailContainer: transitionend
                 $thumbnailContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
 
+                    thumbnailInTransition = false;
                 });
 
                 // viewportContainer: all images loaded
@@ -1035,9 +1036,6 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                 // set active if index less than thumbnailList lenght, thumbnail not in transitions and image at index is loaded
                 if (index < $scope.thumbnailList.length && !thumbnailInTransition && allThumbnailsLoaded) {
-
-                    if (cssanimations) {
-                    }
 
                     // previous image not in full view - go back
                     if (!isImageFullyViewable(index - 1) && index !== tcProperties.thumbnailCount - 1) {
@@ -1146,6 +1144,10 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 var thumbInFullView = true,
                     currentIndex = $scope.state.currentPageIndex;
 
+                if (cssanimations) {
+                    thumbnailInTransition = true;
+                }
+
                 while (thumbInFullView) {
                     thumbInFullView = isImageFullyViewable(currentIndex);
                     currentIndex++;
@@ -1161,6 +1163,10 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                 var thumbInFullView = true,
                     currentIndex = $scope.state.currentPageIndex;
+
+                if (cssanimations) {
+                    thumbnailInTransition = true;
+                }
 
                 while (thumbInFullView) {
                     thumbInFullView = isImageFullyViewable(currentIndex);
