@@ -40,7 +40,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             // scope data
             $scope.state = {
-                'fullscreen': true,
+                'fullscreen': false,
                 'sliderActive': false,
                 'slideCount': 0,
                 'currentSlideIndex': -1,
@@ -256,7 +256,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 var activeHeight = $activeSlider.height(),
                     windowHeight = $(window).height() - GALLERY_HEIGHT;
 
-                var styles = {};
+                var styles = {
+                    'margin-top': 0,
+                    'margin-bottom': 0
+                };
 
                 if ($scope.state.fullscreen) {
 
@@ -391,7 +394,25 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollDown(yPosition) {
                 scrollCurrentSlide(-100);
+            }
 
+            /* enableFullscreen -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function enableFullscreen() {
+                $scope.state.fullscreen = true;
+
+                $timeout(function() {
+                    setGalleryHeight();
+                }, 0);
+            }
+
+            /* disableFullscreen -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function disableFullscreen() {
+                $scope.state.fullscreen = false;
+                $timeout(function() {
+                    setGalleryHeight();
+                }, 0);
             }
 
             /* Scope Methods
@@ -402,6 +423,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             $scope.scrollUp = scrollUp;
             $scope.scrollDown = scrollDown;
             $scope.isImageTallerThanWindow = isImageTallerThanWindow;
+            $scope.enableFullscreen = enableFullscreen;
+            $scope.disableFullscreen = disableFullscreen;
         }
     };
 }]);

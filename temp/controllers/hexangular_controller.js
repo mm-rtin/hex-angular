@@ -18,28 +18,28 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/2004/5000'
+            url: 'http://placekitten.com/2004/1000'
         },
         {
-            url: 'http://placekitten.com/200/2800'
+            url: 'http://placekitten.com/200/280'
         },
         {
-            url: 'http://placekitten.com/1200/4000'
+            url: 'http://placekitten.com/1200/400'
         },
         {
             url: 'http://placekitten.com/1500/830'
         },
         {
-            url: 'http://placekitten.com/1800/3000'
+            url: 'http://placekitten.com/1800/300'
         },
         {
             url: 'http://placekitten.com/1900/850'
         },
         {
-            url: 'http://placekitten.com/500/6600'
+            url: 'http://placekitten.com/500/660'
         },
         {
-            url: 'http://placekitten.com/2004/1440'
+            url: 'http://placekitten.com/2004/144'
         },
         {
             url: 'http://placekitten.com/1002/800'
@@ -57,10 +57,10 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/1900/850'
         },
         {
-            url: 'http://placekitten.com/2004/1600'
+            url: 'http://placekitten.com/2004/160'
         },
         {
-            url: 'http://placekitten.com/2004/1440'
+            url: 'http://placekitten.com/2004/440'
         },
         {
             url: 'http://placekitten.com/1002/800'
@@ -78,7 +78,7 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/1900/850'
         },
         {
-            url: 'http://placekitten.com/2004/1600'
+            url: 'http://placekitten.com/2004/160'
         }
     ];
 

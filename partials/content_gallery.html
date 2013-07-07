@@ -1,22 +1,30 @@
-<div class="content-gallery fullscreen">
+<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen}">
 
     <div class="gallery-container" ng-class="{active: state.sliderActive}">
 
         <!-- gallery interface -->
         <div class="gallery-interface">
 
+            <!-- zoom -->
+            <div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-click="disableFullscreen()"></div>
+            <div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-click="enableFullscreen()"></div>
+
+            <!-- next slide -->
             <div class="activation-area next" ng-click="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex">
                 <div class="navigation-button next only-icon icon-chevron-right"></div>
             </div>
 
+            <!-- previous slide -->
             <div class="activation-area previous" ng-click="previousSlide()" ng-hide="state.currentSlideIndex == 0">
                 <div class="navigation-button previous only-icon icon-chevron-left"></div>
             </div>
 
+            <!-- scroll up -->
             <div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen">
                 <div class="scroll-button up only-icon icon-chevron-up"></div>
             </div>
 
+            <!-- scroll down -->
             <div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen">
                 <div class="scroll-button down only-icon icon-chevron-down"></div>
             </div>

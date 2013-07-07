@@ -8,7 +8,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery fullscreen"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
+        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen}"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-click="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-click="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-click="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-click="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
         replace: false,
         scope: {
             imageList: '=',
@@ -40,7 +40,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             // scope data
             $scope.state = {
-                'fullscreen': true,
+                'fullscreen': false,
                 'sliderActive': false,
                 'slideCount': 0,
                 'currentSlideIndex': -1,
@@ -256,7 +256,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 var activeHeight = $activeSlider.height(),
                     windowHeight = $(window).height() - GALLERY_HEIGHT;
 
-                var styles = {};
+                var styles = {
+                    'margin-top': 0,
+                    'margin-bottom': 0
+                };
 
                 if ($scope.state.fullscreen) {
 
@@ -391,7 +394,25 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollDown(yPosition) {
                 scrollCurrentSlide(-100);
+            }
 
+            /* enableFullscreen -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function enableFullscreen() {
+                $scope.state.fullscreen = true;
+
+                $timeout(function() {
+                    setGalleryHeight();
+                }, 0);
+            }
+
+            /* disableFullscreen -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function disableFullscreen() {
+                $scope.state.fullscreen = false;
+                $timeout(function() {
+                    setGalleryHeight();
+                }, 0);
             }
 
             /* Scope Methods
@@ -402,6 +423,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             $scope.scrollUp = scrollUp;
             $scope.scrollDown = scrollDown;
             $scope.isImageTallerThanWindow = isImageTallerThanWindow;
+            $scope.enableFullscreen = enableFullscreen;
+            $scope.disableFullscreen = disableFullscreen;
         }
     };
 }]);
