@@ -432,7 +432,7 @@ body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003225}}
 body {
-  background: #5b5b5b;
+  background: #aaaaaa;
   color: #222222;
   padding: 0;
   margin: 0;
@@ -7373,7 +7373,7 @@ a.th {
 ----------------------------------------- */
 @media -sass-debug-info{filename{}line{font-family:\0000344}}
 html, body {
-  background-color: #5b5b5b;
+  background-color: #aaaaaa;
 }
 
 /* -----------------------------------------

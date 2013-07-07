@@ -18,25 +18,25 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/2004/1440'
+            url: 'http://placekitten.com/2004/5000'
         },
         {
-            url: 'http://placekitten.com/1002/800'
+            url: 'http://placekitten.com/200/2800'
         },
         {
-            url: 'http://placekitten.com/1200/820'
+            url: 'http://placekitten.com/1200/4000'
         },
         {
             url: 'http://placekitten.com/1500/830'
         },
         {
-            url: 'http://placekitten.com/1800/840'
+            url: 'http://placekitten.com/1800/3000'
         },
         {
             url: 'http://placekitten.com/1900/850'
         },
         {
-            url: 'http://placekitten.com/2004/1600'
+            url: 'http://placekitten.com/500/6600'
         },
         {
             url: 'http://placekitten.com/2004/1440'

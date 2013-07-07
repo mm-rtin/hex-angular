@@ -269,6 +269,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     var topMargin = (windowHeight - activeHeight) / 2;
 
                     styles['margin-top'] = topMargin + 'px';
+                    styles['margin-bottom'] = topMargin  + 'px';
                 }
 
                 // set slider height
