@@ -13,11 +13,11 @@
                 <div class="navigation-button previous only-icon icon-chevron-left"></div>
             </div>
 
-            <div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow()">
+            <div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen">
                 <div class="scroll-button up only-icon icon-chevron-up"></div>
             </div>
 
-            <div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow()">
+            <div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen">
                 <div class="scroll-button down only-icon icon-chevron-down"></div>
             </div>
         </div>

@@ -8,7 +8,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery fullscreen"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow()"><div class="scroll-button up only-icon icon-chevron-up"></div></div><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow()"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
+        template: '<div class="content-gallery fullscreen"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
         replace: false,
         scope: {
             imageList: '=',
@@ -256,21 +256,21 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 var activeHeight = $activeSlider.height(),
                     windowHeight = $(window).height() - GALLERY_HEIGHT;
 
-                if (activeHeight > windowHeight) {
-                    activeHeight = windowHeight;
-                }
-
-                var styles = {
-                    'max-height': activeHeight + 'px'
-                };
+                var styles = {};
 
                 if ($scope.state.fullscreen) {
+
+                    if (activeHeight > windowHeight) {
+                        activeHeight = windowHeight;
+                    }
 
                     var topMargin = (windowHeight - activeHeight) / 2;
 
                     styles['margin-top'] = topMargin + 'px';
                     styles['margin-bottom'] = topMargin  + 'px';
                 }
+
+                styles['max-height'] = activeHeight + 'px';
 
                 // set slider height
                 $galleryContainer.css(styles);
@@ -299,7 +299,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function scrollSlideImage(e) {
 
                 // skip if image not beyond window height
-                if (isImageTallerThanWindow()) {
+                if (isImageTallerThanWindow() && $scope.state.fullscreen) {
                     var delta = extractDelta(e);
 
                     // set new scroll position

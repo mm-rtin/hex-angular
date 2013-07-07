@@ -256,21 +256,21 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 var activeHeight = $activeSlider.height(),
                     windowHeight = $(window).height() - GALLERY_HEIGHT;
 
-                if (activeHeight > windowHeight) {
-                    activeHeight = windowHeight;
-                }
-
-                var styles = {
-                    'max-height': activeHeight + 'px'
-                };
+                var styles = {};
 
                 if ($scope.state.fullscreen) {
+
+                    if (activeHeight > windowHeight) {
+                        activeHeight = windowHeight;
+                    }
 
                     var topMargin = (windowHeight - activeHeight) / 2;
 
                     styles['margin-top'] = topMargin + 'px';
                     styles['margin-bottom'] = topMargin  + 'px';
                 }
+
+                styles['max-height'] = activeHeight + 'px';
 
                 // set slider height
                 $galleryContainer.css(styles);
@@ -299,7 +299,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function scrollSlideImage(e) {
 
                 // skip if image not beyond window height
-                if (isImageTallerThanWindow()) {
+                if (isImageTallerThanWindow() && $scope.state.fullscreen) {
                     var delta = extractDelta(e);
 
                     // set new scroll position
