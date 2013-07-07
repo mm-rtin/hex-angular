@@ -6554,34 +6554,15 @@ a.th {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../fonts/icomoon.woff") format("woff"), url("../../fonts/icomoon.ttf") format("truetype"), url("../../fonts/icomoon.svg#icomoon") format("svg");
+  src: url("../../fonts/icomoon/icomoon.eot");
+  src: url("../../fonts/icomoon/icomoon.eot?#iefix") format("embedded-opentype"), url("../../fonts/icomoon/icomoon.woff") format("woff"), url("../../fonts/icomoon/icomoon.ttf") format("truetype"), url("../../fonts/icomoon/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
-/* Use the following CSS code if you want to use data attributes for inserting your icons */
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000313}}
-[data-icon]:before {
-  font-family: 'icomoon';
-  content: attr(data-icon);
-  speak: none;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Use the following CSS code if you want to have a class per icon */
-/*
-Instead of a list of all class selectors,
-you can use the generic selector below, but it's slower:
-[class*="icon-"] {
-*/
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000330}}
-.icon-erase:before, .icon-minus-sign:before, .icon-minus:before, .icon-cancel-circle:before, .icon-remove:before, .icon-list:before, .icon-arrow-left:before, .icon-arrow-right:before, .icon-chevron-left:before, .icon-chevron-right:before {
-  font-family: 'icomoon';
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000314}}
+.only-icon:before {
+  font-family: 'icomoon' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -6589,56 +6570,235 @@ you can use the generic selector below, but it's slower:
   text-transform: none;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+  left: 0px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000331}}
+.left-icon:before {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  left: -5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000346}}
+.right-icon {
+  padding-right: 2.3em !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000349}}
+.right-icon:before {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  right: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000364}}
 .icon-erase:before {
   content: "\e000";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000343}}
-.icon-minus-sign:before {
-  content: "\f056";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000346}}
-.icon-minus:before {
-  content: "\e001";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000349}}
-.icon-cancel-circle:before {
-  content: "\e002";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000367}}
 .icon-remove:before {
   content: "\f00d";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000370}}
 .icon-list:before {
   content: "\e003";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000373}}
 .icon-arrow-left:before {
   content: "\f060";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000376}}
 .icon-arrow-right:before {
   content: "\f061";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000379}}
 .icon-chevron-left:before {
   content: "\f053";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000382}}
 .icon-chevron-right:before {
   content: "\f054";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000385}}
+.icon-circleselect:before {
+  content: "\f0d3";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000388}}
+.icon-star:before {
+  content: "\f005";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000391}}
+.icon-ok:before {
+  content: "\f00c";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000394}}
+.icon-chevron-up:before {
+  content: "\f077";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\0000397}}
+.icon-chevron-down:before {
+  content: "\f078";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003100}}
+.icon-globe:before {
+  content: "\f0ac";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003103}}
+.icon-off:before {
+  content: "\f011";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003106}}
+.icon-zoom-in:before {
+  content: "\e001";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003109}}
+.icon-zoom-out:before {
+  content: "\e002";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003112}}
+.icon-search:before {
+  content: "\e004";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003115}}
+.icon-clock:before {
+  content: "\e005";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003118}}
+.icon-hyperlink:before {
+  content: "\e006";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003121}}
+.icon-user:before {
+  content: "\e007";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003124}}
+.icon-comments:before {
+  content: "\e008";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003127}}
+.icon-exclamation:before {
+  content: "\e009";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003130}}
+.icon-question:before {
+  content: "\e00a";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003133}}
+.icon-close:before {
+  content: "\e00b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003136}}
+.icon-add:before {
+  content: "\e00c";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003139}}
+.icon-subtract:before {
+  content: "\e00d";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003142}}
+.icon-maximize:before {
+  content: "\e00e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003145}}
+.icon-in-alt:before {
+  content: "\e00f";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003148}}
+.icon-trash:before {
+  content: "\e010";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003151}}
+.icon-grid-alt:before {
+  content: "\e011";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003154}}
+.icon-menu:before {
+  content: "\e012";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003157}}
+.icon-list-2:before {
+  content: "\e013";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003160}}
+.icon-gallery:before {
+  content: "\e014";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003163}}
+.icon-compose:before {
+  content: "\e015";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003166}}
+.icon-tags:before {
+  content: "\e016";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003169}}
+.icon-tag:before {
+  content: "\e017";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003172}}
+.icon-crop:before {
+  content: "\e018";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003175}}
+.icon-screenshot:before {
+  content: "\f109";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/icomoon\.scss}line{font-family:\00003178}}
+.icon-picture:before {
+  content: "\f03e";
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/perfect-scrollbar\.scss}line{font-family:\000031}}
@@ -6911,11 +7071,20 @@ you can use the generic selector below, but it's slower:
 ----------------------------------------- */
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\000034}}
 .content-gallery {
+  position: relative;
   /* gallery container */
   /* gallery interface */
   /* slider container */
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\000037}}
+.content-gallery.fullscreen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000316}}
 .content-gallery .gallery-container {
   -webkit-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   -moz-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
@@ -6924,11 +7093,11 @@ you can use the generic selector below, but it's slower:
   overflow: hidden;
   height: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000322}}
 .content-gallery .gallery-container.active {
   height: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000328}}
 .content-gallery .gallery-interface {
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -6941,44 +7110,71 @@ you can use the generic selector below, but it's slower:
   opacity: 0;
   /* activation area */
   /* navigation button */
+  /* scroll button */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000337}}
 .content-gallery .gallery-interface * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000341}}
 .content-gallery .gallery-interface:hover {
   opacity: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000346}}
 .content-gallery .gallery-interface .activation-area {
   position: absolute;
-  top: 0;
-  bottom: 0;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000351}}
 .content-gallery .gallery-interface .activation-area:hover .navigation-button {
   background-color: rgba(255, 255, 255, 0.4);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000349}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000354}}
+.content-gallery .gallery-interface .activation-area:hover .scroll-button {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000359}}
 .content-gallery .gallery-interface .activation-area:active .navigation-button {
   background-color: rgba(255, 255, 255, 0.8);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000354}}
-.content-gallery .gallery-interface .activation-area.next {
-  right: 0;
-  left: 50%;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000360}}
-.content-gallery .gallery-interface .activation-area.previous {
-  left: 0;
-  right: 50%;
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000362}}
+.content-gallery .gallery-interface .activation-area:active .scroll-button {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000367}}
+.content-gallery .gallery-interface .activation-area.next {
+  right: 0;
+  left: 55%;
+  top: 0;
+  bottom: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000373}}
+.content-gallery .gallery-interface .activation-area.previous {
+  left: 0;
+  right: 55%;
+  top: 0;
+  bottom: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000379}}
+.content-gallery .gallery-interface .activation-area.up {
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000386}}
+.content-gallery .gallery-interface .activation-area.down {
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000396}}
 .content-gallery .gallery-interface .navigation-button {
   position: absolute;
   margin-top: -35px;
@@ -6986,19 +7182,32 @@ you can use the generic selector below, but it's slower:
   padding: 30px 10px;
   background-color: rgba(255, 255, 255, 0.2);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003103}}
 .content-gallery .gallery-interface .navigation-button:before {
   opacity: .5;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003107}}
 .content-gallery .gallery-interface .navigation-button.next {
   right: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003110}}
 .content-gallery .gallery-interface .navigation-button.previous {
   left: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003116}}
+.content-gallery .gallery-interface .scroll-button {
+  position: absolute;
+  margin: 0 auto;
+  padding: 10px 30px;
+  margin-left: -35px;
+  left: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003124}}
+.content-gallery .gallery-interface .scroll-button:before {
+  opacity: .5;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003131}}
 .content-gallery .slider-container {
   -webkit-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   -moz-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
@@ -7014,11 +7223,12 @@ you can use the generic selector below, but it's slower:
 .content-gallery .slider-container:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003135}}
 .content-gallery .slider-container .slider {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003139}}
 .content-gallery .slider-container .slider .image-content {
   max-width: 100%;
   height: auto;
@@ -7035,7 +7245,7 @@ you can use the generic selector below, but it's slower:
   /* navigation button */
   /* thumbnail container */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\000036}}
 .thumbnail-gallery .thumbnail-viewport-container {
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -7043,7 +7253,7 @@ you can use the generic selector below, but it's slower:
   overflow: hidden;
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000314}}
 .thumbnail-gallery .activation-area {
   position: absolute;
   top: 0;
@@ -7054,50 +7264,50 @@ you can use the generic selector below, but it's slower:
   z-index: 1;
   background-color: rgba(0, 0, 0, 0);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000324}}
 .thumbnail-gallery .activation-area * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000328}}
 .thumbnail-gallery .activation-area:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000331}}
 .thumbnail-gallery .activation-area:active {
   background-color: rgba(0, 0, 0, 0.8);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000335}}
 .thumbnail-gallery .activation-area.next {
   right: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000338}}
 .thumbnail-gallery .activation-area.previous {
   left: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000344}}
 .thumbnail-gallery .navigation-button {
   position: absolute;
   margin-top: -15px;
   top: 50%;
   padding: 10px 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000350}}
 .thumbnail-gallery .navigation-button:before {
   opacity: .7;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000355}}
 .thumbnail-gallery .navigation-button.next {
   right: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000358}}
 .thumbnail-gallery .navigation-button.previous {
   left: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000364}}
 .thumbnail-gallery .thumbnail-container {
   -webkit-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   -moz-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
@@ -7114,21 +7324,21 @@ you can use the generic selector below, but it's slower:
 .thumbnail-gallery .thumbnail-container:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000369}}
 .thumbnail-gallery .thumbnail-container .thumbnail {
   float: left;
   cursor: pointer;
   opacity: .3;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000374}}
 .thumbnail-gallery .thumbnail-container .thumbnail:hover {
   opacity: .9;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000378}}
 .thumbnail-gallery .thumbnail-container .thumbnail.active {
   opacity: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/thumbnail_gallery\.scss}line{font-family:\0000382}}
 .thumbnail-gallery .thumbnail-container .thumbnail .image-thumbnail {
   max-width: 100%;
   height: auto;

@@ -2,6 +2,15 @@
    CONTENT GALLERY
 ----------------------------------------- */
 .content-gallery {
+    position: relative;
+
+    &.fullscreen {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 
     /* gallery container */
     .gallery-container {
@@ -36,30 +45,50 @@
         /* activation area */
         .activation-area {
             position: absolute;
-            top: 0;
-            bottom: 0;
             cursor: pointer;
 
             &:hover {
                 .navigation-button {
                     background-color: rgba(#fff, .4);
                 }
+               .scroll-button {
+                    background-color: rgba(#fff, .6);
+                }
             }
             &:active {
                 .navigation-button {
+                    background-color: rgba(#fff, .8);
+                }
+                .scroll-button {
                     background-color: rgba(#fff, .8);
                 }
             }
 
             &.next {
                 right: 0;
-                left: 50%;
-
-
+                left: 55%;
+                top: 0;
+                bottom: 0;
             }
             &.previous {
                 left: 0;
-                right: 50%;
+                right: 55%;
+                top: 0;
+                bottom: 0;
+            }
+            &.up {
+                z-index: 1;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 40px;
+            }
+            &.down {
+                z-index: 1;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 40px;
             }
         }
 
@@ -83,6 +112,19 @@
             }
         }
 
+        /* scroll button */
+        .scroll-button {
+            position: absolute;
+            margin: 0 auto;
+            padding: 10px 30px;
+            margin-left: -35px;
+            left: 50%;
+            background-color: rgba(#fff, .4);
+
+            &:before {
+                opacity: .5;
+            }
+        }
     }
 
     /* slider container */
@@ -91,7 +133,8 @@
         @include clearfix();
 
         .slider {
-            float: left;
+            display: inline-block;
+            vertical-align: top;
 
             .image-content {
                 max-width: 100%;

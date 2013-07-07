@@ -90,7 +90,6 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 };
             }
 
-
             /* createEventHandlers -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventHandlers() {

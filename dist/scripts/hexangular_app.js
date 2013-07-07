@@ -476,7 +476,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()"><div class="navigation-button next icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()"><div class="navigation-button previous icon-chevron-left"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
+        template: '<div class="content-gallery fullscreen"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><div class="activation-area next" ng-click="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><div class="activation-area previous" ng-click="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow()"><div class="scroll-button up only-icon icon-chevron-up"></div></div><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow()"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
         replace: false,
         scope: {
             imageList: '=',
@@ -486,13 +486,16 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
         link: function($scope, $element, $attrs) {
 
             // contants
-            var DEBOUNCE_TIME = 600;
+            var DEBOUNCE_TIME = 600,
+                GALLERY_HEIGHT = 110,
+                SCROLL_MARGIN = 15;
 
             // properties
             var ctrlModifier = false,
                 sliderInTransition = false,
-                slideCount = 0,
-                cssanimations = false;
+                cssanimations = false,
+
+                currentSlide = null;
 
             // functions
             var throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
@@ -505,7 +508,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             // scope data
             $scope.state = {
+                'fullscreen': true,
                 'sliderActive': false,
+                'slideCount': 0,
                 'currentSlideIndex': -1,
                 'sliderContainerWidth': 0,
                 'sliderWidth': 0
@@ -531,9 +536,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 }
 
                 // calculate container and slider width
-                slideCount = $scope.imageList.length;
-                $scope.state.sliderContainerWidth = slideCount * 100;
-                $scope.state.sliderWidth = 100 / slideCount;
+                $scope.state.slideCount = $scope.imageList.length;
+                $scope.state.sliderContainerWidth = $scope.state.slideCount * 100;
+                $scope.state.sliderWidth = 100 / $scope.state.slideCount;
 
                 // apply styles
                 $scope.sliderContainerStyle = {
@@ -548,7 +553,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     loadImage(image, index);
                 });
             }
-
 
             /* createEventHandlers -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -585,6 +589,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $scope.$on('thumbnail-gallery:set-active', function(e, index) {
                     setActiveSlide(index, false);
                 });
+
+                // imageViewer: mousewheel
+                $galleryContainer.bind('mousewheel', scrollSlideImage);
             }
 
             /* keydownHandler
@@ -611,13 +618,12 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 } else if (key === 39) {
                     $rootScope.safeApply(function() {
                         if (ctrlModifier) {
-                            setActiveSlide(slideCount - 1);
+                            setActiveSlide($scope.state.slideCount - 1);
                         } else {
                             nextSlide();
                         }
                     });
                 }
-
             }
 
             /* loadImage
@@ -634,6 +640,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     image.width = loadedImage.width;
                     image.height = loadedImage.height;
                     image.loaded = true;
+                    image.yPos = 0;
+                    image.atTop = true;
+                    image.atBottom = false;
 
                     // set active image once first image has loaded
                     if (index === 0) {
@@ -682,15 +691,15 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     // set active slider
                     $activeSlider = $sliderContainer.find('.slider-' + index);
 
-                    // var get image object
-                    var image = $scope.imageList[index];
+                    // set image object
+                    currentSlide = $scope.imageList[index];
 
                     // calculate translation amount
                     var translateAmount = index * $scope.state.sliderWidth;
 
                     // apply transform/width styles
                     $scope.sliderContainerStyle = {
-                        'width': (slideCount * 100) + '%',
+                        'width': ($scope.state.slideCount * 100) + '%',
                         '-webkit-transform': 'translate3d(' + -translateAmount + '%, 0px, 0px)',
                         '-moz-transform': 'translate3d(' + -translateAmount + '%, 0px, 0px)',
                         '-ms-transform': 'translate(' + -translateAmount + '%, 0px)',
@@ -712,12 +721,144 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function setGalleryHeight() {
 
                 // get active slider element
-                var activeHeight = $activeSlider.height();
+                var activeHeight = $activeSlider.height(),
+                    windowHeight = $(window).height() - GALLERY_HEIGHT;
+
+                if (activeHeight > windowHeight) {
+                    activeHeight = windowHeight;
+                }
+
+                var styles = {
+                    'max-height': activeHeight + 'px'
+                };
+
+                if ($scope.state.fullscreen) {
+
+                    var topMargin = (windowHeight - activeHeight) / 2;
+
+                    styles['margin-top'] = topMargin + 'px';
+                }
 
                 // set slider height
-                $galleryContainer.css({
-                    'max-height': activeHeight + 'px'
+                $galleryContainer.css(styles);
+
+            }
+
+            /* extractDelta - get mouse wheel delta
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function extractDelta(e) {
+
+                if (e.wheelDelta) {
+                    return e.wheelDelta;
+                }
+
+                if (e.originalEvent.detail) {
+                    return e.originalEvent.detail * -40;
+                }
+
+                if (e.originalEvent && e.originalEvent.wheelDelta) {
+                    return e.originalEvent.wheelDelta;
+                }
+            }
+
+            /* scrollSlideImage - handle mouse scroll event
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollSlideImage(e) {
+
+                // skip if image not beyond window height
+                if (isImageTallerThanWindow()) {
+                    var delta = extractDelta(e);
+
+                    // set new scroll position
+                    scrollCurrentSlide(delta);
+
+                // reset scroll position to default
+                } else {
+                    resetScroll();
+                }
+            }
+
+            /* scrollCurrentSlide - move current slide vertical position
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollCurrentSlide(delta) {
+
+                // get window and image height
+                var $image = $activeSlider.find('img'),
+                    windowHeight = $(window).height(),
+                    imageHeight = $image.height();
+
+                var negativeScrollLimit = windowHeight - imageHeight - SCROLL_MARGIN - GALLERY_HEIGHT;
+
+                $rootScope.safeApply(function() {
+
+                    // add scroll direction to current y position
+                    currentSlide.yPos += delta;
+                    currentSlide.atBottom = false;
+                    currentSlide.atTop = false;
+
+                    // restrict scroll down amount
+                    if (currentSlide.yPos < negativeScrollLimit) {
+                        currentSlide.yPos = negativeScrollLimit;
+                        currentSlide.atBottom = true;
+                        currentSlide.atTop = false;
+                    }
+
+                    // restrict scroll up amount
+                    if (currentSlide.yPos > SCROLL_MARGIN) {
+                        currentSlide.yPos = SCROLL_MARGIN;
+                        currentSlide.atBottom = false;
+                        currentSlide.atTop = true;
+                    }
                 });
+
+                $activeSlider.css({'margin-top': currentSlide.yPos + 'px'});
+            }
+
+            /* isImageTallerThanWindow - return true if image height larger than current window height
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function isImageTallerThanWindow() {
+
+                if ($activeSlider) {
+
+                    var $image = $activeSlider.find('img');
+
+                    var windowHeight = $(window).height();
+                    var imageHeight = $image.height();
+
+                    return (imageHeight > windowHeight - GALLERY_HEIGHT);
+                }
+            }
+
+            /* resetScroll - reset scroll position to either 0 or SCROLL_MARGIN
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function resetScroll() {
+
+                $rootScope.safeApply(function() {
+
+                    if (isImageTallerThanWindow()) {
+                        currentSlide.yPos = SCROLL_MARGIN;
+                    } else {
+                        currentSlide.yPos = 0;
+                    }
+
+                    currentSlide.atTop = true;
+                    currentSlide.atBottom = false;
+                });
+
+                $activeSlider.css({'margin-top': currentSlide.yPos + 'px'});
+            }
+
+            /* scrollUp -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollUp(yPosition) {
+                scrollCurrentSlide(100);
+            }
+
+            /* scrollDown -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollDown(yPosition) {
+                scrollCurrentSlide(-100);
+
             }
 
             /* Scope Methods
@@ -725,9 +866,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             $scope.setActiveSlide = setActiveSlide;
             $scope.nextSlide = nextSlide;
             $scope.previousSlide = previousSlide;
+            $scope.scrollUp = scrollUp;
+            $scope.scrollDown = scrollDown;
+            $scope.isImageTallerThanWindow = isImageTallerThanWindow;
         }
     };
-
 }]);
 ;/**
  * General-purpose Event binding. Bind any event not natively supported by Angular
@@ -881,7 +1024,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
     return {
         restrict: 'A',
-        template: '<div class="thumbnail-gallery"><div class="thumbnail-viewport-container"><!-- thumbnail interface --><div class="activation-area previous" ng-click="previousPage()" ng-hide="isImageFullyViewable(0)"><div class="navigation-button previous icon-chevron-left"></div></div><div class="activation-area next" ng-click="nextPage()" ng-hide="isImageFullyViewable(9999)"><div class="navigation-button next icon-chevron-right"></div></div><!-- thumbnail container --><div class="thumbnail-container" ng-style="thumbnailContainerStyle"><div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-click="setActiveThumbnail(key)"><img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]"></div></div></div></div>',
+        template: '<div class="thumbnail-gallery"><div class="thumbnail-viewport-container"><!-- thumbnail interface --><div class="activation-area previous" ng-click="previousPage()" ng-hide="isImageFullyViewable(0)"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><div class="activation-area next" ng-click="nextPage()" ng-hide="isImageFullyViewable(9999)"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- thumbnail container --><div class="thumbnail-container" ng-style="thumbnailContainerStyle"><div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-click="setActiveThumbnail(key)"><img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]"></div></div></div></div>',
         replace: false,
         scope: {
             thumbnailList: '=',
@@ -962,7 +1105,6 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     'width': $scope.width + 'px'
                 };
             }
-
 
             /* createEventHandlers -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

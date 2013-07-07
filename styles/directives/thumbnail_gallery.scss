@@ -3,8 +3,6 @@
 ----------------------------------------- */
 .thumbnail-gallery {
 
-    $top-margin: 5px;
-
     .thumbnail-viewport-container {
         @include transition(all .4s);
         overflow: hidden;
@@ -85,7 +83,7 @@
                 max-width: 100%;
                 height: auto;
                 margin: 0 auto;
-                padding-top: $top-margin;
+                padding-top: 5px;
             }
         }
     }
