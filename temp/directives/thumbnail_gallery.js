@@ -13,6 +13,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
         scope: {
             thumbnailList: '=',
             width: '=',
+            fullscreen: '=',
             spacing: '@'
         },
 
@@ -46,7 +47,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     'height': 0
                 };
 
-            var throttledResizeUpdate = resizeUpdate.throttle(500);
+            var throttledResizeUpdate = resizeUpdate.debounce(500);
 
             // jquery elements
             var $thumbnailGallery = $element,
@@ -96,14 +97,20 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventHandlers() {
 
+                // watch: fullscreen
+                $scope.$watch('fullscreen', function(fullscreen, oldValue) {
+
+                    if (typeof fullscreen !== 'undefined') {
+                        (function() {
+                            resizeUpdate();
+                        }).delay(500);
+                    }
+                });
+
                 // window: resized
                 $(window).on('resize', function(e) {
 
                     if (allThumbnailsLoaded) {
-
-                        // calculate new dimensions
-                        calculateDimensions();
-
                         throttledResizeUpdate();
                     }
                 });
@@ -140,7 +147,9 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             /* resizeUpdate -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function resizeUpdate() {
-                setThumbnailContainerStyle(0);
+
+                calculateDimensions();
+                setFirstViewableImage($scope.state.currentThumbnailIndex);
             }
 
             /* calculateDimensions -
@@ -272,15 +281,18 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                 tcProperties.currentTranslation = translateAmount;
 
-                // apply transform/width styles
-                $scope.thumbnailContainerStyle = {
-                    'width': tcProperties.width,
-                    '-webkit-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
-                    '-moz-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
-                    '-ms-transform': 'translate(' + -translateAmount + 'px, 0px)',
-                    '-o-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
-                    'transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)'
-                };
+                $rootScope.safeApply(function() {
+
+                    // apply transform/width styles
+                    $scope.thumbnailContainerStyle = {
+                        'width': tcProperties.width,
+                        '-webkit-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        '-moz-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        '-ms-transform': 'translate(' + -translateAmount + 'px, 0px)',
+                        '-o-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        'transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)'
+                    };
+                });
             }
 
             /* nextPage - find first non-fully visible image moving forward and set as first viewable

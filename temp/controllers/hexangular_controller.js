@@ -18,7 +18,7 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/2004/1000'
+            url: 'http://placekitten.com/1200/1000'
         },
         {
             url: 'http://placekitten.com/200/280'
@@ -27,19 +27,40 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/1200/400'
         },
         {
-            url: 'http://placekitten.com/1500/830'
+            url: 'http://placekitten.com/500/1830'
         },
         {
-            url: 'http://placekitten.com/1800/300'
+            url: 'http://placekitten.com/500/1800'
         },
         {
-            url: 'http://placekitten.com/1900/850'
+            url: 'http://placekitten.com/800/850'
         },
         {
             url: 'http://placekitten.com/500/660'
         },
         {
-            url: 'http://placekitten.com/2004/144'
+            url: 'http://placekitten.com/1004/700'
+        },
+        {
+            url: 'http://placekitten.com/7002/800'
+        },
+        {
+            url: 'http://placekitten.com/600/820'
+        },
+        {
+            url: 'http://placekitten.com/500/830'
+        },
+        {
+            url: 'http://placekitten.com/800/840'
+        },
+        {
+            url: 'http://placekitten.com/900/850'
+        },
+        {
+            url: 'http://placekitten.com/804/700'
+        },
+        {
+            url: 'http://placekitten.com/600/1440'
         },
         {
             url: 'http://placekitten.com/1002/800'
@@ -51,34 +72,13 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/1500/830'
         },
         {
-            url: 'http://placekitten.com/1800/840'
+            url: 'http://placekitten.com/1200/1200'
         },
         {
-            url: 'http://placekitten.com/1900/850'
+            url: 'http://placekitten.com/500/500'
         },
         {
-            url: 'http://placekitten.com/2004/160'
-        },
-        {
-            url: 'http://placekitten.com/2004/440'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1800/840'
-        },
-        {
-            url: 'http://placekitten.com/1900/850'
-        },
-        {
-            url: 'http://placekitten.com/2004/160'
+            url: 'http://placekitten.com/400/400'
         }
     ];
 

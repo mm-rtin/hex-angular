@@ -42,7 +42,7 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/2004/1000'
+            url: 'http://placekitten.com/1200/1000'
         },
         {
             url: 'http://placekitten.com/200/280'
@@ -51,19 +51,40 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/1200/400'
         },
         {
-            url: 'http://placekitten.com/1500/830'
+            url: 'http://placekitten.com/500/1830'
         },
         {
-            url: 'http://placekitten.com/1800/300'
+            url: 'http://placekitten.com/500/1800'
         },
         {
-            url: 'http://placekitten.com/1900/850'
+            url: 'http://placekitten.com/800/850'
         },
         {
             url: 'http://placekitten.com/500/660'
         },
         {
-            url: 'http://placekitten.com/2004/144'
+            url: 'http://placekitten.com/1004/700'
+        },
+        {
+            url: 'http://placekitten.com/7002/800'
+        },
+        {
+            url: 'http://placekitten.com/600/820'
+        },
+        {
+            url: 'http://placekitten.com/500/830'
+        },
+        {
+            url: 'http://placekitten.com/800/840'
+        },
+        {
+            url: 'http://placekitten.com/900/850'
+        },
+        {
+            url: 'http://placekitten.com/804/700'
+        },
+        {
+            url: 'http://placekitten.com/600/1440'
         },
         {
             url: 'http://placekitten.com/1002/800'
@@ -75,34 +96,13 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/1500/830'
         },
         {
-            url: 'http://placekitten.com/1800/840'
+            url: 'http://placekitten.com/1200/1200'
         },
         {
-            url: 'http://placekitten.com/1900/850'
+            url: 'http://placekitten.com/500/500'
         },
         {
-            url: 'http://placekitten.com/2004/160'
-        },
-        {
-            url: 'http://placekitten.com/2004/440'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1800/840'
-        },
-        {
-            url: 'http://placekitten.com/1900/850'
-        },
-        {
-            url: 'http://placekitten.com/2004/160'
+            url: 'http://placekitten.com/400/400'
         }
     ];
 
@@ -476,7 +476,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="thumbnailWidth" spacing="4"></div></div>',
+        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="thumbnailWidth" spacing="4" fullscreen="state.fullscreen"></div></div>',
         replace: false,
         scope: {
             imageList: '=',
@@ -1099,6 +1099,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
         scope: {
             thumbnailList: '=',
             width: '=',
+            fullscreen: '=',
             spacing: '@'
         },
 
@@ -1132,7 +1133,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     'height': 0
                 };
 
-            var throttledResizeUpdate = resizeUpdate.throttle(500);
+            var throttledResizeUpdate = resizeUpdate.debounce(500);
 
             // jquery elements
             var $thumbnailGallery = $element,
@@ -1182,14 +1183,20 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventHandlers() {
 
+                // watch: fullscreen
+                $scope.$watch('fullscreen', function(fullscreen, oldValue) {
+
+                    if (typeof fullscreen !== 'undefined') {
+                        (function() {
+                            resizeUpdate();
+                        }).delay(500);
+                    }
+                });
+
                 // window: resized
                 $(window).on('resize', function(e) {
 
                     if (allThumbnailsLoaded) {
-
-                        // calculate new dimensions
-                        calculateDimensions();
-
                         throttledResizeUpdate();
                     }
                 });
@@ -1226,7 +1233,9 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             /* resizeUpdate -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function resizeUpdate() {
-                setThumbnailContainerStyle(0);
+
+                calculateDimensions();
+                setFirstViewableImage($scope.state.currentThumbnailIndex);
             }
 
             /* calculateDimensions -
@@ -1358,15 +1367,18 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                 tcProperties.currentTranslation = translateAmount;
 
-                // apply transform/width styles
-                $scope.thumbnailContainerStyle = {
-                    'width': tcProperties.width,
-                    '-webkit-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
-                    '-moz-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
-                    '-ms-transform': 'translate(' + -translateAmount + 'px, 0px)',
-                    '-o-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
-                    'transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)'
-                };
+                $rootScope.safeApply(function() {
+
+                    // apply transform/width styles
+                    $scope.thumbnailContainerStyle = {
+                        'width': tcProperties.width,
+                        '-webkit-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        '-moz-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        '-ms-transform': 'translate(' + -translateAmount + 'px, 0px)',
+                        '-o-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        'transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)'
+                    };
+                });
             }
 
             /* nextPage - find first non-fully visible image moving forward and set as first viewable
