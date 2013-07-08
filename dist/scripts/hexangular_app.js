@@ -42,67 +42,13 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/1200/1000'
+            url: 'http://placekitten.com/800/1440'
         },
         {
-            url: 'http://placekitten.com/200/280'
+            url: 'http://placekitten.com/800/600'
         },
         {
-            url: 'http://placekitten.com/1200/400'
-        },
-        {
-            url: 'http://placekitten.com/500/1830'
-        },
-        {
-            url: 'http://placekitten.com/500/1800'
-        },
-        {
-            url: 'http://placekitten.com/800/850'
-        },
-        {
-            url: 'http://placekitten.com/500/660'
-        },
-        {
-            url: 'http://placekitten.com/1004/700'
-        },
-        {
-            url: 'http://placekitten.com/7002/800'
-        },
-        {
-            url: 'http://placekitten.com/600/820'
-        },
-        {
-            url: 'http://placekitten.com/500/830'
-        },
-        {
-            url: 'http://placekitten.com/800/840'
-        },
-        {
-            url: 'http://placekitten.com/900/850'
-        },
-        {
-            url: 'http://placekitten.com/804/700'
-        },
-        {
-            url: 'http://placekitten.com/600/1440'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1200/1200'
-        },
-        {
-            url: 'http://placekitten.com/500/500'
-        },
-        {
-            url: 'http://placekitten.com/400/400'
+            url: 'http://placekitten.com/960/1200'
         }
     ];
 
@@ -115,60 +61,6 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         },
         {
             url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
         }
     ];
 
@@ -495,6 +387,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             var ctrlModifier = false,
                 sliderInTransition = false,
                 cssanimations = false,
+                lastDelta = 0,
+                currentYPos = 0,
 
                 windowHeight = 0,
                 currentSlide = null;
@@ -605,6 +499,24 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     }
                 });
 
+                $contentGallery.hammer().on("drag", function(e) {
+
+                    var delta = e.gesture.deltaY;
+
+                    currentYPos += delta - lastDelta;
+
+                    $activeSlider.css({'margin-top': currentYPos + 'px'});
+
+                    lastDelta = delta;
+
+                    e.preventDefault();
+                    e.gesture.preventDefault();
+                });
+
+                $contentGallery.hammer().on("dragend", function(e) {
+                    lastDelta = 0;
+                });
+
                 // sliderContainer: transitionend
                 $sliderContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
                     sliderInTransition = false;
@@ -700,6 +612,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActiveSlide(index, emitEvent) {
 
+                lastDelta = 0;
+                currentYPos = 0;
+
                 // emit event by default
                 emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
 
@@ -757,7 +672,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     var fullScreenWindowHeight = windowHeight - $scope.thumbnailHeight;
 
-                    var topPadding = SCROLL_MARGIN;
+                    var topPadding = 0;
                     if (!isImageTallerThanWindow()) {
                         topPadding = (fullScreenWindowHeight - activeHeight) / 2;
                     }
@@ -801,7 +716,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function scrollSlideImage(e) {
 
                 // skip if image not beyond window height
-                if (isImageTallerThanWindow() && $scope.state.fullscreen) {
+                if ($scope.state.fullscreen) {
                     var delta = extractDelta(e);
 
                     // set new scroll position
@@ -817,11 +732,13 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollCurrentSlide(delta) {
 
+                if (!isImageTallerThanWindow()) return;
+
                 // get window and image height
                 var $image = $activeSlider.find('img'),
                     imageHeight = $image.height();
 
-                var negativeScrollLimit = windowHeight - imageHeight - (SCROLL_MARGIN * 2) - $scope.thumbnailHeight;
+                var negativeScrollLimit = windowHeight - imageHeight - SCROLL_MARGIN - $scope.thumbnailHeight;
 
                 $rootScope.safeApply(function() {
 
@@ -838,8 +755,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     }
 
                     // restrict scroll up amount
-                    if (currentSlide.yPos > SCROLL_MARGIN) {
-                        currentSlide.yPos = SCROLL_MARGIN;
+                    if (currentSlide.yPos > 0) {
+                        currentSlide.yPos = 0;
                         currentSlide.atBottom = false;
                         currentSlide.atTop = true;
                     }
@@ -868,11 +785,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 $rootScope.safeApply(function() {
 
-                    if (isImageTallerThanWindow()) {
-                        currentSlide.yPos = SCROLL_MARGIN;
-                    } else {
-                        currentSlide.yPos = 0;
-                    }
+                    currentSlide.yPos = 0;
 
                     currentSlide.atTop = true;
                     currentSlide.atBottom = false;
@@ -883,13 +796,13 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             /* scrollUp -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function scrollUp(yPosition) {
+            function scrollUp() {
                 scrollCurrentSlide(100);
             }
 
             /* scrollDown -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function scrollDown(yPosition) {
+            function scrollDown() {
                 scrollCurrentSlide(-100);
             }
 

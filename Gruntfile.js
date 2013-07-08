@@ -94,6 +94,7 @@ module.exports = function(grunt) {
                     // jquery plugins
                     'lib/google.fastbutton.js',                     // fast click
                     'lib/jquery.mousewheel.js',                     // mouse wheel support
+                    'lib/jquery.hammer.js',                         // touch events
 
                     'lib/perfect-scrollbar.js',                     // custom scrollbar
                     'lib/imagesloaded.js'                           // images loaded

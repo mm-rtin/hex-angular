@@ -13,8 +13,7 @@
     /* activation area */
     .activation-area {
         position: absolute;
-        top: 0;
-        bottom: 0;
+        top: 5px;
         width: 35px;
         height: 100%;
         cursor: pointer;
@@ -43,7 +42,7 @@
     /* navigation button */
     .navigation-button {
         position: absolute;
-        margin-top: -15px;
+        margin-top: -20px;
         top: 50%;
         padding: 10px 10px;
 
@@ -70,10 +69,12 @@
         .thumbnail {
             float: left;
             cursor: pointer;
-            opacity: .3;
+            opacity: .6;
 
-            &:hover {
-                opacity: .9;
+            @media #{$small} {
+                &:hover {
+                    opacity: .9;
+                }
             }
 
             &.active {

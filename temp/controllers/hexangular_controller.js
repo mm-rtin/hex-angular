@@ -18,67 +18,13 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/1200/1000'
+            url: 'http://placekitten.com/800/1440'
         },
         {
-            url: 'http://placekitten.com/200/280'
+            url: 'http://placekitten.com/800/600'
         },
         {
-            url: 'http://placekitten.com/1200/400'
-        },
-        {
-            url: 'http://placekitten.com/500/1830'
-        },
-        {
-            url: 'http://placekitten.com/500/1800'
-        },
-        {
-            url: 'http://placekitten.com/800/850'
-        },
-        {
-            url: 'http://placekitten.com/500/660'
-        },
-        {
-            url: 'http://placekitten.com/1004/700'
-        },
-        {
-            url: 'http://placekitten.com/7002/800'
-        },
-        {
-            url: 'http://placekitten.com/600/820'
-        },
-        {
-            url: 'http://placekitten.com/500/830'
-        },
-        {
-            url: 'http://placekitten.com/800/840'
-        },
-        {
-            url: 'http://placekitten.com/900/850'
-        },
-        {
-            url: 'http://placekitten.com/804/700'
-        },
-        {
-            url: 'http://placekitten.com/600/1440'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1200/1200'
-        },
-        {
-            url: 'http://placekitten.com/500/500'
-        },
-        {
-            url: 'http://placekitten.com/400/400'
+            url: 'http://placekitten.com/960/1200'
         }
     ];
 
@@ -91,60 +37,6 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         },
         {
             url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
         }
     ];
 
