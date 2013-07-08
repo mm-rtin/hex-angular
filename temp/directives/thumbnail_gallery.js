@@ -46,6 +46,8 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                     'height': 0
                 };
 
+            var throttledResizeUpdate = resizeUpdate.throttle(500);
+
             // jquery elements
             var $thumbnailGallery = $element,
                 $viewportContainer = $element.find('.thumbnail-viewport-container'),
@@ -70,8 +72,6 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             /* initialize -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function initialize() {
-
-                console.log($scope.width);
 
                 createEventHandlers();
 
@@ -100,7 +100,11 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 $(window).on('resize', function(e) {
 
                     if (allThumbnailsLoaded) {
+
+                        // calculate new dimensions
                         calculateDimensions();
+
+                        throttledResizeUpdate();
                     }
                 });
 
@@ -131,6 +135,12 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 $scope.$on('content-gallery:set-active', function(e, index) {
                     setActiveThumbnail(index, false);
                 });
+            }
+
+            /* resizeUpdate -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function resizeUpdate() {
+                setThumbnailContainerStyle(0);
             }
 
             /* calculateDimensions -
@@ -251,6 +261,14 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
                 } else if (translateAmount < 0) {
                     translateAmount = 0;
                 }
+
+                // set style
+                setThumbnailContainerStyle(translateAmount);
+            }
+
+            /* setThumbnailContainerStyle -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setThumbnailContainerStyle(translateAmount) {
 
                 tcProperties.currentTranslation = translateAmount;
 
