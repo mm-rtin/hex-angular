@@ -12,7 +12,7 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
         replace: false,
         scope: {
             thumbnailList: '=',
-            width: '@',
+            width: '=',
             spacing: '@'
         },
 
@@ -70,6 +70,8 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             /* initialize -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function initialize() {
+
+                console.log($scope.width);
 
                 createEventHandlers();
 

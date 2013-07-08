@@ -12,14 +12,15 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
         replace: false,
         scope: {
             imageList: '=',
-            thumbnailList: '='
+            thumbnailList: '=',
+            thumbnailWidth: '@',
+            thumbnailHeight: '@'
         },
 
         link: function($scope, $element, $attrs) {
 
             // contants
-            var DEBOUNCE_TIME = 600,
-                GALLERY_HEIGHT = 110,
+            var DEBOUNCE_TIME = 350,
                 SCROLL_MARGIN = 15;
 
             // properties
@@ -27,6 +28,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 sliderInTransition = false,
                 cssanimations = false,
 
+                windowHeight = 0,
                 currentSlide = null;
 
             // functions
@@ -49,6 +51,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             };
 
             $scope.sliderContainerStyle = {};
+            $scope.galleryInterfaceStyle = {};
             $scope.sliderStyle = {};
 
             // wait for imageList data before intialization
@@ -61,6 +64,13 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function initialize() {
 
                 createEventHandlers();
+
+                // set window height
+                windowHeight = $(window).height();
+
+                // convert to integer
+                $scope.thumbnailHeight = parseInt($scope.thumbnailHeight, 10);
+                $scope.thumbnailWidth = parseInt($scope.thumbnailWidth, 10);
 
                 // modernizr detect cssanimations
                 if ($('html').hasClass('cssanimations')) {
@@ -75,6 +85,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 // apply styles
                 $scope.sliderContainerStyle = {
                     'width': $scope.state.sliderContainerWidth + '%'
+                };
+                $scope.galleryInterfaceStyle = {
+                    'bottom': $scope.thumbnailHeight + 'px'
                 };
                 $scope.sliderStyle = {
                     'width': $scope.state.sliderWidth + '%'
@@ -92,6 +105,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 // window: resized
                 $(window).on('resize', function(e) {
+
+                    // update window height
+                    windowHeight = $(window).height();
+
                     // set new gallery height
                     setGalleryHeight();
                 });
@@ -123,7 +140,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 });
 
                 // imageViewer: mousewheel
-                $galleryContainer.bind('mousewheel', scrollSlideImage);
+                $contentGallery.bind('mousewheel', scrollSlideImage);
             }
 
             /* keydownHandler
@@ -210,7 +227,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 // emit event by default
                 emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
 
-                // set active if index greater than -1, less than imageList lenght, slider not in transitions and image at index is loaded
+                // set active if index greater than -1, less than imageList length, slider not in transitions and image at index is loaded
                 if (index > -1 && index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
 
                     if (cssanimations) {
@@ -253,31 +270,37 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function setGalleryHeight() {
 
                 // get active slider element
-                var activeHeight = $activeSlider.height(),
-                    windowHeight = $(window).height() - GALLERY_HEIGHT;
+                var activeHeight = $activeSlider.height();
 
-                var styles = {
-                    'margin-top': 0,
-                    'margin-bottom': 0
+                var galleryStyles = {
+                    'padding-top': 0
                 };
 
+                // fullscreen
                 if ($scope.state.fullscreen) {
 
-                    if (activeHeight > windowHeight) {
-                        activeHeight = windowHeight;
+                    var fullScreenWindowHeight = windowHeight - $scope.thumbnailHeight;
+
+                    var topPadding = SCROLL_MARGIN;
+                    if (!isImageTallerThanWindow()) {
+                        topPadding = (fullScreenWindowHeight - activeHeight) / 2;
                     }
 
-                    var topMargin = (windowHeight - activeHeight) / 2;
+                    // gallery styles
+                    galleryStyles['padding-top'] = topPadding + 'px';
+                    galleryStyles['height'] = fullScreenWindowHeight + 'px';
 
-                    styles['margin-top'] = topMargin + 'px';
-                    styles['margin-bottom'] = topMargin  + 'px';
+                // embedded
+                } else {
+
+                    // gallery styles
+                    galleryStyles['height'] = activeHeight + 'px';
                 }
 
-                styles['max-height'] = activeHeight + 'px';
+                // set styles
+                $galleryContainer.css(galleryStyles);
 
-                // set slider height
-                $galleryContainer.css(styles);
-
+                resetScroll();
             }
 
             /* extractDelta - get mouse wheel delta
@@ -320,10 +343,12 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 // get window and image height
                 var $image = $activeSlider.find('img'),
-                    windowHeight = $(window).height(),
                     imageHeight = $image.height();
 
-                var negativeScrollLimit = windowHeight - imageHeight - SCROLL_MARGIN - GALLERY_HEIGHT;
+                var negativeScrollLimit = windowHeight - imageHeight - (SCROLL_MARGIN * 2) - $scope.thumbnailHeight;
+
+                console.log(windowHeight, imageHeight, SCROLL_MARGIN, $scope.thumbnailHeight);
+                console.log(negativeScrollLimit);
 
                 $rootScope.safeApply(function() {
 
@@ -358,10 +383,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     var $image = $activeSlider.find('img');
 
-                    var windowHeight = $(window).height();
                     var imageHeight = $image.height();
 
-                    return (imageHeight > windowHeight - GALLERY_HEIGHT);
+                    return (imageHeight > windowHeight - $scope.thumbnailHeight);
                 }
             }
 
@@ -399,6 +423,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             /* enableFullscreen -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function enableFullscreen() {
+
+                $('body').addClass('overflow-hidden');
                 $scope.state.fullscreen = true;
 
                 $timeout(function() {
@@ -409,7 +435,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             /* disableFullscreen -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function disableFullscreen() {
+
+                $('body').removeClass('overflow-hidden');
                 $scope.state.fullscreen = false;
+
                 $timeout(function() {
                     setGalleryHeight();
                 }, 0);

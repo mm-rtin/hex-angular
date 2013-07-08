@@ -92,6 +92,7 @@ module.exports = function(grunt) {
                     'lib/sugar.min.js',                             // javascript utilities
 
                     // jquery plugins
+                    'lib/google.fastbutton.js',                     // fast click
                     'lib/jquery.mousewheel.js',                     // mouse wheel support
 
                     'lib/perfect-scrollbar.js',                     // custom scrollbar

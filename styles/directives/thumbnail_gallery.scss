@@ -4,7 +4,7 @@
 .thumbnail-gallery {
 
     .thumbnail-viewport-container {
-        @include transition(all .4s);
+        @include transition(all 400ms);
         overflow: hidden;
         position: relative;
     }
@@ -62,7 +62,7 @@
 
     /* thumbnail container */
     .thumbnail-container {
-        @include transition(all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
+        @include transition(all 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
         @include clearfix();
         width: 9999px;
 

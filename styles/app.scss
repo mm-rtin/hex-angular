@@ -42,7 +42,11 @@
    GLOBAL
 ----------------------------------------- */
 html, body {
-  background-color: $body-bg;
+    background-color: $body-bg;
+
+    &.overflow-hidden {
+        overflow: hidden;
+    }
 }
 
 /* -----------------------------------------

@@ -11,7 +11,7 @@
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     * Angular App
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    var App = angular.module('Hexangular', ['ui.keypress', 'ui.event']);
+    var App = angular.module('Hexangular', []);
 
     App.config(['$locationProvider', '$interpolateProvider', function($location, $interpolateProvider) {
         // $location.html5Mode(true);
@@ -42,113 +42,29 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.galleryImages = [
         {
-            url: 'http://placekitten.com/2004/1000'
+            url: 'http://placekitten.com/800/600'
         },
         {
-            url: 'http://placekitten.com/200/280'
+            url: 'http://placekitten.com/400/500'
         },
         {
-            url: 'http://placekitten.com/1200/400'
+            url: 'http://placekitten.com/800/800'
         },
         {
-            url: 'http://placekitten.com/1500/830'
+            url: 'http://placekitten.com/1200/600'
         },
         {
-            url: 'http://placekitten.com/1800/300'
+            url: 'http://placekitten.com/900/300'
         },
         {
-            url: 'http://placekitten.com/1900/850'
+            url: 'http://placekitten.com/300/900'
         },
         {
-            url: 'http://placekitten.com/500/660'
-        },
-        {
-            url: 'http://placekitten.com/2004/144'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1800/840'
-        },
-        {
-            url: 'http://placekitten.com/1900/850'
-        },
-        {
-            url: 'http://placekitten.com/2004/160'
-        },
-        {
-            url: 'http://placekitten.com/2004/440'
-        },
-        {
-            url: 'http://placekitten.com/1002/800'
-        },
-        {
-            url: 'http://placekitten.com/1200/820'
-        },
-        {
-            url: 'http://placekitten.com/1500/830'
-        },
-        {
-            url: 'http://placekitten.com/1800/840'
-        },
-        {
-            url: 'http://placekitten.com/1900/850'
-        },
-        {
-            url: 'http://placekitten.com/2004/160'
+            url: 'http://placekitten.com/500/500'
         }
     ];
 
     $scope.thumbnailImages = [
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
-        {
-            url: 'http://placekitten.com/251/150'
-        },
-        {
-            url: 'http://placekitten.com/252/150'
-        },
-        {
-            url: 'http://placekitten.com/253/150'
-        },
-        {
-            url: 'http://placekitten.com/254/150'
-        },
-        {
-            url: 'http://placekitten.com/255/150'
-        },
-        {
-            url: 'http://placekitten.com/256/150'
-        },
-        {
-            url: 'http://placekitten.com/257/150'
-        },
         {
             url: 'http://placekitten.com/251/150'
         },
@@ -476,18 +392,19 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen}"><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- gallery interface --><div class="gallery-interface"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-click="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-click="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-click="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-click="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList" ng-click="setActiveSlide(key + 1)"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="180" spacing="4"></div></div>',
+        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailList" width="thumbnailWidth" spacing="4"></div></div>',
         replace: false,
         scope: {
             imageList: '=',
-            thumbnailList: '='
+            thumbnailList: '=',
+            thumbnailWidth: '@',
+            thumbnailHeight: '@'
         },
 
         link: function($scope, $element, $attrs) {
 
             // contants
-            var DEBOUNCE_TIME = 600,
-                GALLERY_HEIGHT = 110,
+            var DEBOUNCE_TIME = 350,
                 SCROLL_MARGIN = 15;
 
             // properties
@@ -495,6 +412,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 sliderInTransition = false,
                 cssanimations = false,
 
+                windowHeight = 0,
                 currentSlide = null;
 
             // functions
@@ -517,6 +435,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             };
 
             $scope.sliderContainerStyle = {};
+            $scope.galleryInterfaceStyle = {};
             $scope.sliderStyle = {};
 
             // wait for imageList data before intialization
@@ -529,6 +448,13 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function initialize() {
 
                 createEventHandlers();
+
+                // set window height
+                windowHeight = $(window).height();
+
+                // convert to integer
+                $scope.thumbnailHeight = parseInt($scope.thumbnailHeight, 10);
+                $scope.thumbnailWidth = parseInt($scope.thumbnailWidth, 10);
 
                 // modernizr detect cssanimations
                 if ($('html').hasClass('cssanimations')) {
@@ -543,6 +469,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 // apply styles
                 $scope.sliderContainerStyle = {
                     'width': $scope.state.sliderContainerWidth + '%'
+                };
+                $scope.galleryInterfaceStyle = {
+                    'bottom': $scope.thumbnailHeight + 'px'
                 };
                 $scope.sliderStyle = {
                     'width': $scope.state.sliderWidth + '%'
@@ -560,6 +489,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 // window: resized
                 $(window).on('resize', function(e) {
+
+                    // update window height
+                    windowHeight = $(window).height();
+
                     // set new gallery height
                     setGalleryHeight();
                 });
@@ -591,7 +524,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 });
 
                 // imageViewer: mousewheel
-                $galleryContainer.bind('mousewheel', scrollSlideImage);
+                $contentGallery.bind('mousewheel', scrollSlideImage);
             }
 
             /* keydownHandler
@@ -678,7 +611,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 // emit event by default
                 emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
 
-                // set active if index greater than -1, less than imageList lenght, slider not in transitions and image at index is loaded
+                // set active if index greater than -1, less than imageList length, slider not in transitions and image at index is loaded
                 if (index > -1 && index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
 
                     if (cssanimations) {
@@ -721,31 +654,37 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function setGalleryHeight() {
 
                 // get active slider element
-                var activeHeight = $activeSlider.height(),
-                    windowHeight = $(window).height() - GALLERY_HEIGHT;
+                var activeHeight = $activeSlider.height();
 
-                var styles = {
-                    'margin-top': 0,
-                    'margin-bottom': 0
+                var galleryStyles = {
+                    'padding-top': 0
                 };
 
+                // fullscreen
                 if ($scope.state.fullscreen) {
 
-                    if (activeHeight > windowHeight) {
-                        activeHeight = windowHeight;
+                    var fullScreenWindowHeight = windowHeight - $scope.thumbnailHeight;
+
+                    var topPadding = SCROLL_MARGIN;
+                    if (!isImageTallerThanWindow()) {
+                        topPadding = (fullScreenWindowHeight - activeHeight) / 2;
                     }
 
-                    var topMargin = (windowHeight - activeHeight) / 2;
+                    // gallery styles
+                    galleryStyles['padding-top'] = topPadding + 'px';
+                    galleryStyles['height'] = fullScreenWindowHeight + 'px';
 
-                    styles['margin-top'] = topMargin + 'px';
-                    styles['margin-bottom'] = topMargin  + 'px';
+                // embedded
+                } else {
+
+                    // gallery styles
+                    galleryStyles['height'] = activeHeight + 'px';
                 }
 
-                styles['max-height'] = activeHeight + 'px';
+                // set styles
+                $galleryContainer.css(galleryStyles);
 
-                // set slider height
-                $galleryContainer.css(styles);
-
+                resetScroll();
             }
 
             /* extractDelta - get mouse wheel delta
@@ -788,10 +727,12 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 // get window and image height
                 var $image = $activeSlider.find('img'),
-                    windowHeight = $(window).height(),
                     imageHeight = $image.height();
 
-                var negativeScrollLimit = windowHeight - imageHeight - SCROLL_MARGIN - GALLERY_HEIGHT;
+                var negativeScrollLimit = windowHeight - imageHeight - (SCROLL_MARGIN * 2) - $scope.thumbnailHeight;
+
+                console.log(windowHeight, imageHeight, SCROLL_MARGIN, $scope.thumbnailHeight);
+                console.log(negativeScrollLimit);
 
                 $rootScope.safeApply(function() {
 
@@ -826,10 +767,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     var $image = $activeSlider.find('img');
 
-                    var windowHeight = $(window).height();
                     var imageHeight = $image.height();
 
-                    return (imageHeight > windowHeight - GALLERY_HEIGHT);
+                    return (imageHeight > windowHeight - $scope.thumbnailHeight);
                 }
             }
 
@@ -867,6 +807,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             /* enableFullscreen -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function enableFullscreen() {
+
+                $('body').addClass('overflow-hidden');
                 $scope.state.fullscreen = true;
 
                 $timeout(function() {
@@ -877,7 +819,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             /* disableFullscreen -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function disableFullscreen() {
+
+                $('body').removeClass('overflow-hidden');
                 $scope.state.fullscreen = false;
+
                 $timeout(function() {
                     setGalleryHeight();
                 }, 0);
@@ -1041,6 +986,23 @@ angular.module('ui.keypress').directive('uiKeyup', ['keypressHelper', function(k
 ;var App = angular.module('Hexangular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* ngTap Directive -
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+App.directive('ngTap', ['$rootScope', function($rootScope) {
+
+    return {
+        link: function($scope, $element, $attrs) {
+
+            $element.fastClick(function (e) {
+                $scope.$apply($attrs['ngTap']);
+            });
+        }
+    };
+
+}]);
+;var App = angular.module('Hexangular');
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Thumbnail Gallery Directive -
 * Requires Modernizr detect: cssanimations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -1048,11 +1010,11 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
     return {
         restrict: 'A',
-        template: '<div class="thumbnail-gallery"><div class="thumbnail-viewport-container"><!-- thumbnail interface --><div class="activation-area previous" ng-click="previousPage()" ng-hide="isImageFullyViewable(0)"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><div class="activation-area next" ng-click="nextPage()" ng-hide="isImageFullyViewable(9999)"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- thumbnail container --><div class="thumbnail-container" ng-style="thumbnailContainerStyle"><div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-click="setActiveThumbnail(key)"><img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]"></div></div></div></div>',
+        template: '<div class="thumbnail-gallery"><div class="thumbnail-viewport-container"><!-- thumbnail interface --><div class="activation-area previous" ng-tap="previousPage()" ng-hide="isImageFullyViewable(0)"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><div class="activation-area next" ng-tap="nextPage()" ng-hide="isImageFullyViewable(9999)"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- thumbnail container --><div class="thumbnail-container" ng-style="thumbnailContainerStyle"><div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-tap="setActiveThumbnail(key)"><img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]"></div></div></div></div>',
         replace: false,
         scope: {
             thumbnailList: '=',
-            width: '@',
+            width: '=',
             spacing: '@'
         },
 
@@ -1110,6 +1072,8 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             /* initialize -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function initialize() {
+
+                console.log($scope.width);
 
                 createEventHandlers();
 

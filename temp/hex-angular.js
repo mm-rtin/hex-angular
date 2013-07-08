@@ -11,7 +11,7 @@
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     * Angular App
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    var App = angular.module('Hexangular', ['ui.keypress', 'ui.event']);
+    var App = angular.module('Hexangular', []);
 
     App.config(['$locationProvider', '$interpolateProvider', function($location, $interpolateProvider) {
         // $location.html5Mode(true);
