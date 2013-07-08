@@ -124,8 +124,16 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     // reset throttle
                     throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
 
+                    // ctrl
                     if (e.which === 17) {
                         ctrlModifier = false;
+
+                    // escape
+                    } else if (e.which === 27) {
+
+                        $rootScope.safeApply(function() {
+                            disableFullscreen();
+                        });
                     }
                 });
 
@@ -346,9 +354,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     imageHeight = $image.height();
 
                 var negativeScrollLimit = windowHeight - imageHeight - (SCROLL_MARGIN * 2) - $scope.thumbnailHeight;
-
-                console.log(windowHeight, imageHeight, SCROLL_MARGIN, $scope.thumbnailHeight);
-                console.log(negativeScrollLimit);
 
                 $rootScope.safeApply(function() {
 

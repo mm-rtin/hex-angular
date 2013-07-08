@@ -23,11 +23,11 @@
     &.embedded {
 
         .gallery-container {
-            @include transition(all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
+
         }
 
         .slider-container {
-            @include transition(all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
+
         }
 
         .slider {
@@ -37,6 +37,7 @@
 
     /* gallery container */
     .gallery-container {
+        @include transition(all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
         position: relative;
         overflow: hidden;
         height: 0px;
@@ -72,18 +73,22 @@
 
             &:hover {
                 .navigation-button {
-                    background-color: rgba(#fff, .4);
+                    background-color: rgba(#fff, .3);
+                    color: #000;
                 }
                .scroll-button {
-                    background-color: rgba(#fff, .6);
+                    background-color: rgba(#fff, .3);
+                    color: #000;
                 }
             }
             &:active {
                 .navigation-button {
                     background-color: rgba(#fff, .8);
+                    color: #000;
                 }
                 .scroll-button {
                     background-color: rgba(#fff, .8);
+                    color: #000;
                 }
             }
 
@@ -118,11 +123,19 @@
         /* navigation button */
         .navigation-button {
             position: absolute;
-            margin-top: -35px;
+            margin-top: -17px;
             top: 50%;
-            padding: 30px 10px;
-            background-color: rgba(#fff, .2);
+            padding: 10px 5px;
             border-radius: 3px;
+            font-size: .8em;
+            background-color: rgba(#000, .2);
+            color: #fff;
+
+            @media #{$small} {
+                margin-top: -25px;
+                padding: 15px 5px;
+                font-size: 1em;
+            }
 
             &:before {
                 opacity: .7;
@@ -140,11 +153,21 @@
         .scroll-button {
             position: absolute;
             margin: 0 auto;
-            padding: 6px 20px;
-            margin-left: -35px;
+            padding: 3px 10px;
             left: 50%;
-            background-color: rgba(#fff, .4);
+            margin-left: -10px;
+            top: 10px;
             border-radius: 3px;
+            font-size: .8em;
+            background-color: rgba(#000, .2);
+            color: #fff;
+
+            @media #{$small} {
+                top: 0px;
+                padding: 3px 15px;
+                margin-left: -18px;
+                font-size: 1em;
+            }
 
             &.up {
                 margin-top: 4px;
@@ -164,17 +187,25 @@
             cursor: pointer;
             top: 5px;
             right: 5px;
-            padding: 10px;
-            background-color: rgba(#fff, .4);
+            padding: 5px;
+            background-color: rgba(#000, .2);
             z-index: 2;
-            font-size: 1.6em;
+            font-size: .8em;
             border-radius: 3px;
+            color: #fff;
+
+            @media #{$small} {
+                font-size: 1.6em;
+                padding: 10px;
+            }
 
             &:hover {
                 background-color: rgba(#fff, .6);
+                color: #000;
             }
             &:active {
                 background-color: rgba(#fff, .8);
+                color: #000;
             }
             &:before {
                 opacity: .7;
@@ -185,6 +216,7 @@
     /* slider container */
     .slider-container {
         @include clearfix();
+        @include transition(all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
 
         .slider {
             display: inline-block;
