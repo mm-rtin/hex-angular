@@ -347,5 +347,4 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             $scope.nextPage = nextPage;
         }
     };
-
 }]);

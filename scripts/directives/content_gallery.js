@@ -22,7 +22,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             // contants
             var DEBOUNCE_TIME = 350,
                 SCROLL_MARGIN = 15,
-                DRAG_DISTANCE_THRESHOLD = 20;
+                SWIPE_VELOCITY = 0.4,
+                DRAG_DISTANCE_THRESHOLD = 20;       // distance before dragging overrides tap
 
             // properties
             var ctrlModifier = false,
@@ -60,6 +61,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             // wait for imageList data before intialization
             $scope.$watch('imageList', function(imageList, oldValue) {
 
+                // if imageList is string
                 if (typeof imageList === 'string') {
                     var imageURLs = imageList.split(',');
                     var imageObjectList = [];
@@ -80,6 +82,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             // wait for imageList data before intialization
             $scope.$watch('thumbnailList', function(thumbnailList, oldValue) {
 
+                // if thumnailList is string
                 if (typeof thumbnailList === 'string') {
                     var thumbnailURLs = thumbnailList.split(',');
                     var thumbnailObjectList = [];
@@ -175,7 +178,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     }
                 });
 
-                // content gallery: click
+                // content gallery: mousedown
                 $contentGallery.on('mousedown', function(e) {
                     disableSlideNavigation = false;
                 });
@@ -219,14 +222,14 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 });
 
                 // content gallery: swipeleft
-                $contentGallery.hammer({'swipe_velocity': 0.4}).on('swipeleft', function(e) {
+                $contentGallery.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swipeleft', function(e) {
                     $rootScope.safeApply(function() {
                         nextSlide();
                     });
                 });
 
                 // content gallery: swiperight
-                $contentGallery.hammer({'swipe_velocity': 0.4}).on('swiperight', function(e) {
+                $contentGallery.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swiperight', function(e) {
                     $rootScope.safeApply(function() {
                         previousSlide();
                     });
@@ -243,7 +246,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 });
 
                 // imageViewer: mousewheel
-                $contentGallery.bind('mousewheel', scrollSlideImage);
+                $contentGallery.bind('mousewheel', handleMouseWheelEvent);
             }
 
             /* keydownHandler
@@ -311,18 +314,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 };
             }
 
-            /* nextSlide -
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function nextSlide() {
-                setActiveSlide($scope.state.currentSlideIndex + 1);
-            }
-
-            /* previousSlide -
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function previousSlide() {
-                setActiveSlide($scope.state.currentSlideIndex - 1);
-            }
-
             /* setActiveSlide -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActiveSlide(index, emitEvent) {
@@ -334,11 +325,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 // emit event by default
                 emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
 
-                // set active if index greater than -1, less than imageList length, slider not in transitions and image at index is loaded
-                if (index > -1 && index < $scope.imageList.length && !sliderInTransition && $scope.imageList[index].loaded) {
+                // set active if index greater than -1, less than imageList length, and image at index is loaded
+                if (index > -1 && index < $scope.imageList.length && $scope.imageList[index].loaded) {
 
                     if (cssanimations) {
-                        // sliderInTransition = true;
+                        sliderInTransition = true;
                     }
 
                     // save current index
@@ -347,7 +338,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     // set active slider
                     $activeSlider = $sliderContainer.find('.slider-' + index);
 
-                    // set image object
+                    // set current slide
                     currentSlide = $scope.imageList[index];
 
                     currentSlide.yPos = 0;
@@ -374,7 +365,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 }
             }
 
-            /* setGalleryHeight - set gallery max height based on image width/height
+            /* setGalleryHeight - set gallery height based on active slider height
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setGalleryHeight() {
 
@@ -430,11 +421,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 }
             }
 
-            /* scrollSlideImage - handle mouse scroll event
+            /* handleMouseWheelEvent - handle mouse scroll event
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function scrollSlideImage(e) {
+            function handleMouseWheelEvent(e) {
 
-                // skip if image not beyond window height
+                // only for fullscreen mode
                 if ($scope.state.fullscreen) {
                     var delta = extractDelta(e);
                     lastDelta = 0;
@@ -442,14 +433,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     // reduce delta
                     delta = delta / 3;
 
-                    console.log(delta);
-
                     // set new scroll position
                     scrollCurrentSlide(delta);
-
-                // reset scroll position to default
-                } else {
-                    resetScroll();
                 }
             }
 
@@ -487,7 +472,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 lastDelta = delta;
 
-                // apply transform/width styles
+                // apply styles
                 $activeSlider.css({
                     '-webkit-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
                     '-moz-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
@@ -511,14 +496,13 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 }
             }
 
-            /* resetScroll - reset scroll position to either 0 or SCROLL_MARGIN
+            /* resetScroll - reset scroll position to either 0
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function resetScroll() {
 
                 $rootScope.safeApply(function() {
 
                     currentSlide.yPos = 0;
-
                     currentSlide.atTop = true;
                     currentSlide.atBottom = false;
                 });
@@ -526,14 +510,26 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 scrollCurrentSlide(currentSlide.yPos);
             }
 
-            /* scrollUp -
+            /* nextSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function nextSlide() {
+                setActiveSlide($scope.state.currentSlideIndex + 1);
+            }
+
+            /* previousSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function previousSlide() {
+                setActiveSlide($scope.state.currentSlideIndex - 1);
+            }
+
+            /* scrollUp - scroll up in fixed increment
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollUp() {
                 scrollCurrentSlide(100);
                 lastDelta = 0;
             }
 
-            /* scrollDown -
+            /* scrollDown - scroll down in fixed increment
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollDown() {
                 scrollCurrentSlide(-100);
@@ -556,7 +552,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function disableFullscreen() {
 
-                console.log('disable fullscreen');
                 $('html').removeClass('overflow-hidden');
                 $scope.state.fullscreen = false;
 
