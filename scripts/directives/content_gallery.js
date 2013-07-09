@@ -11,8 +11,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
         template: '@@include("../../partials/content_gallery.html")',
         replace: false,
         scope: {
-            imageList: '=',
-            thumbnailList: '=',
+            smallImageList: '=',
+            mediumImageList: '=',
+            largeImageList: '=',
+            thumbnailImageList: '=',
+
             thumbnailWidth: '@',
             thumbnailHeight: '@'
         },
@@ -45,6 +48,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $activeSlider = null;
 
             // scope data
+            $scope.imageList = [];
+
             $scope.state = {
                 'fullscreen': false,
                 'sliderActive': false,
@@ -58,45 +63,54 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             $scope.galleryInterfaceStyle = {};
             $scope.sliderStyle = {};
 
-            // wait for imageList data before intialization
-            $scope.$watch('imageList', function(imageList, oldValue) {
+            // parse mediumImageList
+            $scope.$watch('mediumImageList', function(mediumImageList, oldValue) {
 
-                // if imageList is string
-                if (typeof imageList === 'string') {
-                    var imageURLs = imageList.split(',');
-                    var imageObjectList = [];
-
-                    imageURLs.each(function(url) {
-
-                        if (url) {
-                            imageObjectList.push({'url': url});
-                        }
-                    });
-
-                    $scope.imageList = imageObjectList;
+                // if mediumImageList is string
+                if (typeof mediumImageList === 'string') {
+                    $scope.mediumImageList = parseImageListString(mediumImageList);
                 }
+
+                $scope.imageList = angular.copy($scope.mediumImageList);
 
                 initialize();
             });
 
-            // wait for imageList data before intialization
-            $scope.$watch('thumbnailList', function(thumbnailList, oldValue) {
+            // parse largeImageList
+            $scope.$watch('largeImageList', function(largeImageList, oldValue) {
 
-                // if thumnailList is string
-                if (typeof thumbnailList === 'string') {
-                    var thumbnailURLs = thumbnailList.split(',');
-                    var thumbnailObjectList = [];
-
-                    thumbnailURLs.each(function(url) {
-
-                        if (url) {
-                            thumbnailObjectList.push({'url': url});
-                        }
-                    });
-
-                    $scope.thumbnailList = thumbnailObjectList;
+                // if largeImageList is string
+                if (typeof largeImageList === 'string') {
+                    $scope.largeImageList = parseImageListString(largeImageList);
                 }
             });
+
+            // parse thumbnailImageList
+            $scope.$watch('thumbnailImageList', function(thumbnailImageList, oldValue) {
+
+                // if thumnailList is string
+                if (typeof thumbnailImageList === 'string') {
+                    $scope.thumbnailImageList = parseImageListString(thumbnailImageList);
+                }
+            });
+
+
+            /* parseImageListString -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function parseImageListString(imageListString) {
+
+                var imageURLs = imageListString.split(',');
+                var imageObjectList = [];
+
+                imageURLs.each(function(url) {
+
+                    if (url) {
+                        imageObjectList.push({'url': url});
+                    }
+                });
+
+                return imageObjectList;
+            }
 
             /* initialize -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
