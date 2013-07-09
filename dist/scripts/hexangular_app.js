@@ -381,14 +381,15 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             // contants
             var DEBOUNCE_TIME = 350,
-                SCROLL_MARGIN = 15;
+                SCROLL_MARGIN = 15,
+                DRAG_DISTANCE_THRESHOLD = 20;
 
             // properties
             var ctrlModifier = false,
                 sliderInTransition = false,
                 cssanimations = false,
                 lastDelta = 0,
-                currentYPos = 0,
+                disableSlideNavigation = false,
 
                 windowHeight = 0,
                 currentSlide = null;
@@ -418,7 +419,40 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             // wait for imageList data before intialization
             $scope.$watch('imageList', function(imageList, oldValue) {
+
+                if (typeof imageList === 'string') {
+                    var imageURLs = imageList.split(',');
+                    var imageObjectList = [];
+
+                    imageURLs.each(function(url) {
+
+                        if (url) {
+                            imageObjectList.push({'url': url});
+                        }
+                    });
+
+                    $scope.imageList = imageObjectList;
+                }
+
                 initialize();
+            });
+
+            // wait for imageList data before intialization
+            $scope.$watch('thumbnailList', function(thumbnailList, oldValue) {
+
+                if (typeof thumbnailList === 'string') {
+                    var thumbnailURLs = thumbnailList.split(',');
+                    var thumbnailObjectList = [];
+
+                    thumbnailURLs.each(function(url) {
+
+                        if (url) {
+                            thumbnailObjectList.push({'url': url});
+                        }
+                    });
+
+                    $scope.thumbnailList = thumbnailObjectList;
+                }
             });
 
             /* initialize -
@@ -483,6 +517,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 // window: keyup
                 $(window).on('keyup', function(e) {
 
+                    disableSlideNavigation = false;
+
                     // reset throttle
                     throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
 
@@ -499,22 +535,61 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     }
                 });
 
-                $contentGallery.hammer().on("drag", function(e) {
-
-                    var delta = e.gesture.deltaY;
-
-                    currentYPos += delta - lastDelta;
-
-                    $activeSlider.css({'margin-top': currentYPos + 'px'});
-
-                    lastDelta = delta;
-
-                    e.preventDefault();
-                    e.gesture.preventDefault();
+                // content gallery: click
+                $contentGallery.on('mousedown', function(e) {
+                    disableSlideNavigation = false;
                 });
 
-                $contentGallery.hammer().on("dragend", function(e) {
-                    lastDelta = 0;
+                // content gallery: drag
+                $contentGallery.hammer().on('drag', function(e) {
+
+                    if ($scope.state.fullscreen) {
+
+                        var delta = e.gesture.deltaY;
+
+                        scrollCurrentSlide(delta);
+
+                        e.gesture.preventDefault();
+                    }
+                });
+
+                // content gallery: drag end
+                $contentGallery.hammer().on('dragend', function(e) {
+
+                    if ($scope.state.fullscreen) {
+
+                        // disable slide navigation if drag distance less than threshold
+                        if (e.gesture.distance > DRAG_DISTANCE_THRESHOLD) {
+                            disableSlideNavigation = true;
+                        }
+                        lastDelta = 0;
+
+                        e.gesture.preventDefault();
+                    }
+                });
+
+                // content gallery: tap
+                $contentGallery.hammer().on('tap', function(e) {
+                    disableSlideNavigation = false;
+                });
+
+                // content gallery: tap
+                $contentGallery.hammer().on('release', function(e) {
+                    disableSlideNavigation = false;
+                });
+
+                // content gallery: swipeleft
+                $contentGallery.hammer({'swipe_velocity': 0.4}).on('swipeleft', function(e) {
+                    $rootScope.safeApply(function() {
+                        nextSlide();
+                    });
+                });
+
+                // content gallery: swiperight
+                $contentGallery.hammer({'swipe_velocity': 0.4}).on('swiperight', function(e) {
+                    $rootScope.safeApply(function() {
+                        previousSlide();
+                    });
                 });
 
                 // sliderContainer: transitionend
@@ -612,8 +687,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActiveSlide(index, emitEvent) {
 
+                if (disableSlideNavigation) return;
+
                 lastDelta = 0;
-                currentYPos = 0;
 
                 // emit event by default
                 emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
@@ -633,6 +709,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // set image object
                     currentSlide = $scope.imageList[index];
+
+                    currentSlide.yPos = 0;
 
                     // calculate translation amount
                     var translateAmount = index * $scope.state.sliderWidth;
@@ -661,6 +739,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             function setGalleryHeight() {
 
                 // get active slider element
+                windowHeight = $(window).height();
                 var activeHeight = $activeSlider.height();
 
                 var galleryStyles = {
@@ -718,6 +797,12 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 // skip if image not beyond window height
                 if ($scope.state.fullscreen) {
                     var delta = extractDelta(e);
+                    lastDelta = 0;
+
+                    // reduce delta
+                    delta = delta / 3;
+
+                    console.log(delta);
 
                     // set new scroll position
                     scrollCurrentSlide(delta);
@@ -732,8 +817,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollCurrentSlide(delta) {
 
-                if (!isImageTallerThanWindow()) return;
-
                 // get window and image height
                 var $image = $activeSlider.find('img'),
                     imageHeight = $image.height();
@@ -743,26 +826,35 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $rootScope.safeApply(function() {
 
                     // add scroll direction to current y position
-                    currentSlide.yPos += delta;
+                    currentSlide.yPos += delta - lastDelta;
                     currentSlide.atBottom = false;
                     currentSlide.atTop = false;
 
                     // restrict scroll down amount
-                    if (currentSlide.yPos < negativeScrollLimit) {
+                    if (currentSlide.yPos <= negativeScrollLimit) {
                         currentSlide.yPos = negativeScrollLimit;
                         currentSlide.atBottom = true;
                         currentSlide.atTop = false;
                     }
 
                     // restrict scroll up amount
-                    if (currentSlide.yPos > 0) {
+                    if (currentSlide.yPos >= 0) {
                         currentSlide.yPos = 0;
                         currentSlide.atBottom = false;
                         currentSlide.atTop = true;
                     }
                 });
 
-                $activeSlider.css({'margin-top': currentSlide.yPos + 'px'});
+                lastDelta = delta;
+
+                // apply transform/width styles
+                $activeSlider.css({
+                    '-webkit-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
+                    '-moz-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
+                    '-ms-transform': 'translate(0px, ' + currentSlide.yPos + 'px)',
+                    '-o-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
+                    'transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)'
+                });
             }
 
             /* isImageTallerThanWindow - return true if image height larger than current window height
@@ -791,26 +883,28 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     currentSlide.atBottom = false;
                 });
 
-                $activeSlider.css({'margin-top': currentSlide.yPos + 'px'});
+                scrollCurrentSlide(currentSlide.yPos);
             }
 
             /* scrollUp -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollUp() {
                 scrollCurrentSlide(100);
+                lastDelta = 0;
             }
 
             /* scrollDown -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollDown() {
                 scrollCurrentSlide(-100);
+                lastDelta = 0;
             }
 
             /* enableFullscreen -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function enableFullscreen() {
 
-                $('body').addClass('overflow-hidden');
+                $('html').addClass('overflow-hidden');
                 $scope.state.fullscreen = true;
 
                 $timeout(function() {
@@ -822,7 +916,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function disableFullscreen() {
 
-                $('body').removeClass('overflow-hidden');
+                console.log('disable fullscreen');
+                $('html').removeClass('overflow-hidden');
                 $scope.state.fullscreen = false;
 
                 $timeout(function() {
@@ -1176,6 +1271,10 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                 // calculate max translate (add in drift + spacing)
                 vpProperties.maxTranslateAmount = -(vpProperties.width - tcProperties.width + (tcProperties.thumbnailCount) + parseInt($scope.spacing, 10));
+
+                if (vpProperties.maxTranslateAmount < 0) {
+                    vpProperties.maxTranslateAmount = 0;
+                }
             }
 
             /* setActiveThumbnail -

@@ -7072,21 +7072,21 @@ a.th {
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\000034}}
 .content-gallery {
   position: relative;
-  z-index: 9999;
   /* full screen mode */
   /* embedded mode */
   /* gallery container */
   /* gallery interface */
   /* slider container */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\000037}}
 .content-gallery * {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000312}}
 .content-gallery.fullscreen {
   background-color: black;
   position: fixed;
+  z-index: 9999;
   top: 0;
   bottom: 0;
   left: 0;
@@ -7117,7 +7117,7 @@ a.th {
   position: absolute;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0);
-  opacity: 0;
+  opacity: 1;
   left: 0;
   right: 0;
   top: 0;
@@ -7126,53 +7126,55 @@ a.th {
   /* scroll button */
   /* zoom button */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000361}}
+@media only screen and (min-width: 768px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000351}}
+  .content-gallery .gallery-interface {
+    opacity: 0;
+  }
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000365}}
 .content-gallery .gallery-interface * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000369}}
 .content-gallery .gallery-interface:hover {
   opacity: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000374}}
 .content-gallery .gallery-interface .activation-area {
   position: absolute;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000375}}
-.content-gallery .gallery-interface .activation-area:hover .navigation-button {
-  background-color: rgba(255, 255, 255, 0.3);
-  color: #000;
-}
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000379}}
+.content-gallery .gallery-interface .activation-area:hover .navigation-button {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000382}}
 .content-gallery .gallery-interface .activation-area:hover .scroll-button {
-  background-color: rgba(255, 255, 255, 0.3);
-  color: #000;
+  background-color: rgba(0, 0, 0, 0.3);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000387}}
 .content-gallery .gallery-interface .activation-area:active .navigation-button {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #000;
+  background-color: rgba(0, 0, 0, 0.4);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000390}}
 .content-gallery .gallery-interface .activation-area:active .scroll-button {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #000;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000395}}
 .content-gallery .gallery-interface .activation-area.next {
   right: 0;
-  left: 90%;
+  left: 55%;
   top: 0;
   bottom: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003101}}
 .content-gallery .gallery-interface .activation-area.previous {
   left: 0;
-  right: 90%;
+  right: 55%;
   top: 0;
   bottom: 0;
 }
@@ -7195,11 +7197,11 @@ a.th {
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003124}}
 .content-gallery .gallery-interface .navigation-button {
   position: absolute;
-  margin-top: -17px;
+  margin-top: -11px;
   top: 50%;
-  padding: 10px 5px;
+  padding: 7px 4px;
   border-radius: 3px;
-  font-size: .8em;
+  font-size: .6em;
   background-color: rgba(0, 0, 0, 0.2);
   color: #fff;
 }
@@ -7227,12 +7229,12 @@ a.th {
 .content-gallery .gallery-interface .scroll-button {
   position: absolute;
   margin: 0 auto;
-  padding: 3px 10px;
+  padding: 4px 7px;
   left: 50%;
   margin-left: -10px;
   top: 10px;
   border-radius: 3px;
-  font-size: .8em;
+  font-size: .6em;
   background-color: rgba(0, 0, 0, 0.2);
   color: #fff;
 }
@@ -7463,9 +7465,16 @@ a.th {
 @media -sass-debug-info{filename{}line{font-family:\0000344}}
 html, body {
   background-color: #aaaaaa;
+  height: 100%;
+  min-height: 100%;
 }
-@media -sass-debug-info{filename{}line{font-family:\0000347}}
-html.overflow-hidden, body.overflow-hidden {
+
+@media -sass-debug-info{filename{}line{font-family:\0000350}}
+.overflow-hidden {
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{}line{font-family:\0000353}}
+.overflow-hidden body {
   overflow: hidden;
 }
 
@@ -7473,25 +7482,25 @@ html.overflow-hidden, body.overflow-hidden {
    FORMS
 ----------------------------------------- */
 /* form errors */
-@media -sass-debug-info{filename{}line{font-family:\0000356}}
+@media -sass-debug-info{filename{}line{font-family:\0000362}}
 input.ng-invalid, .error input, input.error, .error textarea, textarea.error {
   border-color: #ffa5a7;
   box-shadow: 0 1px 2px 0 rgba(255, 0, 0, 0.5);
 }
-@media -sass-debug-info{filename{}line{font-family:\0000360}}
+@media -sass-debug-info{filename{}line{font-family:\0000366}}
 input.ng-invalid:focus, .error input:focus, input.error:focus, .error textarea:focus, textarea.error:focus {
   border-color: #fd676f;
   background-color: #fff;
 }
 
 /* pristine form */
-@media -sass-debug-info{filename{}line{font-family:\0000367}}
+@media -sass-debug-info{filename{}line{font-family:\0000373}}
 input.ng-pristine {
   border-color: #aaa;
   background-color: #fff;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-@media -sass-debug-info{filename{}line{font-family:\0000372}}
+@media -sass-debug-info{filename{}line{font-family:\0000378}}
 input.ng-pristine:focus {
   border-color: #222222;
   background-color: #ffffff;

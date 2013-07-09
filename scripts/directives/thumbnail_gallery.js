@@ -172,6 +172,10 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
 
                 // calculate max translate (add in drift + spacing)
                 vpProperties.maxTranslateAmount = -(vpProperties.width - tcProperties.width + (tcProperties.thumbnailCount) + parseInt($scope.spacing, 10));
+
+                if (vpProperties.maxTranslateAmount < 0) {
+                    vpProperties.maxTranslateAmount = 0;
+                }
             }
 
             /* setActiveThumbnail -
