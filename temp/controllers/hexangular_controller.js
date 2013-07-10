@@ -16,7 +16,7 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         selectedTags: {}
     };
 
-    $scope.galleryImages = [
+    $scope.smallImages = [
         {
             url: 'http://placekitten.com/500/500'
         },
@@ -25,6 +25,18 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         },
         {
             url: 'http://placekitten.com/499/500'
+        }
+    ];
+
+    $scope.mediumImages = [
+        {
+            url: 'http://placekitten.com/900/800'
+        },
+        {
+            url: 'http://placekitten.com/901/699'
+        },
+        {
+            url: 'http://placekitten.com/999/600'
         }
     ];
 

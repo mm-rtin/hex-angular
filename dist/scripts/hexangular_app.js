@@ -40,7 +40,7 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         selectedTags: {}
     };
 
-    $scope.galleryImages = [
+    $scope.smallImages = [
         {
             url: 'http://placekitten.com/500/500'
         },
@@ -49,6 +49,18 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
         },
         {
             url: 'http://placekitten.com/499/500'
+        }
+    ];
+
+    $scope.mediumImages = [
+        {
+            url: 'http://placekitten.com/900/800'
+        },
+        {
+            url: 'http://placekitten.com/901/699'
+        },
+        {
+            url: 'http://placekitten.com/999/600'
         }
     ];
 
@@ -377,7 +389,7 @@ App.directive('autoComplete', ['$rootScope', function($rootScope) {
 * Content Gallery Directive -
 * Requires Modernizr detect: cssanimations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootScope, $timeout, $q) {
 
     return {
         restrict: 'A',
@@ -390,15 +402,19 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             thumbnailImageList: '=',
 
             thumbnailWidth: '@',
-            thumbnailHeight: '@'
+            thumbnailHeight: '@',
+
+            smallWidth: '@',
+            mediumWidth: '@',
+            largeWidth: '@'
         },
 
         link: function($scope, $element, $attrs) {
 
             // contants
-            var DEBOUNCE_TIME = 350,
-                SCROLL_MARGIN = 15,
-                SWIPE_VELOCITY = 0.4,
+            var DEBOUNCE_TIME = 350,                // time to delay keydown fire event
+                SCROLL_MARGIN = 15,                 // margin below height overflow images
+                SWIPE_VELOCITY = 0.4,               // swipe left/right activation velocity
                 DRAG_DISTANCE_THRESHOLD = 20;       // distance before dragging overrides tap
 
             // properties
@@ -407,21 +423,31 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 cssanimations = false,
                 lastDelta = 0,
                 disableSlideNavigation = false,
+                currentGallerySize = null,
 
                 windowHeight = 0,
                 currentSlide = null;
+
+            // promises
+            var smallImagesDeferred = $q.defer(),
+                mediumImagesDeferred = $q.defer(),
+                largeImagesDeferred = $q.defer(),
+                thumbnailImagesDeferred = $q.defer();
 
             // functions
             var throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
 
             // jquery elements
-            var $contentGallery = $element,
+            var $htmlRoot = $('html'),
+                $contentGallery = $element,
                 $galleryContainer = $element.find('.gallery-container'),
                 $sliderContainer = $element.find('.slider-container'),
                 $activeSlider = null;
 
             // scope data
             $scope.imageList = [];
+            $scope.embeddedList = [];
+            $scope.fullscreenList = [];
 
             $scope.state = {
                 'fullscreen': false,
@@ -437,96 +463,60 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             $scope.galleryInterfaceStyle = {};
             $scope.sliderStyle = {};
 
-            // parse mediumImageList
-            $scope.$watch('mediumImageList', function(mediumImageList, oldValue) {
-
-                // if mediumImageList is string
-                if (typeof mediumImageList === 'string') {
-                    $scope.mediumImageList = parseImageListString(mediumImageList);
-                }
-
-                $scope.imageList = angular.copy($scope.mediumImageList);
-
-                initialize();
-            });
-
-            // parse largeImageList
-            $scope.$watch('largeImageList', function(largeImageList, oldValue) {
-
-                // if largeImageList is string
-                if (typeof largeImageList === 'string') {
-                    $scope.largeImageList = parseImageListString(largeImageList);
-                }
-            });
-
-            // parse thumbnailImageList
-            $scope.$watch('thumbnailImageList', function(thumbnailImageList, oldValue) {
-
-                // if thumnailList is string
-                if (typeof thumbnailImageList === 'string') {
-                    $scope.thumbnailImageList = parseImageListString(thumbnailImageList);
-                }
-            });
-
-
-            /* parseImageListString -
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function parseImageListString(imageListString) {
-
-                var imageURLs = imageListString.split(',');
-                var imageObjectList = [];
-
-                imageURLs.each(function(url) {
-
-                    if (url) {
-                        imageObjectList.push({'url': url});
-                    }
-                });
-
-                return imageObjectList;
-            }
+            initialize();
 
             /* initialize -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function initialize() {
 
-                createEventHandlers();
+                // watch: smallImageList
+                $scope.$watch('smallImageList', function(smallImageList, oldValue) {
 
-                // set window height
-                windowHeight = $(window).height();
+                    // if smallImageList is string
+                    if (typeof smallImageList === 'string') {
+                        $scope.smallImageList = parseImageListString(smallImageList);
+                    }
+                    smallImagesDeferred.resolve();
+                });
 
-                // convert to integer
-                $scope.thumbnailHeight = parseInt($scope.thumbnailHeight, 10);
-                $scope.thumbnailWidth = parseInt($scope.thumbnailWidth, 10);
+                // watch: mediumImageList
+                $scope.$watch('mediumImageList', function(mediumImageList, oldValue) {
 
-                // modernizr detect cssanimations
-                if ($('html').hasClass('cssanimations')) {
-                    cssanimations = true;
-                }
+                    // if mediumImageList is string
+                    if (typeof mediumImageList === 'string') {
+                        $scope.mediumImageList = parseImageListString(mediumImageList);
+                    }
+                    mediumImagesDeferred.resolve();
+                });
 
-                // calculate container and slider width
-                $scope.state.slideCount = $scope.imageList.length;
-                $scope.state.sliderContainerWidth = $scope.state.slideCount * 100;
-                $scope.state.sliderWidth = 100 / $scope.state.slideCount;
+                // watch: largeImageList
+                $scope.$watch('largeImageList', function(largeImageList, oldValue) {
 
-                // apply styles
-                $scope.sliderContainerStyle = {
-                    'width': $scope.state.sliderContainerWidth + '%'
-                };
-                $scope.galleryInterfaceStyle = {
-                    'bottom': $scope.thumbnailHeight + 'px'
-                };
-                $scope.sliderStyle = {
-                    'width': $scope.state.sliderWidth + '%'
-                };
+                    // if largeImageList is string
+                    if (typeof largeImageList === 'string') {
+                        $scope.largeImageList = parseImageListString(largeImageList);
+                    }
+                    largeImagesDeferred.resolve();
+                });
 
-                // load images
-                $scope.imageList.each(function(image, index) {
-                    loadImage(image, index);
+                // watch: thumbnailImageList
+                $scope.$watch('thumbnailImageList', function(thumbnailImageList, oldValue) {
+
+                    // if thumnailList is string
+                    if (typeof thumbnailImageList === 'string') {
+                        $scope.thumbnailImageList = parseImageListString(thumbnailImageList);
+                    }
+                    thumbnailImagesDeferred.resolve();
+                });
+
+                // wait for all promises to resolve
+                $q.all([smallImagesDeferred.promise, mediumImagesDeferred.promise, largeImagesDeferred.promise, thumbnailImagesDeferred.promise]).then(function(arrayOfResults) {
+
+                    renderContentGallery();
                 });
             }
 
-            /* createEventHandlers -
+             /* createEventHandlers -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventHandlers() {
 
@@ -535,6 +525,16 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // update window height
                     windowHeight = $(window).height();
+
+                    var gallerySize = getGallerySize($scope.state.fullscreen);
+
+                    if (gallerySize !== currentGallerySize) {
+                        console.log('switch gallery from: ', currentGallerySize, gallerySize);
+
+                        currentGallerySize = gallerySize;
+
+                        loadGallery($scope.state.currentSlideIndex);
+                    }
 
                     // set new gallery height
                     setGalleryHeight();
@@ -646,6 +646,169 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                 $contentGallery.bind('mousewheel', handleMouseWheelEvent);
             }
 
+            /* parseImageListString -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function parseImageListString(imageListString) {
+
+                var imageURLs = imageListString.split(',');
+                var imageObjectList = [];
+
+                imageURLs.each(function(url) {
+
+                    if (url) {
+                        imageObjectList.push({'url': url});
+                    }
+                });
+
+                return imageObjectList;
+            }
+
+            /* renderContentGallery -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function renderContentGallery() {
+
+                createEventHandlers();
+
+                // set window height
+                windowHeight = $(window).height();
+
+                // convert to integer
+                $scope.thumbnailHeight = parseInt($scope.thumbnailHeight, 10);
+                $scope.thumbnailWidth = parseInt($scope.thumbnailWidth, 10);
+
+                // modernizr detect cssanimations
+                if ($htmlRoot.hasClass('cssanimations')) {
+                    cssanimations = true;
+                }
+
+                // calculate container and slider width
+                $scope.state.slideCount = $scope.largeImageList.length;
+                $scope.state.sliderContainerWidth = $scope.state.slideCount * 100;
+                $scope.state.sliderWidth = 100 / $scope.state.slideCount;
+
+                // apply basic gallery styles
+                $scope.sliderContainerStyle = {
+                    'width': $scope.state.sliderContainerWidth + '%'
+                };
+                $scope.galleryInterfaceStyle = {
+                    'bottom': $scope.thumbnailHeight + 'px'
+                };
+                $scope.sliderStyle = {
+                    'width': $scope.state.sliderWidth + '%'
+                };
+
+                // load gallery
+                loadGallery(0);
+            }
+
+            /* loadGallery -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function loadGallery(activeIndex) {
+
+                currentGallerySize = getGallerySize($scope.state.fullscreen),
+
+                $scope.imageList = getImageList(currentGallerySize, $scope.state.fullscreen);
+
+                // load images
+                $scope.imageList.each(function(image, index) {
+                    loadImage(image, index, activeIndex);
+                });
+            }
+
+            /* loadImage
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function loadImage(image, index, activeIndex) {
+
+                var loadedImage = new Image();
+                loadedImage.src = image.url;
+
+                // on image load
+                loadedImage.onload = function() {
+
+                    // set image properties
+                    image.width = loadedImage.width;
+                    image.height = loadedImage.height;
+                    image.loaded = true;
+                    image.yPos = 0;
+                    image.atTop = true;
+                    image.atBottom = false;
+
+                    // set active image once first image has loaded
+                    if (index === activeIndex) {
+
+                        // wait for image to render on page
+                        $timeout(function() {
+
+                            // set slider to active state
+                            $scope.state.sliderActive = true;
+                            setActiveSlide(activeIndex, true);
+
+                        }, 500);
+                    }
+                };
+            }
+
+            /* getImageList -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getImageList(gallerySize, fullscreen) {
+
+                var imageList = null;
+
+                switch(gallerySize) {
+
+                    case 'small':
+                        imageList = $scope.smallImageList;
+                        break;
+
+                    case 'medium':
+                        imageList = $scope.mediumImageList;
+                        break;
+
+                    case 'large':
+                        imageList = $scope.largeImageList;
+                        break;
+                }
+
+                return imageList;
+            }
+
+            /* getGallerySize -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getGallerySize(fullscreen) {
+
+                // get usable width
+                var usableWidth = $contentGallery.width();
+                if (fullscreen) {
+                    usableWidth = $(window).width();
+                }
+
+                console.log(usableWidth);
+
+                var smallWidth = parseInt($scope.smallWidth, 10),
+                    mediumWidth = parseInt($scope.mediumWidth, 10),
+                    largeWidth = parseInt($scope.largeWidth, 10);
+
+                var imageSize = null;
+
+                // small
+                if (usableWidth <= smallWidth) {
+                    console.log('get small');
+                    imageSize = 'small';
+
+                // medium
+                } else if (usableWidth <= mediumWidth) {
+                    console.log('get medium');
+                    imageSize = 'medium';
+
+                // large
+                } else {
+                    console.log('get large');
+                    imageSize = 'large';
+                }
+
+                return imageSize;
+            }
+
             /* keydownHandler
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function keydownHandler(key) {
@@ -676,41 +839,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                         }
                     });
                 }
-            }
-
-            /* loadImage
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function loadImage(image, index, activeIndex) {
-
-                activeIndex = (typeof activeIndex === 'undefined') ? 0 : activeIndex;
-
-                var loadedImage = new Image();
-                loadedImage.src = image.url;
-
-                // on image load
-                loadedImage.onload = function() {
-
-                    // set image properties
-                    image.width = loadedImage.width;
-                    image.height = loadedImage.height;
-                    image.loaded = true;
-                    image.yPos = 0;
-                    image.atTop = true;
-                    image.atBottom = false;
-
-                    // set active image once first image has loaded
-                    if (index === activeIndex) {
-
-                        // wait for image to render on page
-                        $timeout(function() {
-
-                            // set slider to active state
-                            $scope.state.sliderActive = true;
-                            setActiveSlide(activeIndex, true);
-
-                        }, 500);
-                    }
-                };
             }
 
             /* setActiveSlide -
@@ -934,14 +1062,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 if ($scope.state.fullscreen) return;
 
-                $('html').addClass('overflow-hidden');
+                $htmlRoot.addClass('overflow-hidden');
                 $scope.state.fullscreen = true;
 
-                // load images
-                $scope.imageList = $scope.largeImageList;
-                $scope.imageList.each(function(image, index) {
-                    loadImage(image, index, $scope.state.currentSlideIndex);
-                });
+                // load gallery
+                loadGallery($scope.state.currentSlideIndex);
             }
 
             /* disableFullscreen -
@@ -950,14 +1075,11 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                 if (!$scope.state.fullscreen) return;
 
-                $('html').removeClass('overflow-hidden');
+                $htmlRoot.removeClass('overflow-hidden');
                 $scope.state.fullscreen = false;
 
-                // load images
-                $scope.imageList = $scope.mediumImageList;
-                $scope.imageList.each(function(image, index) {
-                    loadImage(image, index, $scope.state.currentSlideIndex);
-                });
+                // load gallery
+                loadGallery($scope.state.currentSlideIndex);
             }
 
             /* disableTransitions -
