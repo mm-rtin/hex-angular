@@ -7073,6 +7073,7 @@ a.th {
 .content-gallery {
   position: relative;
   /* full screen mode */
+  /* disable transitions */
   /* embedded mode */
   /* gallery container */
   /* gallery interface */
@@ -7092,28 +7093,40 @@ a.th {
   left: 0;
   right: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000333}}
-.content-gallery.embedded .slider {
-  margin-top: 0px !important;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000339}}
-.content-gallery .gallery-container {
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000325}}
+.content-gallery.transitions .gallery-container {
   -webkit-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   -moz-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000328}}
+.content-gallery.transitions .gallery-interface {
+  -webkit-transition: all 600ms;
+  -moz-transition: all 600ms;
+  transition: all 600ms;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000331}}
+.content-gallery.transitions .slider-container {
+  -webkit-transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  -moz-transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000347}}
+.content-gallery.embedded .slider {
+  margin-top: 0px !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000353}}
+.content-gallery .gallery-container {
   position: relative;
   overflow: hidden;
   height: 0px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000358}}
 .content-gallery .gallery-container.active {
   height: auto;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000364}}
 .content-gallery .gallery-interface {
-  -webkit-transition: all 600ms;
-  -moz-transition: all 600ms;
-  transition: all 600ms;
   position: absolute;
   z-index: 1;
   background-color: rgba(255, 255, 255, 0);
@@ -7127,58 +7140,58 @@ a.th {
   /* zoom button */
 }
 @media only screen and (min-width: 768px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000364}}
   .content-gallery .gallery-interface {
     opacity: 0;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000377}}
 .content-gallery .gallery-interface * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000381}}
 .content-gallery .gallery-interface:hover {
   opacity: 1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000386}}
 .content-gallery .gallery-interface .activation-area {
   position: absolute;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000391}}
 .content-gallery .gallery-interface .activation-area:hover .navigation-button {
   background-color: rgba(0, 0, 0, 0.3);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000394}}
 .content-gallery .gallery-interface .activation-area:hover .scroll-button {
   background-color: rgba(0, 0, 0, 0.3);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000399}}
 .content-gallery .gallery-interface .activation-area:active .navigation-button {
   background-color: rgba(0, 0, 0, 0.4);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003102}}
 .content-gallery .gallery-interface .activation-area:active .scroll-button {
   background-color: rgba(0, 0, 0, 0.4);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\0000395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003107}}
 .content-gallery .gallery-interface .activation-area.next {
   right: 0;
   left: 55%;
   top: 0;
   bottom: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003113}}
 .content-gallery .gallery-interface .activation-area.previous {
   left: 0;
   right: 55%;
   top: 0;
   bottom: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003119}}
 .content-gallery .gallery-interface .activation-area.up {
   z-index: 1;
   top: 0;
@@ -7186,7 +7199,7 @@ a.th {
   right: 0;
   height: 40px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003126}}
 .content-gallery .gallery-interface .activation-area.down {
   z-index: 1;
   bottom: 0;
@@ -7194,7 +7207,7 @@ a.th {
   right: 0;
   height: 40px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003136}}
 .content-gallery .gallery-interface .navigation-button {
   position: absolute;
   margin-top: -11px;
@@ -7206,26 +7219,26 @@ a.th {
   color: #fff;
 }
 @media only screen and (min-width: 768px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003136}}
   .content-gallery .gallery-interface .navigation-button {
     margin-top: -25px;
     padding: 15px 5px;
     font-size: 1em;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003152}}
 .content-gallery .gallery-interface .navigation-button:before {
   opacity: .7;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003144}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003156}}
 .content-gallery .gallery-interface .navigation-button.next {
   right: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003147}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003159}}
 .content-gallery .gallery-interface .navigation-button.previous {
   left: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003165}}
 .content-gallery .gallery-interface .scroll-button {
   position: absolute;
   margin: 0 auto;
@@ -7239,7 +7252,7 @@ a.th {
   color: #fff;
 }
 @media only screen and (min-width: 768px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003165}}
   .content-gallery .gallery-interface .scroll-button {
     top: 0px;
     padding: 3px 15px;
@@ -7247,19 +7260,19 @@ a.th {
     font-size: 1em;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003172}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003184}}
 .content-gallery .gallery-interface .scroll-button.up {
   margin-top: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003175}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003187}}
 .content-gallery .gallery-interface .scroll-button.down {
   margin-bottom: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003179}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003191}}
 .content-gallery .gallery-interface .scroll-button:before {
   opacity: .7;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003185}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003197}}
 .content-gallery .gallery-interface .zoom-button {
   position: absolute;
   cursor: pointer;
@@ -7273,32 +7286,29 @@ a.th {
   color: #fff;
 }
 @media only screen and (min-width: 768px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003185}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003197}}
   .content-gallery .gallery-interface .zoom-button {
     font-size: 1.6em;
     padding: 10px;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003202}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003214}}
 .content-gallery .gallery-interface .zoom-button:hover {
   background-color: rgba(255, 255, 255, 0.6);
   color: #000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003206}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003218}}
 .content-gallery .gallery-interface .zoom-button:active {
   background-color: rgba(255, 255, 255, 0.8);
   color: #000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003210}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003222}}
 .content-gallery .gallery-interface .zoom-button:before {
   opacity: .7;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003217}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003229}}
 .content-gallery .slider-container {
   *zoom: 1;
-  -webkit-transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  -moz-transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003101}}
 .content-gallery .slider-container:before, .content-gallery .slider-container:after {
@@ -7309,7 +7319,7 @@ a.th {
 .content-gallery .slider-container:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003221}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003232}}
 .content-gallery .slider-container .slider {
   -webkit-transition: all 0ms;
   -moz-transition: all 0ms;
@@ -7317,7 +7327,7 @@ a.th {
   display: inline-block;
   vertical-align: top;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003226}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_gallery\.scss}line{font-family:\00003237}}
 .content-gallery .slider-container .slider .image-content {
   max-width: 100%;
   height: auto;

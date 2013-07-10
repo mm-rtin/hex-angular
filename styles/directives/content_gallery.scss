@@ -19,6 +19,20 @@
         right: 0;
     }
 
+    /* disable transitions */
+    &.transitions {
+
+        .gallery-container {
+            @include transition(all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
+        }
+        .gallery-interface {
+            @include transition(all 600ms);
+        }
+        .slider-container {
+            @include transition(all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
+        }
+    }
+
     /* embedded mode */
     &.embedded {
 
@@ -37,7 +51,6 @@
 
     /* gallery container */
     .gallery-container {
-        @include transition(all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
         position: relative;
         overflow: hidden;
         height: 0px;
@@ -49,7 +62,6 @@
 
     /* gallery interface */
     .gallery-interface {
-        @include transition(all 600ms);
         position: absolute;
         z-index: 1;
         background-color: rgba(#fff, 0);
@@ -216,7 +228,6 @@
     /* slider container */
     .slider-container {
         @include clearfix();
-        @include transition(all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
 
         .slider {
             @include transition(all 0ms);

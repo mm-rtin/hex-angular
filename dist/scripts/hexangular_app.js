@@ -381,7 +381,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailImageList" width="thumbnailWidth" spacing="4" fullscreen="state.fullscreen"></div></div>',
+        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen, transitions: state.transitions}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailImageList" width="thumbnailWidth" spacing="4" fullscreen="state.fullscreen"></div></div>',
         replace: false,
         scope: {
             smallImageList: '=',
@@ -425,6 +425,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             $scope.state = {
                 'fullscreen': false,
+                'transitions': true,
                 'sliderActive': false,
                 'slideCount': 0,
                 'currentSlideIndex': -1,
@@ -603,6 +604,15 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     disableSlideNavigation = false;
                 });
 
+                // content gallery: doubletap
+                $contentGallery.hammer().on('doubletap', function(e) {
+
+                    $rootScope.safeApply(function() {
+                        // enableFullscreen();
+                    });
+
+                });
+
                 // content gallery: tap
                 $contentGallery.hammer().on('release', function(e) {
                     disableSlideNavigation = false;
@@ -670,7 +680,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             /* loadImage
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function loadImage(image, index) {
+            function loadImage(image, index, activeIndex) {
+
+                activeIndex = (typeof activeIndex === 'undefined') ? 0 : activeIndex;
 
                 var loadedImage = new Image();
                 loadedImage.src = image.url;
@@ -687,14 +699,14 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     image.atBottom = false;
 
                     // set active image once first image has loaded
-                    if (index === 0) {
+                    if (index === activeIndex) {
 
                         // wait for image to render on page
                         $timeout(function() {
 
                             // set slider to active state
                             $scope.state.sliderActive = true;
-                            setActiveSlide(0, true);
+                            setActiveSlide(activeIndex, true);
 
                         }, 500);
                     }
@@ -727,8 +739,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // set current slide
                     currentSlide = $scope.imageList[index];
-
-                    currentSlide.yPos = 0;
 
                     // calculate translation amount
                     var translateAmount = index * $scope.state.sliderWidth;
@@ -773,6 +783,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     if (!isImageTallerThanWindow()) {
                         topPadding = (fullScreenWindowHeight - activeHeight) / 2;
                     }
+
+                    console.log(topPadding);
 
                     // gallery styles
                     galleryStyles['padding-top'] = topPadding + 'px';
@@ -887,14 +899,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function resetScroll() {
 
-                $rootScope.safeApply(function() {
-
-                    currentSlide.yPos = 0;
-                    currentSlide.atTop = true;
-                    currentSlide.atBottom = false;
-                });
-
-                scrollCurrentSlide(currentSlide.yPos);
+                lastDelta = 0;
             }
 
             /* nextSlide -
@@ -927,24 +932,45 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function enableFullscreen() {
 
+                if ($scope.state.fullscreen) return;
+
                 $('html').addClass('overflow-hidden');
                 $scope.state.fullscreen = true;
 
-                $timeout(function() {
-                    setGalleryHeight();
-                }, 0);
+                // load images
+                $scope.imageList = $scope.largeImageList;
+                $scope.imageList.each(function(image, index) {
+                    loadImage(image, index, $scope.state.currentSlideIndex);
+                });
             }
 
             /* disableFullscreen -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function disableFullscreen() {
 
+                if (!$scope.state.fullscreen) return;
+
                 $('html').removeClass('overflow-hidden');
                 $scope.state.fullscreen = false;
 
+                // load images
+                $scope.imageList = $scope.mediumImageList;
+                $scope.imageList.each(function(image, index) {
+                    loadImage(image, index, $scope.state.currentSlideIndex);
+                });
+            }
+
+            /* disableTransitions -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function disableTransitions(time) {
+
+                // disable transitions
+                $scope.state.transitions = false;
+
+                // renabled after delay
                 $timeout(function() {
-                    setGalleryHeight();
-                }, 0);
+                    $scope.state.transitions = true;
+                }, time);
             }
 
             /* Scope Methods

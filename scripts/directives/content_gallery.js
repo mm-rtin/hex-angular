@@ -52,6 +52,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             $scope.state = {
                 'fullscreen': false,
+                'transitions': true,
                 'sliderActive': false,
                 'slideCount': 0,
                 'currentSlideIndex': -1,
@@ -230,6 +231,15 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     disableSlideNavigation = false;
                 });
 
+                // content gallery: doubletap
+                $contentGallery.hammer().on('doubletap', function(e) {
+
+                    $rootScope.safeApply(function() {
+                        // enableFullscreen();
+                    });
+
+                });
+
                 // content gallery: tap
                 $contentGallery.hammer().on('release', function(e) {
                     disableSlideNavigation = false;
@@ -297,7 +307,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
             /* loadImage
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function loadImage(image, index) {
+            function loadImage(image, index, activeIndex) {
+
+                activeIndex = (typeof activeIndex === 'undefined') ? 0 : activeIndex;
 
                 var loadedImage = new Image();
                 loadedImage.src = image.url;
@@ -314,14 +326,14 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     image.atBottom = false;
 
                     // set active image once first image has loaded
-                    if (index === 0) {
+                    if (index === activeIndex) {
 
                         // wait for image to render on page
                         $timeout(function() {
 
                             // set slider to active state
                             $scope.state.sliderActive = true;
-                            setActiveSlide(0, true);
+                            setActiveSlide(activeIndex, true);
 
                         }, 500);
                     }
@@ -354,8 +366,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
 
                     // set current slide
                     currentSlide = $scope.imageList[index];
-
-                    currentSlide.yPos = 0;
 
                     // calculate translation amount
                     var translateAmount = index * $scope.state.sliderWidth;
@@ -400,6 +410,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
                     if (!isImageTallerThanWindow()) {
                         topPadding = (fullScreenWindowHeight - activeHeight) / 2;
                     }
+
+                    console.log(topPadding);
 
                     // gallery styles
                     galleryStyles['padding-top'] = topPadding + 'px';
@@ -514,14 +526,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function resetScroll() {
 
-                $rootScope.safeApply(function() {
-
-                    currentSlide.yPos = 0;
-                    currentSlide.atTop = true;
-                    currentSlide.atBottom = false;
-                });
-
-                scrollCurrentSlide(currentSlide.yPos);
+                lastDelta = 0;
             }
 
             /* nextSlide -
@@ -554,24 +559,45 @@ App.directive('contentGallery', ['$rootScope', '$timeout', function($rootScope, 
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function enableFullscreen() {
 
+                if ($scope.state.fullscreen) return;
+
                 $('html').addClass('overflow-hidden');
                 $scope.state.fullscreen = true;
 
-                $timeout(function() {
-                    setGalleryHeight();
-                }, 0);
+                // load images
+                $scope.imageList = $scope.largeImageList;
+                $scope.imageList.each(function(image, index) {
+                    loadImage(image, index, $scope.state.currentSlideIndex);
+                });
             }
 
             /* disableFullscreen -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function disableFullscreen() {
 
+                if (!$scope.state.fullscreen) return;
+
                 $('html').removeClass('overflow-hidden');
                 $scope.state.fullscreen = false;
 
+                // load images
+                $scope.imageList = $scope.mediumImageList;
+                $scope.imageList.each(function(image, index) {
+                    loadImage(image, index, $scope.state.currentSlideIndex);
+                });
+            }
+
+            /* disableTransitions -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function disableTransitions(time) {
+
+                // disable transitions
+                $scope.state.transitions = false;
+
+                // renabled after delay
                 $timeout(function() {
-                    setGalleryHeight();
-                }, 0);
+                    $scope.state.transitions = true;
+                }, time);
             }
 
             /* Scope Methods
