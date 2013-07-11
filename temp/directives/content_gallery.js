@@ -143,6 +143,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                     var gallerySize = getGallerySize($scope.state.fullscreen);
 
+                    // load new gallery
                     if (gallerySize !== currentGallerySize) {
                         console.log('switch gallery from: ', currentGallerySize, gallerySize);
 
@@ -151,8 +152,9 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                         loadGallery($scope.state.currentSlideIndex);
                     }
 
-                    // set new gallery height
-                    setGalleryHeight();
+                    $timeout(function() {
+                        setGalleryHeight();
+                    }, 500);
                 });
 
                 // window: keyup
@@ -397,8 +399,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                     usableWidth = $(window).width();
                 }
 
-                console.log(usableWidth);
-
                 var smallWidth = parseInt($scope.smallWidth, 10),
                     mediumWidth = parseInt($scope.mediumWidth, 10),
                     largeWidth = parseInt($scope.largeWidth, 10);
@@ -407,17 +407,14 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                 // small
                 if (usableWidth <= smallWidth) {
-                    console.log('get small');
                     imageSize = 'small';
 
                 // medium
                 } else if (usableWidth <= mediumWidth) {
-                    console.log('get medium');
                     imageSize = 'medium';
 
                 // large
                 } else {
-                    console.log('get large');
                     imageSize = 'large';
                 }
 
@@ -513,37 +510,41 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                 windowHeight = $(window).height();
                 var activeHeight = $activeSlider.height();
 
-                var galleryStyles = {
-                    'padding-top': 0
-                };
+                console.log(windowHeight, activeHeight);
 
-                // fullscreen
-                if ($scope.state.fullscreen) {
+                if (activeHeight > 0) {
 
-                    var fullScreenWindowHeight = windowHeight - $scope.thumbnailHeight;
+                    var galleryStyles = {
+                        'padding-top': 0
+                    };
 
-                    var topPadding = 0;
-                    if (!isImageTallerThanWindow()) {
-                        topPadding = (fullScreenWindowHeight - activeHeight) / 2;
+
+                    // fullscreen
+                    if ($scope.state.fullscreen) {
+
+                        var fullScreenWindowHeight = windowHeight - $scope.thumbnailHeight;
+
+                        var topPadding = 0;
+                        if (!isImageTallerThanWindow()) {
+                            topPadding = (fullScreenWindowHeight - activeHeight) / 2;
+                        }
+
+                        // gallery styles
+                        galleryStyles['padding-top'] = topPadding + 'px';
+                        galleryStyles['height'] = fullScreenWindowHeight + 'px';
+
+                    // embedded
+                    } else {
+
+                        // gallery styles
+                        galleryStyles['height'] = activeHeight + 'px';
                     }
 
-                    console.log(topPadding);
+                    // set styles
+                    $galleryContainer.css(galleryStyles);
 
-                    // gallery styles
-                    galleryStyles['padding-top'] = topPadding + 'px';
-                    galleryStyles['height'] = fullScreenWindowHeight + 'px';
-
-                // embedded
-                } else {
-
-                    // gallery styles
-                    galleryStyles['height'] = activeHeight + 'px';
+                    resetScroll();
                 }
-
-                // set styles
-                $galleryContainer.css(galleryStyles);
-
-                resetScroll();
             }
 
             /* extractDelta - get mouse wheel delta

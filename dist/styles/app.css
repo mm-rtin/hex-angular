@@ -7448,9 +7448,75 @@ a.th {
 }
 
 /* -----------------------------------------
+   CONTENT TABS
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\000034}}
+.content-tabs {
+  position: relative;
+  overflow: hidden;
+  /* disable transitions */
+  /* tabs container */
+  /* tabs content container */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\000038}}
+.content-tabs * {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000318}}
+.content-tabs .tabs-container {
+  *zoom: 1;
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003101}}
+.content-tabs .tabs-container:before, .content-tabs .tabs-container:after {
+  content: " ";
+  display: table;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003102}}
+.content-tabs .tabs-container:after {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000324}}
+.content-tabs .tabs-container section {
+  float: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000327}}
+.content-tabs .tabs-container section h2 {
+  background-color: #fff;
+  padding: 10px 20px;
+  margin-right: 6px;
+  font-size: 1.2em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000337}}
+.content-tabs .tabs-content-container {
+  *zoom: 1;
+  -webkit-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  -moz-transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition: all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  position: relative;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003101}}
+.content-tabs .tabs-content-container:before, .content-tabs .tabs-content-container:after {
+  content: " ";
+  display: table;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003102}}
+.content-tabs .tabs-content-container:after {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000343}}
+.content-tabs .tabs-content-container section {
+  float: left;
+  background-color: #fff;
+}
+
+/* -----------------------------------------
    ANGULAR JS
 ----------------------------------------- */
-@media -sass-debug-info{filename{}line{font-family:\0000325}}
+@media -sass-debug-info{filename{}line{font-family:\0000326}}
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
@@ -7459,12 +7525,12 @@ a.th {
    MODIFIERS
 ----------------------------------------- */
 /* float */
-@media -sass-debug-info{filename{}line{font-family:\0000334}}
+@media -sass-debug-info{filename{}line{font-family:\0000335}}
 .pull-right {
   float: right;
 }
 
-@media -sass-debug-info{filename{}line{font-family:\0000337}}
+@media -sass-debug-info{filename{}line{font-family:\0000338}}
 .pull-left {
   float: left;
 }
@@ -7472,18 +7538,18 @@ a.th {
 /* -----------------------------------------
    GLOBAL
 ----------------------------------------- */
-@media -sass-debug-info{filename{}line{font-family:\0000344}}
+@media -sass-debug-info{filename{}line{font-family:\0000345}}
 html, body {
   background-color: #aaaaaa;
   height: 100%;
   min-height: 100%;
 }
 
-@media -sass-debug-info{filename{}line{font-family:\0000350}}
+@media -sass-debug-info{filename{}line{font-family:\0000351}}
 .overflow-hidden {
   overflow: hidden;
 }
-@media -sass-debug-info{filename{}line{font-family:\0000353}}
+@media -sass-debug-info{filename{}line{font-family:\0000354}}
 .overflow-hidden body {
   overflow: hidden;
 }
@@ -7492,25 +7558,25 @@ html, body {
    FORMS
 ----------------------------------------- */
 /* form errors */
-@media -sass-debug-info{filename{}line{font-family:\0000362}}
+@media -sass-debug-info{filename{}line{font-family:\0000363}}
 input.ng-invalid, .error input, input.error, .error textarea, textarea.error {
   border-color: #ffa5a7;
   box-shadow: 0 1px 2px 0 rgba(255, 0, 0, 0.5);
 }
-@media -sass-debug-info{filename{}line{font-family:\0000366}}
+@media -sass-debug-info{filename{}line{font-family:\0000367}}
 input.ng-invalid:focus, .error input:focus, input.error:focus, .error textarea:focus, textarea.error:focus {
   border-color: #fd676f;
   background-color: #fff;
 }
 
 /* pristine form */
-@media -sass-debug-info{filename{}line{font-family:\0000373}}
+@media -sass-debug-info{filename{}line{font-family:\0000374}}
 input.ng-pristine {
   border-color: #aaa;
   background-color: #fff;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-@media -sass-debug-info{filename{}line{font-family:\0000378}}
+@media -sass-debug-info{filename{}line{font-family:\0000379}}
 input.ng-pristine:focus {
   border-color: #222222;
   background-color: #ffffff;

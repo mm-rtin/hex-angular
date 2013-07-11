@@ -1,0 +1,48 @@
+/* -----------------------------------------
+   CONTENT TABS
+----------------------------------------- */
+.content-tabs {
+    position: relative;
+    overflow: hidden;
+
+    * {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    }
+
+    /* disable transitions */
+    &.transitions {
+
+    }
+
+    /* tabs container */
+    .tabs-container {
+        @include clearfix();
+        position: relative;
+        overflow: hidden;
+        height: 50px;
+
+        section {
+            float: left;
+
+            h2 {
+                background-color: #fff;
+                padding: 10px 20px;
+                margin-right: 6px;
+                font-size: 1.2em;
+            }
+        }
+    }
+
+    /* tabs content container */
+    .tabs-content-container {
+        @include clearfix();
+        @include transition(all 600ms cubic-bezier(0.445, 0.05, 0.55, 0.95));
+        position: relative;
+        overflow: hidden;
+
+        section {
+            float: left;
+            background-color: #fff;
+        }
+    }
+}

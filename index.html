@@ -28,85 +28,75 @@
                 <h2>HexAngular</h2>
             </div>
         </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
 
+        <!-- tabs -->
         <div class="row">
-            <div class="columns large-12">
+            <div class="columns large-5">
 
-                <!-- <h2>Vertical Tags</h2> -->
-                <!-- <div vertical-tags tags="verticalTags.tags" selected-tags="verticalTags.selectedTags"></div> -->
+                <!-- directive: content tabs -->
+                <div content-tabs>
 
-                <div content-gallery small-image-list="smallImages" medium-image-list="mediumImages" large-image-list="largeImages" thumbnail-image-list="thumbnailImages" thumbnail-width="110" thumbnail-height="67" small-width="500" medium-width="900" large-width="1200"></div>
+                    <!-- tabs container -->
+                    <div class="tabs-container">
+                        <section>
+                            <h2>Recent</h2>
+                        </section>
+                        <section>
+                            <h2>Popular</h2>
+                        </section>
+                        <section>
+                            <h2>Trending</h2>
+                        </section>
+                        <section>
+                            <h2>Highest Voted</h2>
+                        </section>
+                    </div>
+
+                    <!-- tabs content container -->
+                    <div class="tabs-content-container">
+                        <!-- recent -->
+                        <section>
+                            <img src="http://placekitten.com/901/900"/>
+                        </section>
+
+                        <!-- popular -->
+                        <section>
+                            <img src="http://placekitten.com/902/900"/>
+                        </section>
+
+                        <!-- trending -->
+                        <section>
+                            <img src="http://placekitten.com/903/900"/>
+                        </section>
+
+                        <!-- highest voted -->
+                        <section>
+                            <img src="http://placekitten.com/904/900"/>
+                        </section>
+                    </div>
+
+                </div>
 
             </div>
         </div>
 
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
+        <!-- vertical tags -->
+        <div class="row">
+            <div class="columns large-12">
+                <!-- <h2>Vertical Tags</h2> -->
+                <!-- <div vertical-tags tags="verticalTags.tags" selected-tags="verticalTags.selectedTags"></div> -->
             </div>
-        </header>e
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
-        <!-- header -->
-        <header class="row">
-            <div class="large-12 columns">
-                <h2>HexAngular</h2>
-            </div>
-        </header>
+        </div>
 
+        <!-- content gallery -->
+        <div class="row">
+            <div class="columns large-12">
+
+                <!-- directive: content gallery -->
+                <!-- <div content-gallery small-image-list="smallImages" medium-image-list="mediumImages" large-image-list="largeImages" thumbnail-image-list="thumbnailImages" thumbnail-width="110" thumbnail-height="67" small-width="500" medium-width="900" large-width="1200"></div> -->
+
+            </div>
+        </div>
 
         <!-- Angular View -->
         <div id="angular-container" ng-view></div>
