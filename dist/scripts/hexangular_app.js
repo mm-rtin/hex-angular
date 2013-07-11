@@ -1172,6 +1172,32 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 renderContentTabs();
             }
 
+            (function() {
+                var lastTime = 0;
+                var vendors = ['ms', 'moz', 'webkit', 'o'];
+                for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+                    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+                                               || window[vendors[x]+'CancelRequestAnimationFrame'];
+                }
+
+                if (!window.requestAnimationFrame)
+                    window.requestAnimationFrame = function(callback, element) {
+                        var currTime = new Date().getTime();
+                        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                        var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+                          timeToCall);
+                        lastTime = currTime + timeToCall;
+                        return id;
+                    };
+
+                if (!window.cancelAnimationFrame)
+                    window.cancelAnimationFrame = function(id) {
+                        clearTimeout(id);
+                    };
+            }());
+
+
              /* createEventHandlers -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function createEventHandlers() {
@@ -1186,39 +1212,45 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 // content gallery: drag
                 $tabsContainer.hammer().on('drag', function(e) {
 
-                    console.log(e.gesture);
-
                     var delta = e.gesture.deltaX;
 
-                    dragTabContainer(delta);
+                    rafId = requestAnimationFrame(function() {
+                        console.log(delta);
+                        dragTabContainer(delta);
+                    });
+
+                    e.gesture.preventDefault();
+                    e.preventDefault();
                 });
 
                 // content gallery: drag end
                 $tabsContainer.hammer().on('dragend', function(e) {
                     lastDelta = 0;
+                    e.gesture.preventDefault();
+                    e.preventDefault();
                 });
 
                 // content gallery: tap
-                $tabsContainer.hammer().on('tap', function(e) {
+                // $tabsContainer.hammer().on('tap', function(e) {
 
-                });
+                // });
 
-                // content gallery: swipeleft
-                $contentTabs.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swipeleft', function(e) {
+                // // content gallery: swipeleft
+                // $contentTabs.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swipeleft', function(e) {
 
-                    $rootScope.safeApply(function() {
-                        setActiveTab($scope.state.currentTabIndex + 1);
-                    });
-                });
+                //     $rootScope.safeApply(function() {
+                //         setActiveTab($scope.state.currentTabIndex + 1);
+                //     });
+                // });
 
-                // content gallery: swiperight
-                $contentTabs.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swiperight', function(e) {
-                });
+                // // content gallery: swiperight
+                // $contentTabs.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swiperight', function(e) {
+                // });
 
-                // sliderContainer: transitionend
-                $contentTabs.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
+                // // sliderContainer: transitionend
+                // $contentTabs.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
 
-                });
+                // });
             }
 
             /* renderContentTabs -
@@ -1286,8 +1318,6 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 var negativeLimit = 500;
 
                 tabContainerPosition += delta - lastDelta;
-
-                console.log(delta, tabContainerPosition);
 
                 tabContainerAtStart = false;
                 tabContainerAtEnd = false;
