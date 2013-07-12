@@ -96,6 +96,11 @@ module.exports = function(grunt) {
                     'lib/jquery.mousewheel.js',                     // mouse wheel support
                     'lib/jquery.hammer.js',                         // touch events
 
+                    // scroller
+                    'lib/scroller.js',                              // scroller
+                    'lib/animate-scroller.js',                      // scroller animation
+                    'lib/easy-scroller.js',                         // easy scroller
+
                     'lib/perfect-scrollbar.js',                     // custom scrollbar
                     'lib/imagesloaded.js'                           // images loaded
                 ],
