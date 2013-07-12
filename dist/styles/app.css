@@ -7460,9 +7460,13 @@ a.th {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\000038}}
 .content-tabs * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000319}}
 .content-tabs .tabs-container {
   *zoom: 1;
   position: relative;
@@ -7478,18 +7482,18 @@ a.th {
 .content-tabs .tabs-container:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000325}}
 .content-tabs .tabs-container section {
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000328}}
 .content-tabs .tabs-container section h2 {
   background-color: #fff;
   padding: 10px 20px;
   margin-right: 6px;
   font-size: 1.2em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000338}}
 .content-tabs .tabs-content-container {
   *zoom: 1;
   position: relative;
@@ -7504,10 +7508,10 @@ a.th {
 .content-tabs .tabs-content-container:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000343}}
 .content-tabs .tabs-content-container section {
   float: left;
-  background-color: #fff;
+  background-color: transparent;
 }
 
 /* -----------------------------------------
