@@ -7455,18 +7455,27 @@ a.th {
   position: relative;
   overflow: hidden;
   /* disable transitions */
+  /* tabs content viewport */
   /* tabs container */
+  /* tabs content viewport */
   /* tabs content container */
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\000038}}
 .content-tabs * {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000318}}
+.content-tabs .tabs-viewport {
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000321}}
+.content-tabs .tabs-viewport * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000327}}
 .content-tabs .tabs-container {
   *zoom: 1;
   position: relative;
@@ -7482,22 +7491,41 @@ a.th {
 .content-tabs .tabs-container:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000333}}
 .content-tabs .tabs-container section {
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000328}}
-.content-tabs .tabs-container section h2 {
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000336}}
+.content-tabs .tabs-container section .title {
   background-color: #fff;
   padding: 10px 20px;
   margin-right: 6px;
   font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000344}}
+.content-tabs .tabs-container section .title:hover {
+  background-color: #CACACA;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000348}}
+.content-tabs .tabs-container section .title.active {
+  background-color: #7C7C7C;
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000357}}
+.content-tabs .tabs-content-viewport {
+  -webkit-transition: 0.4s height;
+  -moz-transition: 0.4s height;
+  transition: 0.4s height;
+  height: 10px;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000364}}
 .content-tabs .tabs-content-container {
   *zoom: 1;
   position: relative;
-  overflow: hidden;
+  /* disable image drag */
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003101}}
 .content-tabs .tabs-content-container:before, .content-tabs .tabs-content-container:after {
@@ -7508,10 +7536,11 @@ a.th {
 .content-tabs .tabs-content-container:after {
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000373}}
 .content-tabs .tabs-content-container section {
   float: left;
-  background-color: transparent;
+  padding: 12px;
+  background-color: #fff;
 }
 
 /* -----------------------------------------

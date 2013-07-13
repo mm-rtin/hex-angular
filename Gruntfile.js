@@ -99,7 +99,6 @@ module.exports = function(grunt) {
                     // scroller
                     'lib/animate-scroller.js',                      // scroller animation
                     'lib/scroller.js',                              // scroller
-                    'lib/easy-scroller.js',                         // easy scroller
 
                     'lib/perfect-scrollbar.js',                     // custom scrollbar
                     'lib/imagesloaded.js'                           // images loaded

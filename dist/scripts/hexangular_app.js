@@ -1113,7 +1113,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Content Tabs Directive -
-* Requires Modernizr detect: cssanimations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScope, $timeout, $q) {
 
@@ -1128,18 +1127,12 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
         link: function($scope, $element, $attrs) {
 
             // contants
-            var SWIPE_VELOCITY = 0.4;
+            var HEIGHT_PADDING = 24;    // compensate for inacurate height measurement
 
             // properties
-            var windowWidth = 0,
-                cssanimations = false,
-                lastDelta = 0,
-                tabContainerPosition = 0,
-                tabContainerAtStart = false,
-                tabContainerAtEnd = false;
 
             // objects
-            var scroller = null;
+            var throttledUpdateViewportHeight = updateViewportHeight.debounce(250);
 
             // jquery elements
             var $htmlRoot = $('html'),
@@ -1148,7 +1141,8 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 $tabsContainer = $element.find('.tabs-container'),
                 $tabs = $tabsContainer.find('section'),
 
-                $tabsContentContainer = $element.find('.tabs-content-container');
+                $tabsContentViewport = $element.find('.tabs-content-viewport'),
+                $tabsContentContainer = $element.find('.tabs-content-container'),
                 $tabsContent = $tabsContentContainer.find('section'),
 
                 $activeTab = null;
@@ -1156,6 +1150,7 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
             $scope.state = {
                 'tabCount': 0,
                 'currentTabIndex': 0,
+                'viewportWidth': 0,
                 'tabsContainerWidth': 0,
                 'tabsContentContainerWidth': 0,
                 'tabContentWidth': 0
@@ -1167,12 +1162,9 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function initialize() {
 
-                // modernizr detect cssanimations
-                if ($htmlRoot.hasClass('cssanimations')) {
-                    cssanimations = true;
-                }
-
                 renderContentTabs();
+
+                createEventHandlers();
             }
 
              /* createEventHandlers -
@@ -1182,131 +1174,26 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 // window: resized
                 $(window).on('resize', function(e) {
 
-                    // update window height
-                    windowWidth = $(window).width();
-
-                    updateBoundingBox(false);
+                    updateBoundingBox();
                 });
 
+                // element: click
+                $tabs.on('click', function(e) {
 
-                if ('ontouchstart' in window) {
+                    var index = parseInt($(this).data('index'), 10);
+                    setActiveTab(index);
+                });
 
-                    $contentTabs[0].addEventListener("touchstart", function(e) {
+                // touch-scroller:scrolling-complete
+                $scope.$on('touch-scroller:scrolling-complete', function(e, properties) {
 
-                        // Don't react if initial down happens on a form element
-                        if (e.target.tagName.match(/input|textarea|select/i)) {
-                            return;
-                        }
+                    if (properties.scrollerName === 'tabs-content') {
 
-                        scroller.doTouchStart(e.touches, e.timeStamp);
-                        e.preventDefault();
-                    }, false);
-
-                    document.addEventListener("touchmove", function(e) {
-                        scroller.doTouchMove(e.touches, e.timeStamp);
-                    }, false);
-
-                    document.addEventListener("touchend", function(e) {
-                        scroller.doTouchEnd(e.timeStamp);
-                    }, false);
-
-                } else {
-
-                    var mousedown = false;
-
-                    $contentTabs[0].addEventListener("mousedown", function(e) {
-                        // Don't react if initial down happens on a form element
-                        if (e.target.tagName.match(/input|textarea|select/i)) {
-                            return;
-                        }
-
-                        scroller.doTouchStart([{
-                            pageX: e.pageX,
-                            pageY: e.pageY
-                        }], e.timeStamp);
-
-                        mousedown = true;
-                    }, false);
-
-                    document.addEventListener("mousemove", function(e) {
-                        if (!mousedown) {
-                            return;
-                        }
-
-                        scroller.doTouchMove([{
-                            pageX: e.pageX,
-                            pageY: e.pageY
-                        }], e.timeStamp);
-
-                        mousedown = true;
-                    }, false);
-
-                    document.addEventListener("mouseup", function(e) {
-                        if (!mousedown) {
-                            return;
-                        }
-
-                        scroller.doTouchEnd(e.timeStamp);
-
-                        mousedown = false;
-                    }, false);
-
-                }
+                        var index = getCurrentIndex(properties.values.left);
+                        throttledUpdateViewportHeight(index);
+                    }
+                });
             }
-
-
-            /* DOM-based rendering (Uses 3D when available, falls back on margin when transform not available) */
-            var render = (function(global) {
-
-                var docStyle = document.documentElement.style;
-
-                var engine;
-                if (global.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
-                    engine = 'presto';
-                } else if ('MozAppearance' in docStyle) {
-                    engine = 'gecko';
-                } else if ('WebkitAppearance' in docStyle) {
-                    engine = 'webkit';
-                } else if (typeof navigator.cpuClass === 'string') {
-                    engine = 'trident';
-                }
-
-                var vendorPrefix = {
-                    trident: 'ms',
-                    gecko: 'Moz',
-                    webkit: 'Webkit',
-                    presto: 'O'
-                }[engine];
-
-                var helperElem = document.createElement("div");
-                var undef;
-
-                var perspectiveProperty = vendorPrefix + "Perspective";
-                var transformProperty = vendorPrefix + "Transform";
-
-                if (helperElem.style[perspectiveProperty] !== undef) {
-
-                    return function(left, top, zoom) {
-                        $tabsContentContainer[0].style[transformProperty] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')';
-                    };
-
-                } else if (helperElem.style[transformProperty] !== undef) {
-
-                    return function(left, top, zoom) {
-                        $tabsContentContainer[0].style[transformProperty] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
-                    };
-
-                } else {
-
-                    return function(left, top, zoom) {
-                        $tabsContentContainer[0].style.marginLeft = left ? (-left/zoom) + 'px' : '';
-                        $tabsContentContainer[0].style.marginTop = top ? (-top/zoom) + 'px' : '';
-                        $tabsContentContainer[0].style.zoom = zoom || '';
-                    };
-
-                }
-            })(window);
-
 
             /* renderContentTabs -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -1333,20 +1220,22 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                     'width': $scope.state.tabContentWidth + '%'
                 });
 
+                // initialize touch scroller
+                $timeout(function() {
 
-                setTimeout(function() {
+                    updateViewportHeight(0);
+                    updateBoundingBox();
 
-                    // Initialize Scroller
-                    scroller = new Scroller(render, {
-                        scrollingY: false,
-                        paging: true,
-                        bouncing: false
-                    });
+                    $rootScope.$broadcast('touch-scroller:initialize', 'tabs-content');
+                    $rootScope.$broadcast('touch-scroller:initialize', 'tabs');
+                }, 500);
+            }
 
-                    updateBoundingBox(true);
+            /* updateBoundingBox -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function updateBoundingBox() {
 
-                    createEventHandlers();
-                }, 1000);
+                $scope.state.viewportWidth = $element.width();
             }
 
             /* setTabsContentContainerStyle -
@@ -1358,22 +1247,6 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 });
             }
 
-            function updateBoundingBox(updatePosition) {
-
-                var container = $contentTabs[0];
-                var content = $tabsContentContainer[0];
-
-                // Setup Scroller
-                var rect = container.getBoundingClientRect();
-
-                if (updatePosition) {
-                    scroller.setPosition(rect.left+container.clientLeft, rect.top+container.clientTop);
-                }
-
-                scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
-                scroller.setSnapSize($($tabsContent[0]).width(), 100);
-            }
-
             /* setTabsContainerStyle -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setTabsContainerStyle(width, translateAmount) {
@@ -1383,16 +1256,36 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 });
             }
 
+            /* updateViewportHeight -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function updateViewportHeight(index) {
+
+                var height = getSectionHeight(index);
+
+                $tabsContentViewport.css({'height': height + 'px'});
+
+                $scope.state.currentTabIndex = index;
+            }
+
+            /* getCurrentIndex - return index based on scroll position and viewportWidth
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getCurrentIndex(scrollPosition) {
+                return Math.floor(scrollPosition/ $scope.state.viewportWidth);
+            }
+
+            /* getSectionHeight -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getSectionHeight(index) {
+
+                return $tabsContent.eq(index).height() + HEIGHT_PADDING;
+            }
+
             /* setActiveTab -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActiveTab(index) {
 
                 // set active if index greater than -1, less than tabCount
-                if (index > -1 && index < $scope.state.tabCount) {
-
-                    if (cssanimations) {
-                        sliderInTransition = true;
-                    }
+                if (index > -1 && index <= $scope.state.tabCount) {
 
                     // save current index
                     $scope.state.currentTabIndex = index;
@@ -1400,10 +1293,13 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                     // set active slider
                     $activeTab = $tabsContent[index];
 
-                    // calculate translation amount
-                    var translateAmount = index * $scope.state.tabContentWidth;
+                    var properties = {
+                        'scrollerName': 'tabs-content',
+                        'x': $scope.state.viewportWidth * index,
+                        'y': 0
+                    };
 
-                    setTabsContentContainerStyle($scope.state.tabsContentContainerWidth, translateAmount);
+                    $rootScope.$broadcast('touch-scroller:scroll-to', properties);
                 }
             }
 
@@ -1919,6 +1815,253 @@ App.directive('thumbnailGallery', ['$rootScope', '$timeout', function($rootScope
             $scope.isImageFullyViewable = isImageFullyViewable;
             $scope.previousPage = previousPage;
             $scope.nextPage = nextPage;
+        }
+    };
+}]);
+;var App = angular.module('Hexangular');
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Touch Scroller Directive -
+* Requires Modernizr detect: cssanimations, csstransforms, csstransforms3d
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+
+    return {
+        restrict: 'A',
+        replace: false,
+        scope: {
+            'touchScroller': '@',           // scroller name
+            'viewPort': '@',                // visible area
+            'contentContainer': '@',        // content overflow area
+
+            'scrollingX': '@',              // scroll on x
+            'scrollingY': '@',              // scroll on y
+            'paging': '@',                  // pagging on/off
+            'locking': '@',                 // locking on/off
+            'bouncing': '@'                 // bounce on/off
+        },
+
+        link: function($scope, $element, $attrs) {
+
+            // contants
+
+            // properties
+            var cssanimations = false,
+                csstransforms = false,
+                csstransforms3d = false,
+
+                touchStart = null,
+                touchExceeded = false,
+                mousedown = false;
+
+            // objects
+            var scroller = null;
+
+            // jquery elements
+            var $htmlRoot = $('html'),
+                $viewPort = null,
+                $contentContainer = null;
+
+            $scope.state = {
+            };
+
+            initialize();
+
+            /* initialize -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function initialize() {
+
+                // modernizr detect cssanimations
+                if ($htmlRoot.hasClass('cssanimations')) {
+                    cssanimations = true;
+                }
+                // modernizr detect csstransforms
+                if ($htmlRoot.hasClass('csstransforms')) {
+                    csstransforms = true;
+                }
+                // modernizr detect csstransforms3d
+                if ($htmlRoot.hasClass('csstransforms3d')) {
+                    csstransforms3d = true;
+                }
+
+                // event: touch-scroller:initialize
+                $scope.$on('touch-scroller:initialize', function(e, scrollerName) {
+
+                    intializeScroller(scrollerName);
+                });
+
+                // event: touch-scroller:scroll-to
+                $scope.$on('touch-scroller:scroll-to', function(e, properties) {
+
+                    scrollerScrollTo(properties.scrollerName, properties.x, properties.y);
+                });
+            }
+
+            /* intializeScroller -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function intializeScroller(scrollerName) {
+
+                if ($scope.touchScroller === scrollerName) {
+
+                    // set jquery elements
+                    $viewPort = $($scope.viewPort);
+                    $contentContainer = $($scope.contentContainer);
+
+                    // Initialize Scroller
+                    scroller = new Scroller(transformContent, {
+                        scrollingX: ($scope.scrollingX && $scope.scrollingX === 'true') ? true : false,
+                        scrollingY: ($scope.scrollingY && $scope.scrollingY === 'true') ? true : false,
+                        paging: ($scope.paging && $scope.paging === 'true') ? true : false,
+                        locking: ($scope.locking && $scope.locking === 'true') ? true : false,
+                        bouncing: ($scope.bouncing && $scope.bouncing === 'true') ? true : false,
+                        scrollingComplete: scrollingComplete
+                    });
+
+                    updateBoundingBox(true);
+
+                    createEventHandlers();
+                }
+            }
+
+            /* createEventHandlers -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function createEventHandlers() {
+
+                // window: resized
+                $(window).on('resize', function(e) {
+
+                    updateBoundingBox(false);
+                });
+
+                /* mobile touch events */
+                if ('ontouchstart' in window) {
+
+                    // event: touchstart
+                    $viewPort[0].addEventListener("touchstart", function(e) {
+
+                        if (mousedown) return;
+
+                        touchStart = touchEnd = e.touches[0].pageX;
+
+                        touchExceeded = false;
+                        scroller.doTouchStart(e.touches, e.timeStamp);
+                    }, false);
+
+                    // event: touchmove
+                    $viewPort[0].addEventListener("touchmove", function(e) {
+
+                        if (mousedown) return;
+
+                        touchEnd = e.touches[0].pageX;
+
+                        // enable horizontal scrolling if horizontal distance greater than 15
+                        if(touchExceeded || touchStart - touchEnd > 15 || touchEnd - touchStart > 15) {
+
+                            // prevent vertical scrolling
+                            e.preventDefault();
+
+                            touchExceeded = true;
+                            scroller.doTouchMove(e.touches, e.timeStamp);
+                        }
+                    }, false);
+
+                    // event: touchend
+                    $viewPort[0].addEventListener("touchend", function(e) {
+                        scroller.doTouchEnd(e.timeStamp);
+                    }, false);
+                }
+            }
+
+            /* transformContent - create render function
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            var transformContent = (function(global) {
+
+                var docStyle = document.documentElement.style;
+
+                // get vendor prefix
+                var vendorPrefix = '';
+                if (global.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
+                    vendorPrefix = 'O';
+
+                } else if ('MozAppearance' in docStyle) {
+                    vendorPrefix = 'Moz';
+
+                } else if ('WebkitAppearance' in docStyle) {
+                    vendorPrefix = 'Webkit';
+
+                } else if (typeof navigator.cpuClass === 'string') {
+                    vendorPrefix = 'ms';
+                }
+
+                var transformProperty = vendorPrefix + "Transform";
+
+                // return render function
+
+                // 3d transform
+                if (csstransforms3d) {
+
+                    return function(left, top, zoom) {
+                        $contentContainer[0].style[transformProperty] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')';
+                    };
+
+                // 2d transform
+                } else if (csstransforms) {
+
+                    return function(left, top, zoom) {
+                        $contentContainer[0].style[transformProperty] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
+                    };
+
+                // no transforms
+                } else {
+
+                    return function(left, top, zoom) {
+                        $contentContainer[0].style.marginLeft = left ? (-left/zoom) + 'px' : '';
+                        $contentContainer[0].style.marginTop = top ? (-top/zoom) + 'px' : '';
+                        $contentContainer[0].style.zoom = zoom || '';
+                    };
+                }
+
+            })(window);
+
+
+            /* scrollerScrollTo -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollerScrollTo(scrollerName, x, y) {
+
+                if ($scope.touchScroller === scrollerName) {
+
+                    scroller.scrollTo(x, y, true);
+                }
+            }
+
+            /* scrollingComplete -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollingComplete() {
+
+                var properties = {
+                    'values': scroller.getValues(),
+                    'scrollerName': $scope.touchScroller
+                };
+
+                $rootScope.$broadcast('touch-scroller:scrolling-complete', properties);
+            }
+
+            /* updateBoundingBox -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function updateBoundingBox(updatePosition) {
+
+                var container = $viewPort[0];
+                var content = $contentContainer[0];
+
+                // Setup Scroller
+                var rect = container.getBoundingClientRect();
+
+                if (updatePosition) {
+                    scroller.setPosition(rect.left+container.clientLeft, rect.top+container.clientTop);
+                }
+
+                scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
+            }
         }
     };
 }]);

@@ -2,7 +2,6 @@ var App = angular.module('Hexangular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Content Tabs Directive -
-* Requires Modernizr detect: cssanimations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScope, $timeout, $q) {
 
@@ -17,18 +16,12 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
         link: function($scope, $element, $attrs) {
 
             // contants
-            var SWIPE_VELOCITY = 0.4;
+            var HEIGHT_PADDING = 24;    // compensate for inacurate height measurement
 
             // properties
-            var windowWidth = 0,
-                cssanimations = false,
-                lastDelta = 0,
-                tabContainerPosition = 0,
-                tabContainerAtStart = false,
-                tabContainerAtEnd = false;
 
             // objects
-            var scroller = null;
+            var throttledUpdateViewportHeight = updateViewportHeight.debounce(250);
 
             // jquery elements
             var $htmlRoot = $('html'),
@@ -37,7 +30,8 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 $tabsContainer = $element.find('.tabs-container'),
                 $tabs = $tabsContainer.find('section'),
 
-                $tabsContentContainer = $element.find('.tabs-content-container');
+                $tabsContentViewport = $element.find('.tabs-content-viewport'),
+                $tabsContentContainer = $element.find('.tabs-content-container'),
                 $tabsContent = $tabsContentContainer.find('section'),
 
                 $activeTab = null;
@@ -45,6 +39,7 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
             $scope.state = {
                 'tabCount': 0,
                 'currentTabIndex': 0,
+                'viewportWidth': 0,
                 'tabsContainerWidth': 0,
                 'tabsContentContainerWidth': 0,
                 'tabContentWidth': 0
@@ -56,12 +51,9 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function initialize() {
 
-                // modernizr detect cssanimations
-                if ($htmlRoot.hasClass('cssanimations')) {
-                    cssanimations = true;
-                }
-
                 renderContentTabs();
+
+                createEventHandlers();
             }
 
              /* createEventHandlers -
@@ -71,131 +63,26 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 // window: resized
                 $(window).on('resize', function(e) {
 
-                    // update window height
-                    windowWidth = $(window).width();
-
-                    updateBoundingBox(false);
+                    updateBoundingBox();
                 });
 
+                // element: click
+                $tabs.on('click', function(e) {
 
-                if ('ontouchstart' in window) {
+                    var index = parseInt($(this).data('index'), 10);
+                    setActiveTab(index);
+                });
 
-                    $contentTabs[0].addEventListener("touchstart", function(e) {
+                // touch-scroller:scrolling-complete
+                $scope.$on('touch-scroller:scrolling-complete', function(e, properties) {
 
-                        // Don't react if initial down happens on a form element
-                        if (e.target.tagName.match(/input|textarea|select/i)) {
-                            return;
-                        }
+                    if (properties.scrollerName === 'tabs-content') {
 
-                        scroller.doTouchStart(e.touches, e.timeStamp);
-                        e.preventDefault();
-                    }, false);
-
-                    document.addEventListener("touchmove", function(e) {
-                        scroller.doTouchMove(e.touches, e.timeStamp);
-                    }, false);
-
-                    document.addEventListener("touchend", function(e) {
-                        scroller.doTouchEnd(e.timeStamp);
-                    }, false);
-
-                } else {
-
-                    var mousedown = false;
-
-                    $contentTabs[0].addEventListener("mousedown", function(e) {
-                        // Don't react if initial down happens on a form element
-                        if (e.target.tagName.match(/input|textarea|select/i)) {
-                            return;
-                        }
-
-                        scroller.doTouchStart([{
-                            pageX: e.pageX,
-                            pageY: e.pageY
-                        }], e.timeStamp);
-
-                        mousedown = true;
-                    }, false);
-
-                    document.addEventListener("mousemove", function(e) {
-                        if (!mousedown) {
-                            return;
-                        }
-
-                        scroller.doTouchMove([{
-                            pageX: e.pageX,
-                            pageY: e.pageY
-                        }], e.timeStamp);
-
-                        mousedown = true;
-                    }, false);
-
-                    document.addEventListener("mouseup", function(e) {
-                        if (!mousedown) {
-                            return;
-                        }
-
-                        scroller.doTouchEnd(e.timeStamp);
-
-                        mousedown = false;
-                    }, false);
-
-                }
+                        var index = getCurrentIndex(properties.values.left);
+                        throttledUpdateViewportHeight(index);
+                    }
+                });
             }
-
-
-            /* DOM-based rendering (Uses 3D when available, falls back on margin when transform not available) */
-            var render = (function(global) {
-
-                var docStyle = document.documentElement.style;
-
-                var engine;
-                if (global.opera && Object.prototype.toString.call(opera) === '[object Opera]') {
-                    engine = 'presto';
-                } else if ('MozAppearance' in docStyle) {
-                    engine = 'gecko';
-                } else if ('WebkitAppearance' in docStyle) {
-                    engine = 'webkit';
-                } else if (typeof navigator.cpuClass === 'string') {
-                    engine = 'trident';
-                }
-
-                var vendorPrefix = {
-                    trident: 'ms',
-                    gecko: 'Moz',
-                    webkit: 'Webkit',
-                    presto: 'O'
-                }[engine];
-
-                var helperElem = document.createElement("div");
-                var undef;
-
-                var perspectiveProperty = vendorPrefix + "Perspective";
-                var transformProperty = vendorPrefix + "Transform";
-
-                if (helperElem.style[perspectiveProperty] !== undef) {
-
-                    return function(left, top, zoom) {
-                        $tabsContentContainer[0].style[transformProperty] = 'translate3d(' + (-left) + 'px,' + (-top) + 'px,0) scale(' + zoom + ')';
-                    };
-
-                } else if (helperElem.style[transformProperty] !== undef) {
-
-                    return function(left, top, zoom) {
-                        $tabsContentContainer[0].style[transformProperty] = 'translate(' + (-left) + 'px,' + (-top) + 'px) scale(' + zoom + ')';
-                    };
-
-                } else {
-
-                    return function(left, top, zoom) {
-                        $tabsContentContainer[0].style.marginLeft = left ? (-left/zoom) + 'px' : '';
-                        $tabsContentContainer[0].style.marginTop = top ? (-top/zoom) + 'px' : '';
-                        $tabsContentContainer[0].style.zoom = zoom || '';
-                    };
-
-                }
-            })(window);
-
 
             /* renderContentTabs -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -222,20 +109,22 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                     'width': $scope.state.tabContentWidth + '%'
                 });
 
+                // initialize touch scroller
+                $timeout(function() {
 
-                setTimeout(function() {
+                    updateViewportHeight(0);
+                    updateBoundingBox();
 
-                    // Initialize Scroller
-                    scroller = new Scroller(render, {
-                        scrollingY: false,
-                        paging: true,
-                        bouncing: false
-                    });
+                    $rootScope.$broadcast('touch-scroller:initialize', 'tabs-content');
+                    $rootScope.$broadcast('touch-scroller:initialize', 'tabs');
+                }, 500);
+            }
 
-                    updateBoundingBox(true);
+            /* updateBoundingBox -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function updateBoundingBox() {
 
-                    createEventHandlers();
-                }, 1000);
+                $scope.state.viewportWidth = $element.width();
             }
 
             /* setTabsContentContainerStyle -
@@ -247,22 +136,6 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 });
             }
 
-            function updateBoundingBox(updatePosition) {
-
-                var container = $contentTabs[0];
-                var content = $tabsContentContainer[0];
-
-                // Setup Scroller
-                var rect = container.getBoundingClientRect();
-
-                if (updatePosition) {
-                    scroller.setPosition(rect.left+container.clientLeft, rect.top+container.clientTop);
-                }
-
-                scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
-                scroller.setSnapSize($($tabsContent[0]).width(), 100);
-            }
-
             /* setTabsContainerStyle -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setTabsContainerStyle(width, translateAmount) {
@@ -272,16 +145,36 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                 });
             }
 
+            /* updateViewportHeight -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function updateViewportHeight(index) {
+
+                var height = getSectionHeight(index);
+
+                $tabsContentViewport.css({'height': height + 'px'});
+
+                $scope.state.currentTabIndex = index;
+            }
+
+            /* getCurrentIndex - return index based on scroll position and viewportWidth
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getCurrentIndex(scrollPosition) {
+                return Math.floor(scrollPosition/ $scope.state.viewportWidth);
+            }
+
+            /* getSectionHeight -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getSectionHeight(index) {
+
+                return $tabsContent.eq(index).height() + HEIGHT_PADDING;
+            }
+
             /* setActiveTab -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function setActiveTab(index) {
 
                 // set active if index greater than -1, less than tabCount
-                if (index > -1 && index < $scope.state.tabCount) {
-
-                    if (cssanimations) {
-                        sliderInTransition = true;
-                    }
+                if (index > -1 && index <= $scope.state.tabCount) {
 
                     // save current index
                     $scope.state.currentTabIndex = index;
@@ -289,10 +182,13 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                     // set active slider
                     $activeTab = $tabsContent[index];
 
-                    // calculate translation amount
-                    var translateAmount = index * $scope.state.tabContentWidth;
+                    var properties = {
+                        'scrollerName': 'tabs-content',
+                        'x': $scope.state.viewportWidth * index,
+                        'y': 0
+                    };
 
-                    setTabsContentContainerStyle($scope.state.tabsContentContainerWidth, translateAmount);
+                    $rootScope.$broadcast('touch-scroller:scroll-to', properties);
                 }
             }
 
