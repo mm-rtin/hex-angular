@@ -8,18 +8,7 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
 
     return {
         restrict: 'A',
-        replace: false,
-        scope: {
-            'touchScroller': '@',           // scroller name
-            'viewPort': '@',                // visible area
-            'contentContainer': '@',        // content overflow area
-
-            'scrollingX': '@',              // scroll on x
-            'scrollingY': '@',              // scroll on y
-            'paging': '@',                  // pagging on/off
-            'locking': '@',                 // locking on/off
-            'bouncing': '@'                 // bounce on/off
-        },
+        scope: true,
 
         link: function($scope, $element, $attrs) {
 
@@ -81,19 +70,20 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function intializeScroller(scrollerName) {
 
-                if ($scope.touchScroller === scrollerName) {
+                if ($attrs.touchScroller === scrollerName) {
 
                     // set jquery elements
-                    $viewPort = $($scope.viewPort);
-                    $contentContainer = $($scope.contentContainer);
+                    $viewPort = $($attrs.viewPort);
+                    $contentContainer = $($attrs.contentContainer);
 
                     // Initialize Scroller
                     scroller = new Scroller(transformContent, {
-                        scrollingX: ($scope.scrollingX && $scope.scrollingX === 'true') ? true : false,
-                        scrollingY: ($scope.scrollingY && $scope.scrollingY === 'true') ? true : false,
-                        paging: ($scope.paging && $scope.paging === 'true') ? true : false,
-                        locking: ($scope.locking && $scope.locking === 'true') ? true : false,
-                        bouncing: ($scope.bouncing && $scope.bouncing === 'true') ? true : false,
+                        scrollingX: ($attrs.scrollingX && $attrs.scrollingX === 'true') ? true : false,
+                        scrollingY: ($attrs.scrollingY && $attrs.scrollingY === 'true') ? true : false,
+                        paging: ($attrs.paging && $attrs.paging === 'true') ? true : false,
+                        locking: ($attrs.locking && $attrs.locking === 'true') ? true : false,
+                        bouncing: ($attrs.bouncing && $attrs.bouncing === 'true') ? true : false,
+                        animating: ($attrs.animating && $attrs.animating === 'true') ? true : false,
                         scrollingComplete: scrollingComplete
                     });
 
@@ -114,7 +104,7 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
                 });
 
                 /* mobile touch events */
-                if ('ontouchstart' in window) {
+                if ('ontouchstart' in window && $attrs.touch === 'true') {
 
                     // event: touchstart
                     $viewPort[0].addEventListener("touchstart", function(e) {
@@ -208,9 +198,9 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollerScrollTo(scrollerName, x, y) {
 
-                if ($scope.touchScroller === scrollerName) {
+                if ($attrs.touchScroller === scrollerName) {
 
-                    scroller.scrollTo(x, y, true);
+                    scroller.scrollTo(x, y, false);
                 }
             }
 
@@ -220,7 +210,7 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
 
                 var properties = {
                     'values': scroller.getValues(),
-                    'scrollerName': $scope.touchScroller
+                    'scrollerName': $attrs.touchScroller
                 };
 
                 $rootScope.$broadcast('touch-scroller:scrolling-complete', properties);

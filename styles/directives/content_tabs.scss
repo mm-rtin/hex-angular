@@ -34,10 +34,10 @@
             float: left;
 
             .title {
-                background-color: #fff;
+                background-color: rgba(#fff, .6);
                 padding: 10px 20px;
                 margin-right: 6px;
-                font-size: 1.2em;
+                font-size: 1em;
                 font-weight: 600;
                 cursor: pointer;
 
@@ -55,7 +55,6 @@
 
     /* tabs content viewport */
     .tabs-content-viewport {
-        @include transition(.4s height);
         height: 10px;
         overflow: hidden;
     }
@@ -72,8 +71,7 @@
 
         section {
             float: left;
-            padding: 12px;
-            background-color: #fff;
+            padding: 4px;
         }
     }
 }

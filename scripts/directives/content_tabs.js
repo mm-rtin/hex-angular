@@ -7,11 +7,7 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
 
     return {
         restrict: 'A',
-        template: '@@include("../../partials/content_tabs.html")',
-        replace: false,
-        transclude: true,
-        scope: {
-        },
+        scope: true,
 
         link: function($scope, $element, $attrs) {
 
@@ -71,6 +67,11 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
 
                     var index = parseInt($(this).data('index'), 10);
                     setActiveTab(index);
+                });
+
+                // tabsContent: resized
+                $tabsContent.bind('resize', function(e) {
+                    updateViewportHeight($scope.state.currentTabIndex);
                 });
 
                 // touch-scroller:scrolling-complete
@@ -189,6 +190,8 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                     };
 
                     $rootScope.$broadcast('touch-scroller:scroll-to', properties);
+
+                    updateViewportHeight(index);
                 }
             }
 

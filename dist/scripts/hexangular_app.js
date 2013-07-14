@@ -393,7 +393,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen, transitions: state.transitions}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailImageList" width="thumbnailWidth" spacing="4" fullscreen="state.fullscreen"></div></div>',
+        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen, transitions: state.transitions}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}" touch-scroller="tabs-content" view-port=".gallery-container" content-container=".slider-container" scrolling-x="true" paging="true" animation="true"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailImageList" width="thumbnailWidth" spacing="4" fullscreen="state.fullscreen"></div></div>',
         replace: false,
         scope: {
             smallImageList: '=',
@@ -1118,11 +1118,7 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
 
     return {
         restrict: 'A',
-        template: '<div class="content-tabs" ng-transclude></div>',
-        replace: false,
-        transclude: true,
-        scope: {
-        },
+        scope: true,
 
         link: function($scope, $element, $attrs) {
 
@@ -1182,6 +1178,11 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
 
                     var index = parseInt($(this).data('index'), 10);
                     setActiveTab(index);
+                });
+
+                // tabsContent: resized
+                $tabsContent.bind('resize', function(e) {
+                    updateViewportHeight($scope.state.currentTabIndex);
                 });
 
                 // touch-scroller:scrolling-complete
@@ -1300,6 +1301,8 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
                     };
 
                     $rootScope.$broadcast('touch-scroller:scroll-to', properties);
+
+                    updateViewportHeight(index);
                 }
             }
 
@@ -1828,18 +1831,7 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
 
     return {
         restrict: 'A',
-        replace: false,
-        scope: {
-            'touchScroller': '@',           // scroller name
-            'viewPort': '@',                // visible area
-            'contentContainer': '@',        // content overflow area
-
-            'scrollingX': '@',              // scroll on x
-            'scrollingY': '@',              // scroll on y
-            'paging': '@',                  // pagging on/off
-            'locking': '@',                 // locking on/off
-            'bouncing': '@'                 // bounce on/off
-        },
+        scope: true,
 
         link: function($scope, $element, $attrs) {
 
@@ -1901,19 +1893,20 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function intializeScroller(scrollerName) {
 
-                if ($scope.touchScroller === scrollerName) {
+                if ($attrs.touchScroller === scrollerName) {
 
                     // set jquery elements
-                    $viewPort = $($scope.viewPort);
-                    $contentContainer = $($scope.contentContainer);
+                    $viewPort = $($attrs.viewPort);
+                    $contentContainer = $($attrs.contentContainer);
 
                     // Initialize Scroller
                     scroller = new Scroller(transformContent, {
-                        scrollingX: ($scope.scrollingX && $scope.scrollingX === 'true') ? true : false,
-                        scrollingY: ($scope.scrollingY && $scope.scrollingY === 'true') ? true : false,
-                        paging: ($scope.paging && $scope.paging === 'true') ? true : false,
-                        locking: ($scope.locking && $scope.locking === 'true') ? true : false,
-                        bouncing: ($scope.bouncing && $scope.bouncing === 'true') ? true : false,
+                        scrollingX: ($attrs.scrollingX && $attrs.scrollingX === 'true') ? true : false,
+                        scrollingY: ($attrs.scrollingY && $attrs.scrollingY === 'true') ? true : false,
+                        paging: ($attrs.paging && $attrs.paging === 'true') ? true : false,
+                        locking: ($attrs.locking && $attrs.locking === 'true') ? true : false,
+                        bouncing: ($attrs.bouncing && $attrs.bouncing === 'true') ? true : false,
+                        animating: ($attrs.animating && $attrs.animating === 'true') ? true : false,
                         scrollingComplete: scrollingComplete
                     });
 
@@ -1934,7 +1927,7 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
                 });
 
                 /* mobile touch events */
-                if ('ontouchstart' in window) {
+                if ('ontouchstart' in window && $attrs.touch === 'true') {
 
                     // event: touchstart
                     $viewPort[0].addEventListener("touchstart", function(e) {
@@ -2028,9 +2021,9 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollerScrollTo(scrollerName, x, y) {
 
-                if ($scope.touchScroller === scrollerName) {
+                if ($attrs.touchScroller === scrollerName) {
 
-                    scroller.scrollTo(x, y, true);
+                    scroller.scrollTo(x, y, false);
                 }
             }
 
@@ -2040,7 +2033,7 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
 
                 var properties = {
                     'values': scroller.getValues(),
-                    'scrollerName': $scope.touchScroller
+                    'scrollerName': $attrs.touchScroller
                 };
 
                 $rootScope.$broadcast('touch-scroller:scrolling-complete', properties);
