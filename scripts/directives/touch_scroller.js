@@ -124,6 +124,9 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
 
                         touchEnd = e.touches[0].pageX;
 
+                        // get vector instead of X translation
+
+
                         // enable horizontal scrolling if horizontal distance greater than 15
                         if(touchExceeded || touchStart - touchEnd > 15 || touchEnd - touchStart > 15) {
 
