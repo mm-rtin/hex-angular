@@ -17,6 +17,7 @@
     /* tabs content viewport */
     .tabs-viewport {
         overflow: hidden;
+        border-bottom: 2px solid #878685;
 
         * {
             @include user-select(none);
@@ -28,50 +29,75 @@
         @include clearfix();
         position: relative;
         overflow: hidden;
-        height: 50px;
 
         section {
             float: left;
 
-            .title {
-                background-color: rgba(#fff, .6);
-                padding: 10px 20px;
-                margin-right: 6px;
-                font-size: 1em;
-                font-weight: 600;
-                cursor: pointer;
-
+            /* hover on small or larger */
+            @media #{$medium} {
                 &:hover {
-                    background-color: #CACACA;
+                    .title {
+                        background-color: #b7b5b4;
+                    }
                 }
+            }
 
-                &.active {
-                    background-color: #7C7C7C;
+            &.active {
+                .title {
+                    background-color: #878685;
                     color: #fff;
                 }
+            }
+
+            .title {
+                background-color: transparent;
+                padding: 10px 20px;
+                margin-right: 6px;
+                font-size: 0.9em;
+                cursor: pointer;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
             }
         }
     }
 
     /* tabs content viewport */
     .tabs-content-viewport {
-        height: 10px;
         overflow: hidden;
     }
 
     /* tabs content container */
     .tabs-content-container {
-        @include clearfix();
         position: relative;
 
-        /* disable image drag */
-        img {
-            // pointer-events: none;
-        }
-
         section {
-            float: left;
-            padding: 4px;
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+
+            &.active {
+                position: relative;
+                opacity: 1;
+            }
+
+            /* override panel box style */
+            .panel {
+                padding-left: 0px;
+                padding-right: 0px;
+
+                &.box {
+                    border-top: none;
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+
+                    padding: emCalc(9px);
+
+                    @media #{$small} {
+                        padding: emCalc(20px);
+                    }
+                }
+            }
+
         }
     }
 }

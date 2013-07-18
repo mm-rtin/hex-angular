@@ -55,20 +55,25 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
 
                 // event: touch-scroller:initialize
                 $scope.$on('touch-scroller:initialize', function(e, scrollerName) {
-
                     intializeScroller(scrollerName);
                 });
 
                 // event: touch-scroller:scroll-to
                 $scope.$on('touch-scroller:scroll-to', function(e, properties) {
-
                     scrollerScrollTo(properties.scrollerName, properties.x, properties.y);
+                });
+
+                // event: touch-scroller:update-bounding-box
+                $scope.$on('touch-scroller:update-bounding-box', function(e, properties) {
+                    updateBoundingBox(false);
                 });
             }
 
             /* intializeScroller -
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function intializeScroller(scrollerName) {
+
+                console.log('init touch scroller');
 
                 if ($attrs.touchScroller === scrollerName) {
 
@@ -99,46 +104,69 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
 
                 // window: resized
                 $(window).on('resize', function(e) {
-
                     updateBoundingBox(false);
                 });
 
                 /* mobile touch events */
-                if ('ontouchstart' in window && $attrs.touch === 'true') {
+                if ($attrs.touch === 'true') {
 
-                    // event: touchstart
-                    $viewPort[0].addEventListener("touchstart", function(e) {
+                    // viewPort: touchstart
+                    $viewPort.hammer().on('touch', function(e) {
 
-                        if (mousedown) return;
+                        console.log('touch');
 
-                        touchStart = touchEnd = e.touches[0].pageX;
+                        scroller.doTouchStart(e.gesture.touches, e.timeStamp);
+                    });
 
-                        touchExceeded = false;
-                        scroller.doTouchStart(e.touches, e.timeStamp);
-                    }, false);
+                    // horizontal scrolling
+                    if ($attrs.scrollingX && $attrs.scrollingX === 'true') {
 
-                    // event: touchmove
-                    $viewPort[0].addEventListener("touchmove", function(e) {
+                        // viewPort: dragleft
+                        $viewPort.hammer().on('dragleft', function(e) {
+                            console.log('dragleft');
+                            scroller.doTouchMove(e.gesture.touches, e.timeStamp);
 
-                        if (mousedown) return;
-
-                        touchEnd = e.touches[0].pageX;
-
-                        // enable horizontal scrolling if horizontal distance greater than 15
-                        if(touchExceeded || touchStart - touchEnd > 15 || touchEnd - touchStart > 15) {
-
-                            // prevent vertical scrolling
                             e.preventDefault();
+                            e.gesture.preventDefault();
+                        });
 
-                            touchExceeded = true;
-                            scroller.doTouchMove(e.touches, e.timeStamp);
-                        }
-                    }, false);
+                        // viewPort: dragright
+                        $viewPort.hammer().on('dragright', function(e) {
+                            console.log('dragright');
+                            scroller.doTouchMove(e.gesture.touches, e.timeStamp);
 
-                    // event: touchend
-                    $viewPort[0].addEventListener("touchend", function(e) {
+                            e.preventDefault();
+                            e.gesture.preventDefault();
+                        });
+
+                    // vertical scrolling
+                    } else if ($attrs.scrollingY && $attrs.scrollingY === 'true') {
+
+                        // viewPort: dragdown
+                        $viewPort.hammer().on('dragdown', function(e) {
+                            console.log('dragdown');
+
+                            scroller.doTouchMove(e.gesture.touches, e.timeStamp);
+
+                            e.preventDefault();
+                            e.gesture.preventDefault();
+                        });
+
+                        // viewPort: dragup
+                        $viewPort.hammer().on('dragup', function(e) {
+                            console.log('dragup');
+
+                            scroller.doTouchMove(e.gesture.touches, e.timeStamp);
+
+                            e.preventDefault();
+                            e.gesture.preventDefault();
+                        });
+                    }
+
+                    // viewPort: release
+                    $viewPort.hammer().on('dragend', function(e) {
                         scroller.doTouchEnd(e.timeStamp);
-                    }, false);
+                    });
                 }
             }
 
@@ -163,7 +191,7 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
                     vendorPrefix = 'ms';
                 }
 
-                var transformProperty = vendorPrefix + "Transform";
+                var transformProperty = vendorPrefix + 'Transform';
 
                 // return render function
 

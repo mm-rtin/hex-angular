@@ -7467,20 +7467,20 @@ a.th {
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000318}}
 .content-tabs .tabs-viewport {
   overflow: hidden;
+  border-bottom: 2px solid #878685;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000322}}
 .content-tabs .tabs-viewport * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000328}}
 .content-tabs .tabs-container {
   *zoom: 1;
   position: relative;
   overflow: hidden;
-  height: 50px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003101}}
 .content-tabs .tabs-container:before, .content-tabs .tabs-container:after {
@@ -7494,49 +7494,66 @@ a.th {
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000333}}
 .content-tabs .tabs-container section {
   float: left;
+  /* hover on small or larger */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000336}}
-.content-tabs .tabs-container section .title {
-  background-color: rgba(255, 255, 255, 0.6);
-  padding: 10px 20px;
-  margin-right: 6px;
-  font-size: 1em;
-  font-weight: 600;
-  cursor: pointer;
+@media only screen and (min-width: 1280px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000339}}
+  .content-tabs .tabs-container section:hover .title {
+    background-color: #b7b5b4;
+  }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000344}}
-.content-tabs .tabs-container section .title:hover {
-  background-color: #CACACA;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000348}}
-.content-tabs .tabs-container section .title.active {
-  background-color: #7C7C7C;
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000346}}
+.content-tabs .tabs-container section.active .title {
+  background-color: #878685;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000352}}
+.content-tabs .tabs-container section .title {
+  background-color: transparent;
+  padding: 10px 20px;
+  margin-right: 6px;
+  font-size: 0.9em;
+  cursor: pointer;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000365}}
 .content-tabs .tabs-content-viewport {
-  height: 10px;
   overflow: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000370}}
 .content-tabs .tabs-content-container {
-  *zoom: 1;
   position: relative;
-  /* disable image drag */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003101}}
-.content-tabs .tabs-content-container:before, .content-tabs .tabs-content-container:after {
-  content: " ";
-  display: table;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003102}}
-.content-tabs .tabs-content-container:after {
-  clear: both;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000373}}
 .content-tabs .tabs-content-container section {
-  float: left;
-  padding: 4px;
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  /* override panel box style */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000378}}
+.content-tabs .tabs-content-container section.active {
+  position: relative;
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000384}}
+.content-tabs .tabs-content-container section .panel {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000388}}
+.content-tabs .tabs-content-container section .panel.box {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 0.5625em;
+}
+@media only screen and (min-width: 768px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/styles\/directives\/content_tabs\.scss}line{font-family:\0000388}}
+  .content-tabs .tabs-content-container section .panel.box {
+    padding: 1.25em;
+  }
 }
 
 /* -----------------------------------------
