@@ -42,13 +42,22 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.smallImages = [
         {
-            url: 'http://placekitten.com/500/500'
+            url: 'http://placekitten.com/500/480'
         },
         {
-            url: 'http://placekitten.com/501/499'
+            url: 'http://placekitten.com/505/490'
         },
         {
-            url: 'http://placekitten.com/499/500'
+            url: 'http://placekitten.com/510/500'
+        },
+        {
+            url: 'http://placekitten.com/520/480'
+        },
+        {
+            url: 'http://placekitten.com/530/490'
+        },
+        {
+            url: 'http://placekitten.com/540/500'
         }
     ];
 
@@ -57,35 +66,62 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/900/800'
         },
         {
-            url: 'http://placekitten.com/901/699'
+            url: 'http://placekitten.com/1000/700'
         },
         {
-            url: 'http://placekitten.com/999/600'
+            url: 'http://placekitten.com/1100/600'
+        },
+        {
+            url: 'http://placekitten.com/1300/800'
+        },
+        {
+            url: 'http://placekitten.com/600/1700'
+        },
+        {
+            url: 'http://placekitten.com/900/900'
         }
     ];
 
     $scope.largeImages = [
         {
+            url: 'http://placekitten.com/1300/900'
+        },
+        {
+            url: 'http://placekitten.com/1250/800'
+        },
+        {
+            url: 'http://placekitten.com/900/600'
+        },
+        {
+            url: 'http://placekitten.com/1440/900'
+        },
+        {
+            url: 'http://placekitten.com/800/1800'
+        },
+        {
             url: 'http://placekitten.com/1200/1200'
-        },
-        {
-            url: 'http://placekitten.com/1201/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1201'
         }
     ];
 
 
     $scope.thumbnailImages = [
         {
-            url: 'http://placekitten.com/251/150'
+            url: 'http://placekitten.com/250/150'
         },
         {
-            url: 'http://placekitten.com/252/150'
+            url: 'http://placekitten.com/255/150'
         },
         {
-            url: 'http://placekitten.com/253/150'
+            url: 'http://placekitten.com/260/150'
+        },
+        {
+            url: 'http://placekitten.com/270/150'
+        },
+        {
+            url: 'http://placekitten.com/280/150'
+        },
+        {
+            url: 'http://placekitten.com/290/150'
         }
     ];
 
@@ -393,7 +429,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
     return {
         restrict: 'A',
-        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen, transitions: state.transitions}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-class="{active: state.sliderActive}" touch-scroller="tabs-content" view-port=".gallery-container" content-container=".slider-container" scrolling-x="true" paging="true" animation="true"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailImageList" width="thumbnailWidth" spacing="4" fullscreen="state.fullscreen"></div></div>',
+        template: '<div class="content-gallery" ng-class="{fullscreen: state.fullscreen, embedded: !state.fullscreen, transitions: state.transitions}"><!-- gallery interface --><div class="gallery-interface" ng-style="galleryInterfaceStyle"><!-- zoom --><div class="zoom-button only-icon icon-zoom-out" ng-show="state.fullscreen" ng-tap="disableFullscreen()"></div><div class="zoom-button only-icon icon-zoom-in" ng-show="!state.fullscreen" ng-tap="enableFullscreen()"></div><!-- next slide --><div class="activation-area next" ng-tap="nextSlide()" ng-hide="state.slideCount - 1 == state.currentSlideIndex"><div class="navigation-button next only-icon icon-chevron-right"></div></div><!-- previous slide --><div class="activation-area previous" ng-tap="previousSlide()" ng-hide="state.currentSlideIndex == 0"><div class="navigation-button previous only-icon icon-chevron-left"></div></div><!-- scroll up --><div class="activation-area up" ng-mousedown="scrollUp()" ng-hide="imageList[state.currentSlideIndex].atTop || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button up only-icon icon-chevron-up"></div></div><!-- scroll down --><div class="activation-area down" ng-mousedown="scrollDown()" ng-hide="imageList[state.currentSlideIndex].atBottom || !isImageTallerThanWindow() || !state.fullscreen"><div class="scroll-button down only-icon icon-chevron-down"></div></div></div><div class="gallery-container" ng-style="galleryContainerStyle" ng-class="{active: state.sliderActive}" touch-scroller="tabs-content" view-port=".gallery-container" content-container=".slider-container" scrolling-x="true" paging="true" animation="true"><!-- slider container --><div class="slider-container" ng-style="sliderContainerStyle"><div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList"><img class="image-content" ng-src="[[ image.url ]]"></div></div></div><!-- directive: thumbnail-gallery --><div thumbnail-gallery thumbnail-list="thumbnailImageList" width="thumbnailWidth" spacing="4" fullscreen="state.fullscreen"></div></div>',
         replace: false,
         scope: {
             smallImageList: '=',
@@ -460,6 +496,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
             };
 
             $scope.sliderContainerStyle = {};
+            $scope.galleryContainerStyle = {};
             $scope.galleryInterfaceStyle = {};
             $scope.sliderStyle = {};
 
@@ -889,10 +926,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                 if (activeHeight > 0) {
 
-                    var galleryStyles = {
-                        'padding-top': 0
-                    };
-
+                    var galleryStyles = {};
 
                     // fullscreen
                     if ($scope.state.fullscreen) {
@@ -905,8 +939,14 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                         }
 
                         // gallery styles
-                        galleryStyles['padding-top'] = topPadding + 'px';
-                        galleryStyles['height'] = fullScreenWindowHeight + 'px';
+                        galleryStyles = {
+                            'height': fullScreenWindowHeight + 'px',
+                            '-webkit-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                            '-moz-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                            '-ms-transform': 'translate(0px, ' + topPadding + 'px)',
+                            '-o-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                            'transform': 'translate3d(0px, ' + topPadding + 'px, 0px)'
+                        };
 
                     // embedded
                     } else {
@@ -915,8 +955,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                         galleryStyles['height'] = activeHeight + 'px';
                     }
 
+                    console.log(galleryStyles);
+
                     // set styles
-                    $galleryContainer.css(galleryStyles);
+                    $scope.galleryContainerStyle = galleryStyles;
                 }
             }
 

@@ -75,6 +75,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
             };
 
             $scope.sliderContainerStyle = {};
+            $scope.galleryContainerStyle = {};
             $scope.galleryInterfaceStyle = {};
             $scope.sliderStyle = {};
 
@@ -504,10 +505,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                 if (activeHeight > 0) {
 
-                    var galleryStyles = {
-                        'padding-top': 0
-                    };
-
+                    var galleryStyles = {};
 
                     // fullscreen
                     if ($scope.state.fullscreen) {
@@ -520,8 +518,14 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                         }
 
                         // gallery styles
-                        galleryStyles['padding-top'] = topPadding + 'px';
-                        galleryStyles['height'] = fullScreenWindowHeight + 'px';
+                        galleryStyles = {
+                            'height': fullScreenWindowHeight + 'px',
+                            '-webkit-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                            '-moz-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                            '-ms-transform': 'translate(0px, ' + topPadding + 'px)',
+                            '-o-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                            'transform': 'translate3d(0px, ' + topPadding + 'px, 0px)'
+                        };
 
                     // embedded
                     } else {
@@ -530,8 +534,10 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                         galleryStyles['height'] = activeHeight + 'px';
                     }
 
+                    console.log(galleryStyles);
+
                     // set styles
-                    $galleryContainer.css(galleryStyles);
+                    $scope.galleryContainerStyle = galleryStyles;
                 }
             }
 

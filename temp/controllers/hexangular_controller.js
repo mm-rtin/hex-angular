@@ -18,13 +18,22 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.smallImages = [
         {
-            url: 'http://placekitten.com/500/500'
+            url: 'http://placekitten.com/500/480'
         },
         {
-            url: 'http://placekitten.com/501/499'
+            url: 'http://placekitten.com/505/490'
         },
         {
-            url: 'http://placekitten.com/499/500'
+            url: 'http://placekitten.com/510/500'
+        },
+        {
+            url: 'http://placekitten.com/520/480'
+        },
+        {
+            url: 'http://placekitten.com/530/490'
+        },
+        {
+            url: 'http://placekitten.com/540/500'
         }
     ];
 
@@ -33,35 +42,62 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
             url: 'http://placekitten.com/900/800'
         },
         {
-            url: 'http://placekitten.com/901/699'
+            url: 'http://placekitten.com/1000/700'
         },
         {
-            url: 'http://placekitten.com/999/600'
+            url: 'http://placekitten.com/1100/600'
+        },
+        {
+            url: 'http://placekitten.com/1300/800'
+        },
+        {
+            url: 'http://placekitten.com/600/1700'
+        },
+        {
+            url: 'http://placekitten.com/900/900'
         }
     ];
 
     $scope.largeImages = [
         {
+            url: 'http://placekitten.com/1300/900'
+        },
+        {
+            url: 'http://placekitten.com/1250/800'
+        },
+        {
+            url: 'http://placekitten.com/900/600'
+        },
+        {
+            url: 'http://placekitten.com/1440/900'
+        },
+        {
+            url: 'http://placekitten.com/800/1800'
+        },
+        {
             url: 'http://placekitten.com/1200/1200'
-        },
-        {
-            url: 'http://placekitten.com/1201/1200'
-        },
-        {
-            url: 'http://placekitten.com/1200/1201'
         }
     ];
 
 
     $scope.thumbnailImages = [
         {
-            url: 'http://placekitten.com/251/150'
+            url: 'http://placekitten.com/250/150'
         },
         {
-            url: 'http://placekitten.com/252/150'
+            url: 'http://placekitten.com/255/150'
         },
         {
-            url: 'http://placekitten.com/253/150'
+            url: 'http://placekitten.com/260/150'
+        },
+        {
+            url: 'http://placekitten.com/270/150'
+        },
+        {
+            url: 'http://placekitten.com/280/150'
+        },
+        {
+            url: 'http://placekitten.com/290/150'
         }
     ];
 
