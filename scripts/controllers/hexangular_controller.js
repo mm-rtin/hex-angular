@@ -18,13 +18,13 @@ var HexangularController = function($rootScope, $scope, $http, $routeParams) {
 
     $scope.smallImages = [
         {
-            url: 'http://placekitten.com/500/480'
+            url: 'http://placekitten.com/500/800'
         },
         {
             url: 'http://placekitten.com/505/490'
         },
         {
-            url: 'http://placekitten.com/510/500'
+            url: 'http://placekitten.com/510/820'
         },
         {
             url: 'http://placekitten.com/520/480'

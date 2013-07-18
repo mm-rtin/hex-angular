@@ -28,12 +28,12 @@
         </div>
     </div>
 
-    <div class="gallery-container" ng-style="galleryContainerStyle" ng-class="{active: state.sliderActive}" touch-scroller="tabs-content" view-port=".gallery-container" content-container=".slider-container" scrolling-x="true" paging="true" animation="true">
+    <div class="gallery-container" ng-style="galleryContainerStyle" ng-class="{active: state.slideActive}">
 
-        <!-- slider container -->
-        <div class="slider-container" ng-style="sliderContainerStyle">
+        <!-- slide container -->
+        <div class="slide-container" ng-style="slideContainerStyle">
 
-            <div class="slider slider-[[ key ]]" ng-style="sliderStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList">
+            <div class="slide slide-[[ key ]]" ng-style="slideStyle" ng-class="{active: key == state.currentSlideIndex}" ng-repeat="(key, image) in imageList">
                 <img class="image-content" ng-src="[[ image.url ]]">
             </div>
 

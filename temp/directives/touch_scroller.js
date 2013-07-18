@@ -73,9 +73,9 @@ App.directive('touchScroller', ['$rootScope', '$timeout', function($rootScope, $
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function intializeScroller(scrollerName) {
 
-                console.log('init touch scroller');
-
                 if ($attrs.touchScroller === scrollerName) {
+
+                    console.log('init touch scroller', scrollerName);
 
                     // set jquery elements
                     $viewPort = $($attrs.viewPort);

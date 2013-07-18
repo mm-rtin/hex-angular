@@ -101,7 +101,9 @@ module.exports = function(grunt) {
                     'lib/scroller.js',                              // scroller
 
                     'lib/perfect-scrollbar.js',                     // custom scrollbar
-                    'lib/imagesloaded.js'                           // images loaded
+                    'lib/imagesloaded.js',                          // images loaded
+
+                    'lib/raf.js'                                    // request animation frame polyfill
                 ],
 
                 dest: 'dist/scripts/hexangular_lib.js'
