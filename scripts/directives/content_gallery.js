@@ -145,7 +145,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                     // load new gallery
                     if (gallerySize !== currentGallerySize) {
-                        console.log('switch gallery from: ', currentGallerySize, gallerySize);
 
                         currentGallerySize = gallerySize;
 
@@ -195,7 +194,7 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                         var delta = e.gesture.deltaY;
 
-                        scrollCurrentSlide(delta);
+                        scrollCurrentSlideBy(delta);
 
                         e.gesture.preventDefault();
                     }
@@ -219,15 +218,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                 // content gallery: tap
                 $contentGallery.hammer().on('tap', function(e) {
                     disableSlideNavigation = false;
-                });
-
-                // content gallery: doubletap
-                $contentGallery.hammer().on('doubletap', function(e) {
-
-                    $rootScope.safeApply(function() {
-                        // enableFullscreen();
-                    });
-
                 });
 
                 // content gallery: tap
@@ -495,6 +485,8 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                     setGalleryHeight();
 
+                    resetScroll();
+
                     // broadcast active selection
                     if (emitEvent) {
                         $scope.$broadcast('content-gallery:set-active', index);
@@ -509,8 +501,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                 // get active slider element
                 windowHeight = $(window).height();
                 var activeHeight = $activeSlider.height();
-
-                console.log(windowHeight, activeHeight);
 
                 if (activeHeight > 0) {
 
@@ -542,8 +532,6 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                     // set styles
                     $galleryContainer.css(galleryStyles);
-
-                    resetScroll();
                 }
             }
 
@@ -577,13 +565,27 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                     delta = delta / 3;
 
                     // set new scroll position
-                    scrollCurrentSlide(delta);
+                    scrollCurrentSlideBy(delta);
                 }
             }
 
-            /* scrollCurrentSlide - move current slide vertical position
+            /* scrollCurrentSlideBy - add delta to current vertical position
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-            function scrollCurrentSlide(delta) {
+            function scrollCurrentSlideBy(delta) {
+
+                var yPosition = currentSlide.yPos;
+
+                yPosition += delta - lastDelta;
+
+                lastDelta = delta;
+
+                // scroll slide to new yPosition
+                scrollCurrentSlideTo(yPosition);
+            }
+
+            /* scrollCurrentSlideByTo - set new vertical position
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollCurrentSlideTo(yPosition) {
 
                 // get window and image height
                 var $image = $activeSlider.find('img'),
@@ -593,35 +595,33 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
 
                 $rootScope.safeApply(function() {
 
-                    // add scroll direction to current y position
-                    currentSlide.yPos += delta - lastDelta;
                     currentSlide.atBottom = false;
                     currentSlide.atTop = false;
 
                     // restrict scroll down amount
-                    if (currentSlide.yPos <= negativeScrollLimit) {
-                        currentSlide.yPos = negativeScrollLimit;
+                    if (yPosition <= negativeScrollLimit) {
+                        yPosition = negativeScrollLimit;
                         currentSlide.atBottom = true;
                         currentSlide.atTop = false;
                     }
 
                     // restrict scroll up amount
-                    if (currentSlide.yPos >= 0) {
-                        currentSlide.yPos = 0;
+                    if (yPosition >= 0) {
+                        yPosition = 0;
                         currentSlide.atBottom = false;
                         currentSlide.atTop = true;
                     }
                 });
 
-                lastDelta = delta;
+                currentSlide.yPos = yPosition;
 
                 // apply styles
                 $activeSlider.css({
-                    '-webkit-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
-                    '-moz-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
-                    '-ms-transform': 'translate(0px, ' + currentSlide.yPos + 'px)',
-                    '-o-transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)',
-                    'transform': 'translate3d(0px, ' + currentSlide.yPos + 'px, 0px)'
+                    '-webkit-transform': 'translate3d(0px, ' + yPosition + 'px, 0px)',
+                    '-moz-transform': 'translate3d(0px, ' + yPosition + 'px, 0px)',
+                    '-ms-transform': 'translate(0px, ' + yPosition + 'px)',
+                    '-o-transform': 'translate3d(0px, ' + yPosition + 'px, 0px)',
+                    'transform': 'translate3d(0px, ' + yPosition + 'px, 0px)'
                 });
             }
 
@@ -639,11 +639,13 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
                 }
             }
 
-            /* resetScroll - reset scroll position to either 0
+            /* resetScroll - reset scroll position to 0
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function resetScroll() {
 
+                console.log('reset scroll');
                 lastDelta = 0;
+                scrollCurrentSlideTo(0);
             }
 
             /* nextSlide -
@@ -661,14 +663,14 @@ App.directive('contentGallery', ['$rootScope', '$timeout', '$q', function($rootS
             /* scrollUp - scroll up in fixed increment
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollUp() {
-                scrollCurrentSlide(100);
+                scrollCurrentSlideBy(100);
                 lastDelta = 0;
             }
 
             /* scrollDown - scroll down in fixed increment
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
             function scrollDown() {
-                scrollCurrentSlide(-100);
+                scrollCurrentSlideBy(-100);
                 lastDelta = 0;
             }
 
