@@ -27,4 +27,17 @@ App.controller('ModalController', ['$rootScope', '$scope', '$http', '$routeParam
 
     }
 
+    /* showModal -
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    function showModal() {
+
+        $scope.$broadcast('modal:show', 'hexModal');
+    }
+
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    * Scope Methods
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    $scope.showModal = showModal;
+
+
 }]);

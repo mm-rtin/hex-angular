@@ -11,7 +11,7 @@ App.config(['$routeProvider', function($routeProvider) {
         )
         .when(
             '/vertical_tags/',
-            {controller: 'VerticalTagsController', template: '<h2>Vertical Tags</h2>'}
+            {controller: 'VerticalTagsController', template: '<h2>Vertical Tags</h2><div vertical-tags tags="verticalTags.tags" selected-tags="verticalTags.selectedTags"></div>'}
         )
         .when(
             '/auto_complete/',
@@ -27,6 +27,6 @@ App.config(['$routeProvider', function($routeProvider) {
         )
         .when(
             '/modal/',
-            {controller: 'ModalController', template: '<h2>Modal</h2>'}
+            {controller: 'ModalController', template: '<div class="row"><div class="large-12 columns"><!-- directive: modal --><div modal modal-name="hexModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button class="close icon-remove" ng-click="hideModal()"></button><h4 class="modal-title">Modal Heading</h4></div><div class="modal-body"><h4>Text in a modal</h4><p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p><h4>Overflowing text to show scroll behavior</h4><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p></div><div class="modal-footer"><button class="secondary" ng-click="hideModal()">Close</button><button class="primary">Save changes</button></div></div></div></div><h2>Modal</h2><button class="alert" ng-click="showModal()">Show Model</button></div></div>'}
         );
 }]);

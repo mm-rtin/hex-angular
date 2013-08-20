@@ -19,6 +19,7 @@
 @import 'directives/content_gallery';
 @import 'directives/thumbnail_gallery';
 @import 'directives/content_tabs';
+@import 'directives/modal';
 
 /* -----------------------------------------
    ANGULAR JS
@@ -49,7 +50,6 @@ html, body {
 }
 
 .overflow-hidden {
-    overflow: hidden;
 
     body {
       overflow: hidden;

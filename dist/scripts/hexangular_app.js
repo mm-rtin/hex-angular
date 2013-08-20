@@ -209,6 +209,19 @@ App.controller('ModalController', ['$rootScope', '$scope', '$http', '$routeParam
 
     }
 
+    /* showModal -
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    function showModal() {
+
+        $scope.$broadcast('modal:show', 'hexModal');
+    }
+
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    * Scope Methods
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    $scope.showModal = showModal;
+
+
 }]);;var App = angular.module('Hexangular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1375,6 +1388,150 @@ App.directive('contentTabs', ['$rootScope', '$timeout', '$q', function($rootScop
 ;var App = angular.module('Hexangular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Modal Directive -
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+App.directive('modal', ['$rootScope', function($rootScope) {
+
+    // constants
+
+    return {
+        restrict: 'A',
+        template: '',
+        templateUrl: '',
+        replace: false,
+        scope: {
+            'modalName': '@'
+        },
+
+        link: function($scope, $element, $attrs) {
+
+            // jquery elements
+            var $htmlRoot = $('html'),
+                $modal = $element,
+                $backdrop = null;
+
+            // scope data
+            $scope.state = {
+                'open': false
+            };
+
+            initialize();
+
+            // wait for scope data before intialization
+            $scope.$watch('property', function(property, oldValue) {
+            });
+
+
+            /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            * initialize -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function initialize() {
+
+                $backdrop = $('<div class="modal-backdrop fade"></div>').appendTo(document.body);
+
+                createEventListeners();
+            }
+
+            /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            * createEventListeners -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function createEventListeners() {
+
+                // modal:show
+                $scope.$on('modal:show', function(e, modalName) {
+                    console.log($attrs.modalName, modalName);
+
+                    if ($attrs.modalName === modalName) {
+                        showModal();
+                    }
+                });
+
+                // modal:hide
+                $scope.$on('modal:hide', function(e, modalName) {
+                    console.log($attrs.modalName, modalName);
+
+                    if ($attrs.modalName === modalName) {
+                        hideModal();
+                    }
+                });
+
+                // element: click
+                $element.on('click', function(e) {
+
+                    var inModalContent = $(e.target).closest('.modal-content').length;
+
+                    if (inModalContent === 0) {
+                        hideModal();
+                    }
+                });
+            }
+
+            /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            * showModal -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function showModal() {
+
+                showBackdrop();
+
+                $modal.css({'display': 'block'});
+
+                setTimeout(function() {
+                    $modal.addClass('in');
+                    $htmlRoot.addClass('overflow-hidden');
+                }, 100);
+            }
+
+            /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            * hideModal -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function hideModal() {
+
+                $modal.removeClass('in');
+
+                setTimeout(function() {
+                    $modal.css({'display': 'none'});
+                }, 300);
+
+                setTimeout(function() {
+                    hideBackdrop();
+                    $htmlRoot.removeClass('overflow-hidden');
+                }, 300);
+            }
+
+            /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            * showBackdrop -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function showBackdrop() {
+
+                $backdrop.css({'display': 'block'});
+
+                setTimeout(function() {
+                    $backdrop.addClass('in');
+                }, 10);
+            }
+
+            /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            * hideBackdrop -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function hideBackdrop() {
+
+                $backdrop.removeClass('in');
+
+                setTimeout(function() {
+                    $backdrop.css({'display': 'none'});
+                }, 300);
+            }
+
+            /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            * Scope Methods
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+        }
+    };
+}]);
+;var App = angular.module('Hexangular');
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ngTap Directive -
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('ngTap', ['$rootScope', function($rootScope) {
@@ -2150,7 +2307,7 @@ App.config(['$routeProvider', function($routeProvider) {
         )
         .when(
             '/vertical_tags/',
-            {controller: 'VerticalTagsController', template: '<h2>Vertical Tags</h2>'}
+            {controller: 'VerticalTagsController', template: '<h2>Vertical Tags</h2><div vertical-tags tags="verticalTags.tags" selected-tags="verticalTags.selectedTags"></div>'}
         )
         .when(
             '/auto_complete/',
@@ -2166,7 +2323,7 @@ App.config(['$routeProvider', function($routeProvider) {
         )
         .when(
             '/modal/',
-            {controller: 'ModalController', template: '<h2>Modal</h2>'}
+            {controller: 'ModalController', template: '<div class="row"><div class="large-12 columns"><!-- directive: modal --><div modal modal-name="hexModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button class="close icon-remove" ng-click="hideModal()"></button><h4 class="modal-title">Modal Heading</h4></div><div class="modal-body"><h4>Text in a modal</h4><p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p><h4>Overflowing text to show scroll behavior</h4><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p></div><div class="modal-footer"><button class="secondary" ng-click="hideModal()">Close</button><button class="primary">Save changes</button></div></div></div></div><h2>Modal</h2><button class="alert" ng-click="showModal()">Show Model</button></div></div>'}
         );
 }]);
 ;angular.module('fundoo.services', []).factory('createDialog', ["$document", "$compile", "$rootScope", "$controller", "$timeout",
