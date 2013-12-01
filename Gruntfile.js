@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-    // hexangular project configuration
+    // Overmind project configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -8,72 +8,169 @@ module.exports = function(grunt) {
         * clean - removes compiled and temp directories
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
         clean: {
-            dev: ['dist', 'temp']
+            dev: {
+                src: ['dist', 'temp']
+            },
+
+            // fixes bug with ngmin
+            ng_min: {
+                src: ['dist/dist']
+            }
         },
 
         /**~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        * sass -
+        * copy - copy partials to /dist
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+        copy: {
+            partials: {
+                files: [
+                    {expand: true, cwd: 'src/', src: ['partials/**'], dest: 'dist/'},
+                    {expand: true, cwd: 'src/', src: ['images/**'], dest: 'dist/'},
+                    {expand: true, cwd: 'src/', src: ['fonts/**'], dest: 'dist/'},
+                    {expand: true, cwd: 'src/', src: ['meta/**'], dest: 'dist/'},
+
+                    // hex-angular partials
+                    {expand: true, cwd: 'src/hex_angular/directives/', src: ['**/*.html'], dest: 'dist/partials/hex_angular/'}
+                ]
+            },
+
+            // fixes bug with ngmin
+            ng_min: {
+                files: [
+                    {src: ['dist/dist/scripts/hexangular_app.js'], dest: 'dist/scripts/hexangular_app.js'},
+                ]
+            }
+        },
+
+        /**~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        * sass - compile scss to css
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
         sass: {
             // production css
             prod: {
                 options: {
                     style: 'compressed',
+                    quiet: true,
 
                     // import app styles
                     loadPath: [
-                        'styles/',
-                        'styles/vendor'
+                        'src/styles/'
                     ]
                 },
                 files: {
+                    // library
+                    'dist/styles/library.min.css': [
+                        'src/styles/library.scss'
+                    ],
+
+                    // components
+                    'dist/styles/components.min.css': [
+                        'src/styles/components.scss'
+                    ],
+
+                    // hex_angular
+                    'dist/styles/hex_angular.min.css': [
+                        'src/hex_angular/hex_angular.scss'
+                    ],
+
+                    // app specific
                     'dist/styles/app.min.css': [
-                        'styles/app.scss'
+                        'src/styles/app.scss'
                     ]
                 }
             },
+
             // dev css
             dev: {
                 options: {
                     style: 'expanded',
                     debugInfo: true,
                     lineNumbers: true,
+                    quiet: true,
 
                     // import app styles
                     loadPath: [
-                        'styles/',
-                        'styles/vendor'
+                        'src/styles/'
                     ]
                 },
                 files: {
+
+                    // library
+                    'dist/styles/library.css': [
+                        'src/styles/library.scss'
+                    ],
+
+                    // components
+                    'dist/styles/components.css': [
+                        'src/styles/components.scss'
+                    ],
+
+                    // hex_angular
+                    'dist/styles/hex_angular.css': [
+                        'src/hex_angular/hex_angular.scss'
+                    ],
+
+                    // app specific
                     'dist/styles/app.css': [
-                        'styles/app.scss'
+                        'src/styles/app.scss'
                     ]
                 }
             }
         },
 
         /**~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        * includereplace - translude partial .html files as single line string in directives .js files
-        * requires custom include replace addition: includeContents = includeContents.replace(/(\r\n|\n|\r|\s\s\s\s)/gm,"");
+        * jshint - lint js
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-        includereplace: {
-            dist: {
+        jshint: {
+            all: {
                 options: {
-                    // Global variables available in all files
+
+                    // environment
+                    browser: true,
+
+                    // enforce
+                    latedef: 'nofunc',
+                    quotmark: 'single',
+                    eqnull: true,
+                    forin: true,
+                    bitwise: true,
+                    noempty: true,
+                    undef: true,
+                    strict: true,
+                    trailing: true,
+                    maxparams: 10,
+                    maxdepth: 4,
+                    maxstatements: 75,
+                    maxcomplexity: 15,
+
+                    // global definitions
                     globals: {
-                        var1: 'one',
-                        var2: 'two',
-                        var3: 'three'
+                        jQuery: true,
+                        angular: true,
+                        $: true,
+
+                        // libraries
+                        qq: true,
+                        moment: true,
+                        Opentip: true,
+                        AnimationFrame: true,
+                        Modernizr: true,
+
+                        // browser
+                        log: true,
+                        console: true,
+                        confirm: true,
+                        opera: true
                     },
-                    // Optional variable prefix & suffix, defaults as shown
-                    prefix: '@@',
-                    suffix: ''
+
+                    // ignores
+                    '-W069': true,
+
+                    ignores: ['**/utility_service.js']
                 },
-                // Files to perform replacements and includes with
-                src: 'scripts/**/*.js',
-                // Destinaion directory to copy files to
-                dest: 'temp/'
+                src: [
+                    'src/scripts/**/*.js'
+                ]
             }
         },
 
@@ -85,35 +182,83 @@ module.exports = function(grunt) {
                 separator: ';'
             },
 
+            // modernizr
+            modernizr: {
+                src: [
+                    'src/lib/custom.modernizr.js'
+                ],
+                dest: 'dist/scripts/custom.modernizr.js'
+            },
+
+
+            // angular_lib
+            angular_lib: {
+                src: [
+                    'src/lib/angular/angular-route.js',
+                    'src/lib/angular/angular-sanitize.js',
+                    'src/lib/angular/angular-touch.js',
+                    'src/lib/angular/angular-cookies.js',
+
+                    'src/lib/angular/angular-resource.js',
+                    'src/lib/angular/angular-animate.js'
+                ],
+
+                dest: 'dist/scripts/angular_lib.js'
+            },
+
             // hexangular_lib
             hexangular_lib: {
                 src: [
                     // utilities
-                    'lib/sugar.min.js',                             // javascript utilities
+                    'src/lib/sugar.min.js',                             // javascript utilities
 
-                    // jquery plugins
-                    'lib/google.fastbutton.js',                     // fast click
-                    'lib/jquery.mousewheel.js',                     // mouse wheel support
-                    'lib/jquery.hammer.js',                         // touch events
+                    // image
+                    'src/lib/canvas-to-blob.js',                        // canvas.toBlob polyfill
 
-                    // scroller
-                    'lib/animate-scroller.js',                      // scroller animation
-                    'lib/scroller.js',                              // scroller
+                    // animation
+                    'src/lib/animationframe.js',                        // request animation frame
 
-                    'lib/perfect-scrollbar.js',                     // custom scrollbar
-                    'lib/imagesloaded.js',                          // images loaded
+                    // masonry
+                    'src/lib/jquery.isotope.js',                        // isotope - dynamic layout
 
-                    'lib/raf.js'                                    // request animation frame polyfill
+                    // events
+                    'src/lib/jquery.mousewheel.js',                     // mousewheel support
+
+                    // mobile / touch
+                    'src/lib/google.fastbutton.js',
+
+                    // inputs
+                    'src/lib/redactor.js',                              // redactor - html editor (textarea replacement)
+
+                    'src/lib/perfect-scrollbar.js',                     // custom scrollbar
+
+                    // dates
+                    'src/lib/jquery.timeago.js',                        // relative and live time stamps
+                    'src/lib/moment.min.js',                            // date library
+
+                    // opentip
+                    'src/lib/opentip/opentip.js',                       // tooltips
+                    'src/lib/opentip/adapter.jquery.js'
                 ],
 
                 dest: 'dist/scripts/hexangular_lib.js'
             },
 
+            // hexangular_module
+            hexangular_module: {
+                src: [
+                    'src/hex_angular/hex_angular.js',
+                    'src/hex_angular/**/*.js'
+                ],
+
+                dest: 'dist/scripts/hexangular_module.js'
+            },
+
             // hexangular_app
             hexangular_app: {
                 src: [
-                    'temp/hex-angular.js',
-                    'temp/**/*.js'
+                    'src/scripts/hexangular.js',
+                    'src/scripts/**/*.js'
                 ],
 
                 dest: 'dist/scripts/hexangular_app.js'
@@ -151,22 +296,32 @@ module.exports = function(grunt) {
         },
 
         /**~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        * ngmin - pre-minify angular source - adds minifification safe dependancy injection
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+        ngmin: {
+            directives: {
+                expand: true,
+                src: 'dist/scripts/hexangular_app.js',
+                dest: 'dist/'
+            }
+        },
+
+        /**~~~~~~~~~~~~~~~~~~~~~~~~~~~
         * watch - jobs: hexangular_lib, hexangular_app, less
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
         watch: {
 
             partials: {
-                files: ['partials/**'],
-                tasks: ['includereplace', 'concat:hexangular_app'],
+                files: ['src/partials/**'],
+                tasks: ['copy:partials'],
                 options: {
                   nospawn: false,
                   interrupt: true,
                   debounceDelay: 2000
                 }
             },
-
             hexangular_lib: {
-                files: ['lib/**/*.js'],
+                files: ['src/lib/**/*.js'],
                 tasks: ['concat:hexangular_lib'],
                 options: {
                   nospawn: false,
@@ -175,8 +330,8 @@ module.exports = function(grunt) {
                 }
             },
             hexangular_app: {
-                files: ['scripts/**/*.js'],
-                tasks: ['includereplace', 'concat:hexangular_app'],
+                files: ['src/scripts/**/*.js'],
+                tasks: ['concat:hexangular_app', 'jshint'],
                 options: {
                   nospawn: false,
                   interrupt: true,
@@ -184,7 +339,7 @@ module.exports = function(grunt) {
                 }
             },
             sass: {
-                files: ['styles/**/*.scss'],
+                files: ['src/styles/**/*.scss'],
                 tasks: ['sass:dev'],
                 options: {
                   nospawn: false,
@@ -196,17 +351,42 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-remove-logging');
-    grunt.loadNpmTasks('grunt-include-replace');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-ngmin');
 
-    // Default Development task
-    grunt.registerTask('default', ['clean', 'includereplace', 'concat', 'sass']);
+    // Development task
+    grunt.registerTask('default',
+        [
+            'clean',
+            'jshint',
+            'copy:partials',
+            'concat',
+            'ngmin',
+            'copy:ng_min',
+            'clean:ng_min',
+            'sass:dev'
+        ]
+    );
 
-    // Production Task - copy partials, concat js, remove logging statements, minify scripts, compile scss
-    grunt.registerTask('production', ['clean', 'includereplace', 'concat', 'removelogging', 'uglify', 'sass']);
-
+    // Production Task
+    grunt.registerTask('production',
+        [
+            'clean',
+            'jshint',
+            'copy:partials',
+            'concat',
+            'ngmin',
+            'copy:ng_min',
+            'clean:ng_min',
+            'removelogging',
+            'uglify',
+            'sass:prod'
+        ]
+    );
 };
