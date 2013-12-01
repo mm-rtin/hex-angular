@@ -9,13 +9,17 @@
 
     /* Angular App
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    var App = angular.module('overmind',
+    var App = angular.module('app',
         [
+            // angular modules
             'ngCookies',
             'ngRoute',
             'ngSanitize',
             'ngTouch',
             'ngAnimate',
+
+            // hexAngular libray
+            'hexAngular'
 
             // 'ui.router.state',
             // 'loadingBar',

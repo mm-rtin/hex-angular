@@ -1,4 +1,4 @@
-var App = angular.module('hex-angular');
+var App = angular.module('hexAngular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Text Editor Directive -

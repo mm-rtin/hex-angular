@@ -29,7 +29,7 @@ module.exports = function(grunt) {
                     {expand: true, cwd: 'src/', src: ['fonts/**'], dest: 'dist/'},
                     {expand: true, cwd: 'src/', src: ['meta/**'], dest: 'dist/'},
 
-                    // hex-angular partials
+                    // hexAngular partials
                     {expand: true, cwd: 'src/hex_angular/directives/', src: ['**/*.html'], dest: 'dist/partials/hex_angular/'}
                 ]
             },
