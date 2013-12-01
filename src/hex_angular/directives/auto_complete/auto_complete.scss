@@ -1,0 +1,49 @@
+/* -----------------------------------------
+   AUTO COMPLETE
+----------------------------------------- */
+.auto-complete {
+
+    &.active {
+        .filtered-terms {
+            height: 100%;
+        }
+    }
+
+    .filtered-terms {
+        position: absolute;
+        background-color: #25292E;
+        z-index: 1;
+        width: 100%;
+        height: 0;
+
+        ul {
+            list-style: none;
+            list-style-image: none;
+        }
+    }
+
+    .term {
+        position: relative;
+        font-size: 1em;
+        line-height: 2.3em;
+        padding: 0 56px 0px 10px;
+        background-color: #25292E;
+        color: #787D83;
+        border-radius: 3px;
+        margin: 4px 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+
+        &.selected {
+            background-color: #000;
+            color: #fff;
+        }
+
+        span {
+
+        }
+    }
+
+}

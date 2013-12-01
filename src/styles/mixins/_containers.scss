@@ -1,0 +1,12 @@
+@mixin content-box {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10);
+    border: 1px solid #cfcfcf;
+    background-color: #fff;
+}
+
+@mixin full-column {
+    max-width: $row-width;
+    padding-left: $column-gutter / 2;
+    padding-right: $column-gutter / 2;
+    margin: 0 auto;
+}

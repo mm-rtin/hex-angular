@@ -1,0 +1,48 @@
+/* -----------------------------------------
+   TEXT EDITOR (REDACTOR)
+----------------------------------------- */
+#redactor_modal {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.37);
+}
+
+/* redactor toolbar */
+.redactor_toolbar {
+    z-index: 1;
+
+    li {
+
+        a {
+            width: 28px;
+
+            &.redactor_btn_upload {
+                background-position: -199px 0px;
+            }
+        }
+    }
+}
+
+/* redactor box */
+.redactor_box {
+    height: 100%;
+    border: none;
+}
+
+/* redactor editor */
+.redactor_editor, .redactor_editor:focus {
+    height: 100%;
+    min-height: 90px;
+    top: 0px;
+
+    * {
+        color: #2D2D2D;
+    }
+
+    img {
+        height: auto !important;
+    }
+}
+
+/* editor */
+.editor {
+    padding: 10px;
+}

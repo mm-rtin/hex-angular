@@ -1,0 +1,60 @@
+/* -----------------------------------------
+   IMAGE VIEWR
+----------------------------------------- */
+.image-viewer {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999 !important;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+
+    background-color: rgba(0, 0, 0, .9);
+
+    .image-slides {
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        white-space: nowrap;
+        position: absolute;
+
+        .slide {
+            @include transition(.1s);
+            position: relative;
+            height: 100%;
+            width: 100%;
+            line-height: 1px;
+            text-align: center;
+            display: inline-block;
+
+            &:before {
+              content: "";
+              display: inline-block;
+              height: 50%;
+              width: 1px;
+              margin-right: -1px;
+            }
+
+            img {
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+                width: auto !important;
+                height: auto !important;
+                vertical-align: middle;
+            }
+        }
+
+    }
+
+    .close-image-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 1;
+    }
+}

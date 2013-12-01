@@ -1,0 +1,27 @@
+/* vertical alignment */
+@mixin vertical-center {
+    &:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+}
+/* add to child elements of vertical-center */
+@mixin centered {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* center element of unknown/fluid width */
+@mixin horizontal-center-unknown {
+    display: table;
+    margin: 0 auto;
+}
+
+/* center element of known width */
+@mixin center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

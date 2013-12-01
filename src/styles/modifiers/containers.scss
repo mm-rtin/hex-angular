@@ -1,0 +1,12 @@
+/* add margin to rows and columns */
+.row.section, .columns.section, .row form .row.section {
+    margin-bottom: 20px;
+}
+
+.content-box {
+    @include content-box()
+}
+
+.full-column {
+    @include full-column()
+}

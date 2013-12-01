@@ -1,0 +1,32 @@
+// only load html globals in library.scss
+$include-open-sans: false;
+$include-html-global-classes: false;
+
+/* -----------------------------------------
+   VARIABLES
+----------------------------------------- */
+@import 'variables';
+
+/* -----------------------------------------
+   REQUIRED
+----------------------------------------- */
+
+// frameworks
+@import 'vendor/bourbon/bourbon';
+
+// foundation settings
+@import 'vendor/foundation/foundation/settings';
+@import 'vendor/foundation/foundation/components/global';
+
+// mixins
+@import 'mixins/mixins';
+
+/* -----------------------------------------
+   COMPONENTS
+----------------------------------------- */
+@import 'components/angular';
+@import 'components/containers';
+@import 'components/icomoon';
+
+// modifiers
+@import 'modifiers/modifiers';

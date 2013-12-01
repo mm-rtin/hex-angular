@@ -1,0 +1,73 @@
+/* -----------------------------------------
+   MODIFIERS
+----------------------------------------- */
+/* add margin to rows and columns */
+.row.section, .columns.section, .row form .row.section {
+    margin-bottom: 20px;
+}
+
+/* condensed block grid */
+.condensed {
+    li {
+        padding-top: 0px;
+        padding-bottom: 2px;
+    }
+}
+
+/* force paragraph style in absense of p tags */
+.paragraph-content {
+    font-family: $paragraph-font-family;
+    font-weight: $paragraph-font-weight;
+    font-size: $paragraph-font-size;
+    line-height: $paragraph-line-height;
+    margin-bottom: 10px;
+}
+
+/* float */
+.pull-right {
+    float: right;
+}
+.pull-left {
+    float: left;
+}
+
+/* alignment */
+.horizontal-center {
+    display: table;
+    margin: 0 auto;
+}
+
+.vertical-center {
+
+    &:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -0.25em;
+    }
+
+    .centered {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.overflow-hidden {
+    body {
+        overflow: hidden;
+    }
+}
+
+.disable-selection {
+    * {
+        @include user-select(none);
+    }
+}
+
+/* -----------------------------------------
+   TEXT MODIFIERS
+----------------------------------------- */
+.align-center {
+    text-align: center;
+}

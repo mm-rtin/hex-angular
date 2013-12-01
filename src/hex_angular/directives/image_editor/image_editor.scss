@@ -1,0 +1,234 @@
+/* -----------------------------------------
+   IMAGE PANEL
+----------------------------------------- */
+.paste-capture {
+    opacity: 0;
+}
+
+.image-panel {
+
+    &.inactive {
+        padding: 0px;
+        height: 0 !important;
+
+        .image-editor-container {
+            max-height: 0 !important;
+        }
+    }
+
+    /* inline mode */
+    &.inline {
+        position: relative;
+        height: auto;
+        overflow: hidden;
+
+        .image-editor-container {
+            @include transition(all .4s);
+            position: relative;
+            width: 100%;
+            max-height: 0px;
+            overflow: hidden;
+        }
+
+        .image-editor {
+            position: relative;
+            max-height: 1300px;
+            overflow: auto;
+        }
+    }
+
+    /* fullscreen mode */
+    &.fullscreen {
+        position: fixed;
+        bottom: 0px;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        z-index: 2;
+
+        .image-editor-container {
+            position: absolute;
+            background-color: rgba(42, 46, 51, 0.84);
+            width: 100%;
+            overflow: hidden;
+            bottom: 0px;
+            top: 0px;
+        }
+
+        .image-editor {
+            position: absolute;
+            overflow: auto;
+            bottom: 60px;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+        }
+    }
+
+    /* editor buttons */
+    .editor-buttons {
+        position: absolute;
+        text-align: center;
+        bottom: 5px;
+        width: 100%;
+
+        .button-group {
+            display: inline-block;
+
+            button, .button {
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    /* image editor */
+    .image-editor {
+
+        .image {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+
+            &.resizing-selection {
+                @include transform(translate3d(0px, 0px, 0px));
+
+                .crop-overlay {
+                    @include transform(translate3d(0px, 0px, 0px));
+                }
+
+                .crop-selection {
+                    @include transform(translate3d(0px, 0px, 0px));
+                }
+            }
+        }
+
+        /* crop overlay */
+        .crop-overlay {
+            @include transition(opacity 250ms);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        /* crop selection */
+        .crop-selection {
+            @include transition(opacity 250ms);
+            position: absolute;
+            background-image: inherit;
+            box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+
+            &.active {
+                opacity: 1;
+            }
+
+            &:hover {
+                cursor: move;
+            }
+
+            &.show-guides {
+                .guide {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    /* resize handles */
+    .guide {
+        display: none;
+        background-color: #fff;
+        position: absolute;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+
+    /* west handle */
+    .west-handle {
+        height: 100%;
+        width: 15px;
+        position: absolute;
+        left: -7px;
+        cursor: ew-resize;
+
+        .guide {
+            width: 5px;
+            height: 20px;
+            top: 50%;
+            left: 7px;
+            margin-top: -10px;
+        }
+    }
+
+    /* east handle */
+    .east-handle {
+        height: 100%;
+        width: 15px;
+        position: absolute;
+        right: -7px;
+        cursor: ew-resize;
+
+        &.at-right {
+            right: 0px;
+
+            .guide {
+                left: 10px;
+            }
+        }
+
+        .guide {
+            width: 5px;
+            height: 20px;
+            top: 50%;
+            left: 4px;
+            margin-top: -10px;
+        }
+    }
+
+    /* south handle */
+    .south-handle {
+        width: 100%;
+        height: 15px;
+        position: absolute;
+        bottom: -7px;
+        cursor: ns-resize;
+
+        &.at-bottom {
+            bottom: 0px;
+
+            .guide {
+                top: 10px;
+            }
+        }
+
+        .guide {
+            height: 5px;
+            width: 20px;
+            left: 50%;
+            top: 4px;
+            margin-left: -10px;
+        }
+    }
+
+    /* north handle */
+    .north-handle {
+        width: 100%;
+        height: 15px;
+        position: absolute;
+        top: -7px;
+        cursor: ns-resize;
+
+        .guide {
+            height: 5px;
+            width: 20px;
+            left: 50%;
+            top: 7px;
+            margin-left: -10px;
+        }
+    }
+}

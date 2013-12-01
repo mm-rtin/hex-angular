@@ -1,0 +1,131 @@
+/* -----------------------------------------
+   TAG SELECT
+----------------------------------------- */
+.tag-select {
+    position: relative;
+    background-color: #68686F;
+    border-radius: 6px;
+    z-index: 1000;
+    max-width: 280px;
+
+    * {
+        @include user-select(none);
+    }
+
+    &.active {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+
+        .dropdown {
+            height: auto;
+            padding: 4px;
+        }
+    }
+
+    /* select bar */
+    .select-bar {
+        width: 100%;
+        cursor: pointer;
+
+        .selected-tag {
+            font-size: 1em;
+            color: #fff;
+            padding: 8px 12px;
+            margin: 0;
+        }
+
+        .select-arrow {
+            position: absolute;
+            top: 50%;
+            margin-top: -10px;
+            right: 10px;
+            color: #fff;
+        }
+    }
+
+    /* dropdown */
+    .dropdown {
+        position: absolute;
+        overflow: hidden;
+        background-color: #68686F;
+        width: 100%;
+        height: 0px;
+        z-index: 2;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+
+        /* input field */
+        input[type="text"] {
+            @include user-select(text);
+
+            padding: 8px 10px;
+            padding-right: 50px;
+            margin-bottom: 0px;
+            border-color: transparent;
+            background-color: #EAEAEA;
+            box-shadow: none;
+            color: #77777a;
+        }
+    }
+
+    /* tag list */
+    .tag-list {
+        position: relative;
+        overflow: hidden;
+        max-height: 300px;
+
+        * {
+            @include user-select(none);
+        }
+
+        ul {
+            list-style: none;
+            list-style-image: none;
+            margin-bottom: 0;
+        }
+
+        /* tag item */
+        .tag {
+            position: relative;
+            font-size: 1em;
+            line-height: 2.3em;
+            padding: 0 56px 0px 10px;
+            color: #8B8B8B;
+            border-radius: 3px;
+            margin: 4px 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+
+            cursor: pointer;
+            border: 0px solid transparent;
+            background-color: transparent;
+            color: #FFF;
+
+            &:last-child {
+                margin: 0px;
+            }
+
+            &:hover {
+                background-color: #fff;
+                color: #1F1F1F;
+            }
+
+            &.active {
+                background-color: #56565A;
+                border-color: transparent;
+                color: #fff;
+
+                &:hover {
+                    background-color: #fff;
+                    color: #1F1F1F;
+                }
+            }
+
+            &.selected {
+                background-color: #3A3A3D;
+                color: #fff;
+            }
+        }
+    }
+}

@@ -1,0 +1,94 @@
+/* -----------------------------------------
+   MASONRY GRID
+----------------------------------------- */
+.masonry-grid {
+
+    .grid-item {
+        display: block;
+        padding: 0;
+        cursor: pointer;
+        overflow: hidden;
+        margin-bottom: 10px;
+        opacity: 0;
+
+        &.active {
+            .overlay {
+                opacity: .5;
+            }
+
+            .grid-item-title {
+                display: none;
+
+                &.active-title {
+                    display: block;
+                }
+            }
+            .view-image-button {
+                opacity: 0;
+            }
+
+            &:hover {
+                .overlay {
+                    opacity: 1;
+                }
+                .view-image-button {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.isotope-item {
+            opacity: 1;
+        }
+
+        &:hover {
+            .overlay {
+                opacity: 1;
+            }
+        };
+    }
+
+    .overlay {
+        @include transition(.4s opacity);
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        opacity: 0;
+    }
+
+    .view-image-button {
+        @include transition(.4s opacity);
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        box-shadow: none;
+        padding: 8px 9px;
+        background-color: transparent;
+        color: #fff;
+        border: none;
+        opacity: 1;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+    }
+
+    .grid-item-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        color: #fff;
+        font-size: 1.8em;
+        text-align: center;
+        top: 50%;
+        position: relative;
+        margin-top: -0.6em;
+
+        &.active-title {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,35 @@
+// only load html globals in library.scss
+$include-open-sans: false;
+$include-html-global-classes: false;
+
+/* -----------------------------------------
+   VARIABLES
+----------------------------------------- */
+@import 'variables';
+
+/* -----------------------------------------
+   REQUIRED
+----------------------------------------- */
+
+// frameworks
+@import 'vendor/bourbon/bourbon';
+
+// foundation settings
+@import 'vendor/foundation/foundation/settings';
+@import 'vendor/foundation/foundation/components/global';
+
+// mixins
+@import 'mixins/mixins';
+
+/* -----------------------------------------
+   HEX ANGULAR
+----------------------------------------- */
+// directives
+@import 'directives/auto_complete/auto_complete';
+@import 'directives/image_editor/image_editor';
+@import 'directives/image_viewer/image_viewer';
+@import 'directives/masonry_grid/masonry_grid';
+@import 'directives/progress_bar/progress_bar';
+@import 'directives/tag_select/tag_select';
+@import 'directives/text_editor/text_editor';
+@import 'directives/vertical_tags/vertical_tags';

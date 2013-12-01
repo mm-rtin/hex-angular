@@ -1,0 +1,12 @@
+.vertical-center {
+    @include vertical-center();
+}
+.centered {
+    @include centered();
+}
+.horizontal-center-unknown {
+    @include horizontal-center-unknown();
+}
+.center-block {
+    @include center-block();
+}

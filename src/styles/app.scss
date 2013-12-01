@@ -1,0 +1,45 @@
+// only load html globals in library.scss
+$include-open-sans: false;
+$include-html-global-classes: false;
+
+/* -----------------------------------------
+   VARIABLES
+----------------------------------------- */
+@import 'variables';
+
+/* -----------------------------------------
+   REQUIRED
+----------------------------------------- */
+
+// frameworks
+@import 'vendor/bourbon/bourbon';
+
+// foundation settings
+@import 'vendor/foundation/foundation/settings';
+@import 'vendor/foundation/foundation/components/global';
+
+// mixins
+@import 'mixins/mixins';
+
+/* -----------------------------------------
+   APP SPECIFIC COMPONENTS
+----------------------------------------- */
+// directives
+
+// controllers
+
+
+/* -----------------------------------------
+   HEADER
+----------------------------------------- */
+.site-title {
+    display: block;
+    background: transparent url(/static/src/images/logo.png) no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    opacity: 1.0;
+    text-indent: -9999px;
+    width: auto;
+    max-height: 240px;
+    height: 60px;
+}

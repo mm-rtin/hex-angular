@@ -1,0 +1,14 @@
+<div class="auto-complete" ng-class="{active: state.active}">
+
+    <input class="autocomplete-input" type="text" ng-model="autocomplete.search" placeholder="[[ placeholder ]]"/>
+
+    <!-- filtered terms -->
+    <div class="filtered-terms" ng-show="render">
+        <ul>
+            <li class="term" ng-repeat="(key, value) in filteredTerms" ng-class="{selected: key==state.activeTermIndex}" ng-mouseenter="setActive(key)" ng-click="selectTerm()">
+                <span ng-bind-html-unsafe="value">
+            </li>
+        </ul>
+    </div>
+
+</div>
