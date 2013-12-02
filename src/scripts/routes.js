@@ -6,9 +6,9 @@ App.config(function($routeProvider) {
 
     $routeProvider.
 
-        // home view (logged out)
-        when('/', {templateUrl: '/static/partials/views/index.html', controller: 'HomeController'}).
+        // home view
+        when('/', {templateUrl: '/static/partials/views/home_view.html', controller: 'HomeController'}).
 
-        // home view (logged in)
-        when('/page', {templateUrl: '/static/partials/views/page.html', controller: 'PageController'});
+        // content gallery
+        when('/content_gallery', {templateUrl: '/static/partials/views/content_gallery_view.html', controller: 'ContentGalleryController'});
 });

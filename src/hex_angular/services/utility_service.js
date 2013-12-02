@@ -6,6 +6,20 @@ var App = angular.module('hexAngular');
 App.factory('Utilities', function($rootScope) {
     'use strict';
 
+    console.log('load safeaply');
+
+    // add safeApply to rootScope
+    $rootScope.safeApply = function(fn) {
+        var phase = this.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
+
     /*ignore jslint start*/
 
     /* isElementInViewport - check if element is visible in viewport

@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-    // Overmind project configuration
+    // Hexangular project configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -232,6 +232,7 @@ module.exports = function(grunt) {
 
                     // mobile / touch
                     'src/lib/google.fastbutton.js',
+                    'src/lib/jquery.hammer.js',                         // touch events
 
                     // inputs
                     'src/lib/redactor.js',                              // redactor - html editor (textarea replacement)
@@ -318,8 +319,8 @@ module.exports = function(grunt) {
         watch: {
 
             partials: {
-                files: ['src/partials/**'],
-                tasks: ['copy:partials'],
+                files: ['src/partials/**', 'src/hex_angular/directives/**'],
+                tasks: ['copy:partials', 'copy:pages'],
                 options: {
                   nospawn: false,
                   interrupt: true,
@@ -328,7 +329,7 @@ module.exports = function(grunt) {
             },
             hexangular_lib: {
                 files: ['src/lib/**/*.js'],
-                tasks: ['concat:hexangular_lib'],
+                tasks: ['concat:hexangular_lib', 'copy:partials', 'copy:pages'],
                 options: {
                   nospawn: false,
                   interrupt: true,
@@ -337,7 +338,16 @@ module.exports = function(grunt) {
             },
             hexangular_app: {
                 files: ['src/scripts/**/*.js'],
-                tasks: ['concat:hexangular_app', 'jshint'],
+                tasks: ['concat:hexangular_app', 'jshint', 'copy:pages'],
+                options: {
+                  nospawn: false,
+                  interrupt: true,
+                  debounceDelay: 2000
+                }
+            },
+            hexangular_module: {
+                files: ['src/hex_angular/hex_angular.js', 'src/hex_angular/**/*.js'],
+                tasks: ['concat:hexangular_module', 'jshint', 'copy:pages'],
                 options: {
                   nospawn: false,
                   interrupt: true,
@@ -345,8 +355,8 @@ module.exports = function(grunt) {
                 }
             },
             sass: {
-                files: ['src/styles/**/*.scss'],
-                tasks: ['sass:dev'],
+                files: ['src/styles/**/*.scss', 'src/hex_angular/**/*.scss'],
+                tasks: ['sass:dev', 'copy:partials', 'copy:pages'],
                 options: {
                   nospawn: false,
                   interrupt: true,
@@ -372,12 +382,12 @@ module.exports = function(grunt) {
             'clean',
             'jshint',
             'copy:partials',
-            'copy:pages',
             'concat',
             'ngmin',
             'copy:ng_min',
             'clean:ng_min',
-            'sass:dev'
+            'sass:dev',
+            'copy:pages'
         ]
     );
 
@@ -387,14 +397,14 @@ module.exports = function(grunt) {
             'clean',
             'jshint',
             'copy:partials',
-            'copy:pages',
             'concat',
             'ngmin',
             'copy:ng_min',
             'clean:ng_min',
             'removelogging',
             'uglify',
-            'sass:prod'
+            'sass:prod',
+            'copy:pages'
         ]
     );
 };

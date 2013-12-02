@@ -1,0 +1,23 @@
+<div class="thumbnail-gallery">
+
+    <div class="thumbnail-viewport-container">
+
+        <!-- thumbnail interface -->
+        <div class="activation-area previous" ng-tap="previousPage()" ng-hide="isImageFullyViewable(0)">
+            <div class="navigation-button previous only-icon icon-chevron-left"></div>
+        </div>
+        <div class="activation-area next" ng-tap="nextPage()" ng-hide="isImageFullyViewable(9999)">
+            <div class="navigation-button next only-icon icon-chevron-right"></div>
+        </div>
+
+        <!-- thumbnail container -->
+        <div class="thumbnail-container" ng-style="thumbnailContainerStyle">
+
+            <div class="thumbnail thumbnail-[[ key ]]" ng-style="thumbnailStyle" ng-class="{active: key == state.currentThumbnailIndex}" ng-repeat="(key, image) in thumbnailList" ng-tap="setActiveThumbnail(key)">
+                <img class="image-thumbnail" ng-style="thumbnailImageStyle" ng-src="[[ image.url ]]">
+            </div>
+
+        </div>
+    </div>
+
+</div>

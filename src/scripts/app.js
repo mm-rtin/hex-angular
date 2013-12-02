@@ -26,7 +26,7 @@
         ]);
 
     App.config(['$locationProvider', '$interpolateProvider', function($location, $interpolateProvider) {
-        $location.html5Mode(true);
+        // $location.html5Mode(true);
 
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');

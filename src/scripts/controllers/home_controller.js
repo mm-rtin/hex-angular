@@ -1,9 +1,9 @@
 var App = angular.module('app');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* AppController - main site controller
+* HomeController -
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-App.controller('AppController', function($rootScope, $scope, $http, $routeParams, $location, Utilities) {
+App.controller('HomeController', function($rootScope, $scope, $http, $routeParams, $location) {
     'use strict';
 
     // scope
@@ -16,7 +16,7 @@ App.controller('AppController', function($rootScope, $scope, $http, $routeParams
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     function initialize() {
 
-        console.log('initialize app controller');
+        console.log('initialize home controller');
         createEventHandlers();
     }
 
