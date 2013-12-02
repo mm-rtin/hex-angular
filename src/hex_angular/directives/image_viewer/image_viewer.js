@@ -11,7 +11,7 @@ App.directive('imageViewer', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/image_viewer/image_viewer.html',
+        templateUrl: 'static/partials/hex_angular/image_viewer/image_viewer.html',
         replace: true,
         scope: {
         },

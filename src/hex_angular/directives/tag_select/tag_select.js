@@ -8,7 +8,7 @@ App.directive('tagSelect', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/tag_select/tag_select.html',
+        templateUrl: 'static/partials/hex_angular/tag_select/tag_select.html',
         replace: true,
         scope: {
             'tags': '=',

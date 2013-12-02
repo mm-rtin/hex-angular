@@ -8,7 +8,7 @@ App.directive('autoComplete', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/auto_complete/auto_complete.html',
+        templateUrl: 'static/partials/hex_angular/auto_complete/auto_complete.html',
         replace: true,
         scope: {
             terms: '=',

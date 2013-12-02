@@ -9,7 +9,7 @@ App.directive('contentGallery', function($rootScope, $timeout, $q, $animate) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/content_gallery/content_gallery.html',
+        templateUrl: 'static/partials/hex_angular/content_gallery/content_gallery.html',
         replace: false,
         scope: {
             smallImageList: '=',

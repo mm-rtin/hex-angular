@@ -9,7 +9,7 @@ App.directive('thumbnailGallery', function($rootScope, $timeout) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/thumbnail_gallery/thumbnail_gallery.html',
+        templateUrl: 'static/partials/hex_angular/thumbnail_gallery/thumbnail_gallery.html',
         replace: false,
         scope: {
             thumbnailList: '=',

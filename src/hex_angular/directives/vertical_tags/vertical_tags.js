@@ -8,7 +8,7 @@ App.directive('verticalTags', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/vertical_tags/vertical_tags.html',
+        templateUrl: 'static/partials/hex_angular/vertical_tags/vertical_tags.html',
         replace: true,
         scope: {
             'tags': '=',

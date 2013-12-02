@@ -8,8 +8,9 @@
 
     }
 
-    .text {
-
+    > .text {
+        cursor: pointer;
+        display: inline-block;
     }
 
     .menu {
@@ -27,5 +28,22 @@
         min-width: 100%;
 
         white-space: nowrap;
+
+        // menu items
+        li {
+            cursor: pointer;
+            color: $primary-color;
+            padding: 0 1em;
+            font-size: 0.8rem;
+            line-height: 2.2rem;
+            text-align: left;
+
+            -webkit-touch-callout: none;
+
+            &:hover {
+                background-color: #d7d7d7;
+                color: #000;
+            }
+        }
     }
 }

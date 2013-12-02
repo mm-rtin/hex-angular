@@ -8,7 +8,7 @@ App.directive('progressBar', function($rootScope, $timeout) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/progress_bar/progress_bar.html',
+        templateUrl: 'static/partials/hex_angular/progress_bar/progress_bar.html',
         replace: true,
         scope: {
             'active': '=',

@@ -99,7 +99,6 @@ App.directive('dropdown', function($rootScope, $timeout, $animate, Utilities) {
 
                 $scope.state.open = true;
 
-                $animate.addClass($element, $scope.settings.transition);
                 $animate.addClass($menu, $scope.settings.transition);
             }
 
@@ -111,7 +110,6 @@ App.directive('dropdown', function($rootScope, $timeout, $animate, Utilities) {
 
                 $scope.state.open = false;
 
-                $animate.removeClass($element, $scope.settings.transition);
                 $animate.removeClass($menu, $scope.settings.transition);
             }
 

@@ -8,7 +8,7 @@ App.directive('imageEditor', function($rootScope, $http, $timeout, Utilities) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/image_editor/image_editor.html',
+        templateUrl: 'static/partials/hex_angular/image_editor/image_editor.html',
         replace: true,
         scope: {
             imageSource: '=',
