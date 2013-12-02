@@ -1,0 +1,61 @@
+/* -----------------------------------------
+   VARIABLES
+----------------------------------------- */
+/* -----------------------------------------
+   VARIABLES
+----------------------------------------- */
+/* -----------------------------------------
+   REQUIRED
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003284}}
+meta.foundation-mq-small {
+  font-family: "/only screen and (max-width: 40em)/";
+  width: 0em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003289}}
+meta.foundation-mq-medium {
+  font-family: "/only screen and (min-width:40.063em) and (max-width:64em)/";
+  width: 40.063em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003294}}
+meta.foundation-mq-large {
+  font-family: "/only screen and (min-width:64.063em)/";
+  width: 64.063em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003299}}
+meta.foundation-mq-xlarge {
+  font-family: "/only screen and (min-width:90.063em)/";
+  width: 90.063em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003304}}
+meta.foundation-mq-xxlarge {
+  font-family: "/only screen and (min-width:120.063em)/";
+  width: 120.063em;
+}
+
+/* vertical alignment */
+/* add to child elements of vertical-center */
+/* center element of unknown/fluid width */
+/* center element of known width */
+/* -----------------------------------------
+   APP SPECIFIC COMPONENTS
+----------------------------------------- */
+/* -----------------------------------------
+   HEADER
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/app\.scss}line{font-family:\0000335}}
+.site-title {
+  display: block;
+  background: transparent url(/static/src/images/logo.png) no-repeat;
+  background-position: 0 0;
+  background-size: contain;
+  opacity: 1.0;
+  text-indent: -9999px;
+  width: auto;
+  max-height: 240px;
+  height: 60px;
+}

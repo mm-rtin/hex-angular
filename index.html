@@ -1,1 +1,63 @@
-Hex-Angular Page
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="overmind" ng-controller="OvermindController"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- typekit -->
+        <script type="text/javascript" src="//use.typekit.net/wxc1dos.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+        <link rel="stylesheet" href="/static/styles/library.css">
+        <link rel="stylesheet" href="/static/styles/components.css">
+        <link rel="stylesheet" href="/static/styles/hex_angular.css">
+        <link rel="stylesheet" href="/static/styles/app.css">
+
+        <script src="static/scripts/custom.modernizr.js"></script>
+
+    </head>
+
+    <body ng-class="{'overflow-hidden': state.showImagePanel, 'home-page': state.homePage}">
+        <!--[if lt IE 10]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- header -->
+        <header class="row" ng-cloak>
+            <div class="large-24 columns">
+                <h1 class="site-title">Hex-Angular</h1>
+            </div>
+        </header>
+
+        <!-- Angular View -->
+        <div id="angular-container" ng-view>
+
+        </div>
+
+        <!-- directive: image-viewer -->
+        <div image-viewer></div>
+
+        <!-- javascript -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+
+        <script src="/static/scripts/angular_lib.js"></script>
+        <script src="/static/scripts/overmind_lib.js"></script>
+        <script src="/static/scripts/hexangular_module.js"></script>
+        <script src="/static/scripts/overmind_app.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src='//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

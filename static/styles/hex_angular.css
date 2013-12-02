@@ -1,0 +1,1096 @@
+/* -----------------------------------------
+   VARIABLES
+----------------------------------------- */
+/* -----------------------------------------
+   VARIABLES
+----------------------------------------- */
+/* -----------------------------------------
+   REQUIRED
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003284}}
+meta.foundation-mq-small {
+  font-family: "/only screen and (max-width: 40em)/";
+  width: 0em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003289}}
+meta.foundation-mq-medium {
+  font-family: "/only screen and (min-width:40.063em) and (max-width:64em)/";
+  width: 40.063em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003294}}
+meta.foundation-mq-large {
+  font-family: "/only screen and (min-width:64.063em)/";
+  width: 64.063em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003299}}
+meta.foundation-mq-xlarge {
+  font-family: "/only screen and (min-width:90.063em)/";
+  width: 90.063em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003304}}
+meta.foundation-mq-xxlarge {
+  font-family: "/only screen and (min-width:120.063em)/";
+  width: 120.063em;
+}
+
+/* vertical alignment */
+/* add to child elements of vertical-center */
+/* center element of unknown/fluid width */
+/* center element of known width */
+/* -----------------------------------------
+   HEX ANGULAR
+----------------------------------------- */
+/* -----------------------------------------
+   AUTO COMPLETE
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/auto_complete\/auto_complete\.scss}line{font-family:\000037}}
+.auto-complete.active .filtered-terms {
+  height: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/auto_complete\/auto_complete\.scss}line{font-family:\0000312}}
+.auto-complete .filtered-terms {
+  position: absolute;
+  background-color: #25292E;
+  z-index: 1;
+  width: 100%;
+  height: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/auto_complete\/auto_complete\.scss}line{font-family:\0000319}}
+.auto-complete .filtered-terms ul {
+  list-style: none;
+  list-style-image: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/auto_complete\/auto_complete\.scss}line{font-family:\0000325}}
+.auto-complete .term {
+  position: relative;
+  font-size: 1em;
+  line-height: 2.3em;
+  padding: 0 56px 0px 10px;
+  background-color: #25292E;
+  color: #787D83;
+  border-radius: 3px;
+  margin: 4px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/auto_complete\/auto_complete\.scss}line{font-family:\0000339}}
+.auto-complete .term.selected {
+  background-color: #000;
+  color: #fff;
+}
+
+/* -----------------------------------------
+   IMAGE PANEL
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\000034}}
+.paste-capture {
+  opacity: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\000038}}
+.image-panel {
+  /* inline mode */
+  /* fullscreen mode */
+  /* editor buttons */
+  /* image editor */
+  /* resize handles */
+  /* west handle */
+  /* east handle */
+  /* south handle */
+  /* north handle */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000310}}
+.image-panel.inactive {
+  padding: 0px;
+  height: 0 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000314}}
+.image-panel.inactive .image-editor-container {
+  max-height: 0 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000320}}
+.image-panel.inline {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000325}}
+.image-panel.inline .image-editor-container {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  position: relative;
+  width: 100%;
+  max-height: 0px;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000333}}
+.image-panel.inline .image-editor {
+  position: relative;
+  max-height: 1300px;
+  overflow: auto;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000341}}
+.image-panel.fullscreen {
+  position: fixed;
+  bottom: 0px;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  z-index: 2;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000349}}
+.image-panel.fullscreen .image-editor-container {
+  position: absolute;
+  background-color: rgba(42, 46, 51, 0.84);
+  width: 100%;
+  overflow: hidden;
+  bottom: 0px;
+  top: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000358}}
+.image-panel.fullscreen .image-editor {
+  position: absolute;
+  overflow: auto;
+  bottom: 60px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000369}}
+.image-panel .editor-buttons {
+  position: absolute;
+  text-align: center;
+  bottom: 5px;
+  width: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000375}}
+.image-panel .editor-buttons .button-group {
+  display: inline-block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000378}}
+.image-panel .editor-buttons .button-group button, .image-panel .editor-buttons .button-group .button {
+  margin-bottom: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000385}}
+.image-panel .image-editor {
+  /* crop overlay */
+  /* crop selection */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000387}}
+.image-panel .image-editor .image {
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000392}}
+.image-panel .image-editor .image.resizing-selection {
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  -moz-transform: translate3d(0px, 0px, 0px);
+  -ms-transform: translate3d(0px, 0px, 0px);
+  -o-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000395}}
+.image-panel .image-editor .image.resizing-selection .crop-overlay {
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  -moz-transform: translate3d(0px, 0px, 0px);
+  -ms-transform: translate3d(0px, 0px, 0px);
+  -o-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\0000399}}
+.image-panel .image-editor .image.resizing-selection .crop-selection {
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  -moz-transform: translate3d(0px, 0px, 0px);
+  -ms-transform: translate3d(0px, 0px, 0px);
+  -o-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003106}}
+.image-panel .image-editor .crop-overlay {
+  -webkit-transition: opacity 250ms;
+  -moz-transition: opacity 250ms;
+  transition: opacity 250ms;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003114}}
+.image-panel .image-editor .crop-overlay.active {
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003120}}
+.image-panel .image-editor .crop-selection {
+  -webkit-transition: opacity 250ms;
+  -moz-transition: opacity 250ms;
+  transition: opacity 250ms;
+  position: absolute;
+  background-image: inherit;
+  box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.5), inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003127}}
+.image-panel .image-editor .crop-selection.active {
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003131}}
+.image-panel .image-editor .crop-selection:hover {
+  cursor: move;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003136}}
+.image-panel .image-editor .crop-selection.show-guides .guide {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003144}}
+.image-panel .guide {
+  display: none;
+  background-color: #fff;
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003152}}
+.image-panel .west-handle {
+  height: 100%;
+  width: 15px;
+  position: absolute;
+  left: -7px;
+  cursor: ew-resize;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003159}}
+.image-panel .west-handle .guide {
+  width: 5px;
+  height: 20px;
+  top: 50%;
+  left: 7px;
+  margin-top: -10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003169}}
+.image-panel .east-handle {
+  height: 100%;
+  width: 15px;
+  position: absolute;
+  right: -7px;
+  cursor: ew-resize;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003176}}
+.image-panel .east-handle.at-right {
+  right: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003179}}
+.image-panel .east-handle.at-right .guide {
+  left: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003184}}
+.image-panel .east-handle .guide {
+  width: 5px;
+  height: 20px;
+  top: 50%;
+  left: 4px;
+  margin-top: -10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003194}}
+.image-panel .south-handle {
+  width: 100%;
+  height: 15px;
+  position: absolute;
+  bottom: -7px;
+  cursor: ns-resize;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003201}}
+.image-panel .south-handle.at-bottom {
+  bottom: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003204}}
+.image-panel .south-handle.at-bottom .guide {
+  top: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003209}}
+.image-panel .south-handle .guide {
+  height: 5px;
+  width: 20px;
+  left: 50%;
+  top: 4px;
+  margin-left: -10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003219}}
+.image-panel .north-handle {
+  width: 100%;
+  height: 15px;
+  position: absolute;
+  top: -7px;
+  cursor: ns-resize;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_editor\/image_editor\.scss}line{font-family:\00003226}}
+.image-panel .north-handle .guide {
+  height: 5px;
+  width: 20px;
+  left: 50%;
+  top: 7px;
+  margin-left: -10px;
+}
+
+/* -----------------------------------------
+   IMAGE VIEWR
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_viewer\/image_viewer\.scss}line{font-family:\000034}}
+.image-viewer {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999 !important;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_viewer\/image_viewer\.scss}line{font-family:\0000317}}
+.image-viewer .image-slides {
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  white-space: nowrap;
+  position: absolute;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_viewer\/image_viewer\.scss}line{font-family:\0000325}}
+.image-viewer .image-slides .slide {
+  -webkit-transition: 0.1s;
+  -moz-transition: 0.1s;
+  transition: 0.1s;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  line-height: 1px;
+  text-align: center;
+  display: inline-block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_viewer\/image_viewer\.scss}line{font-family:\0000334}}
+.image-viewer .image-slides .slide:before {
+  content: "";
+  display: inline-block;
+  height: 50%;
+  width: 1px;
+  margin-right: -1px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_viewer\/image_viewer\.scss}line{font-family:\0000342}}
+.image-viewer .image-slides .slide img {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: auto !important;
+  height: auto !important;
+  vertical-align: middle;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/image_viewer\/image_viewer\.scss}line{font-family:\0000354}}
+.image-viewer .close-image-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
+}
+
+/* -----------------------------------------
+   MASONRY GRID
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\000036}}
+.masonry-grid .grid-item {
+  display: block;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 10px;
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000315}}
+.masonry-grid .grid-item.active .overlay {
+  opacity: .5;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000319}}
+.masonry-grid .grid-item.active .grid-item-title {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000322}}
+.masonry-grid .grid-item.active .grid-item-title.active-title {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000326}}
+.masonry-grid .grid-item.active .view-image-button {
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000331}}
+.masonry-grid .grid-item.active:hover .overlay {
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000334}}
+.masonry-grid .grid-item.active:hover .view-image-button {
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000340}}
+.masonry-grid .grid-item.isotope-item {
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000345}}
+.masonry-grid .grid-item:hover .overlay {
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000351}}
+.masonry-grid .overlay {
+  -webkit-transition: 0.4s opacity;
+  -moz-transition: 0.4s opacity;
+  transition: 0.4s opacity;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000360}}
+.masonry-grid .view-image-button {
+  -webkit-transition: 0.4s opacity;
+  -moz-transition: 0.4s opacity;
+  transition: 0.4s opacity;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  box-shadow: none;
+  padding: 8px 9px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000372}}
+.masonry-grid .view-image-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000378}}
+.masonry-grid .grid-item-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 1.8em;
+  text-align: center;
+  top: 50%;
+  position: relative;
+  margin-top: -0.6em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/masonry_grid\/masonry_grid\.scss}line{font-family:\0000390}}
+.masonry-grid .grid-item-title.active-title {
+  display: none;
+}
+
+/*---------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\000032}}
+.progress-container {
+  -webkit-transition: height 0.4s;
+  -moz-transition: height 0.4s;
+  transition: height 0.4s;
+  height: 0px;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\000037}}
+.progress-container.active {
+  height: 35px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\0000310}}
+.progress-container.active .shine span::after {
+  -webkit-animation: animate-shine 2s ease-out infinite;
+  -moz-animation: animate-shine 2s ease-out infinite;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\0000317}}
+.progress-bar {
+  background-color: #1a1a1a;
+  height: 25px;
+  padding: 2px;
+  margin: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\0000325}}
+.progress-bar span {
+  display: inline-block;
+  height: 100%;
+  background-color: #777;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  -webkit-transition: width .4s ease-in-out;
+  -moz-transition: width .4s ease-in-out;
+  -ms-transition: width .4s ease-in-out;
+  -o-transition: width .4s ease-in-out;
+  transition: width .4s ease-in-out;
+}
+
+/*---------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\0000344}}
+.saving span {
+  background-color: #83898B;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\0000348}}
+.orange span {
+  background-color: #fecf23;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fecf23), to(#fd9215));
+  background-image: -webkit-linear-gradient(top, #fecf23, #fd9215);
+  background-image: -moz-linear-gradient(top, #fecf23, #fd9215);
+  background-image: -ms-linear-gradient(top, #fecf23, #fd9215);
+  background-image: -o-linear-gradient(top, #fecf23, #fd9215);
+  background-image: linear, top, #fecf23, #fd9215;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\0000358}}
+.green span {
+  background-color: #a5df41;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#a5df41), to(#4ca916));
+  background-image: -webkit-linear-gradient(top, #a5df41, #4ca916);
+  background-image: -moz-linear-gradient(top, #a5df41, #4ca916);
+  background-image: -ms-linear-gradient(top, #a5df41, #4ca916);
+  background-image: -o-linear-gradient(top, #a5df41, #4ca916);
+  background-image: linear, top, #a5df41, #4ca916;
+}
+
+/*---------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\0000370}}
+.stripes span {
+  -webkit-background-size: 30px 30px;
+  -moz-background-size: 30px 30px;
+  background-size: 30px 30px;
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -ms-linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear, 135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent;
+  -webkit-animation: animate-stripes 3s linear infinite;
+  -moz-animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+  /* line 100, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  0% {
+    background-position: 0 0;
+  }
+
+  /* line 100, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  100% {
+    background-position: 60px 0;
+  }
+}
+@-moz-keyframes animate-stripes {
+  /* line 105, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  0% {
+    background-position: 0 0;
+  }
+
+  /* line 105, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  100% {
+    background-position: 60px 0;
+  }
+}
+/*---------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\00003110}}
+.shine span {
+  position: relative;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\00003114}}
+.shine span::after {
+  content: '';
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+@-webkit-keyframes animate-shine {
+  /* line 129, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+
+  /* line 130, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  50% {
+    opacity: .5;
+  }
+
+  /* line 131, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  100% {
+    opacity: 0;
+    width: 95%;
+  }
+}
+@-moz-keyframes animate-shine {
+  /* line 136, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+
+  /* line 137, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  50% {
+    opacity: .5;
+  }
+
+  /* line 138, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  100% {
+    opacity: 0;
+    width: 95%;
+  }
+}
+/*---------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/progress_bar\/progress_bar\.scss}line{font-family:\00003143}}
+.glow span {
+  -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.7) inset, 0 -5px 5px rgba(255, 255, 255, 0.7) inset;
+  -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.7) inset, 0 -5px 5px rgba(255, 255, 255, 0.7) inset;
+  box-shadow: 0 5px 5px rgba(255, 255, 255, 0.7) inset, 0 -5px 5px rgba(255, 255, 255, 0.7) inset;
+  -webkit-animation: animate-glow 1s ease-out infinite;
+  -moz-animation: animate-glow 1s ease-out infinite;
+}
+
+@-webkit-keyframes animate-glow {
+  /* line 153, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  0% {
+    -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.7) inset, 0 -5px 5px rgba(255, 255, 255, 0.7) inset;
+  }
+
+  /* line 154, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  50% {
+    -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.3) inset, 0 -5px 5px rgba(255, 255, 255, 0.3) inset;
+  }
+
+  /* line 155, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  100% {
+    -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.7) inset, 0 -5px 5px rgba(255, 255, 255, 0.7) inset;
+  }
+}
+@-moz-keyframes animate-glow {
+  /* line 159, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  0% {
+    -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.7) inset, 0 -5px 5px rgba(255, 255, 255, 0.7) inset;
+  }
+
+  /* line 160, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  50% {
+    -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.3) inset, 0 -5px 5px rgba(255, 255, 255, 0.3) inset;
+  }
+
+  /* line 161, ../../src/hex_angular/directives/progress_bar/progress_bar.scss */
+  100% {
+    -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, 0.7) inset, 0 -5px 5px rgba(255, 255, 255, 0.7) inset;
+  }
+}
+/* -----------------------------------------
+   TAG SELECT
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\000034}}
+.tag-select {
+  position: relative;
+  background-color: #68686F;
+  border-radius: 6px;
+  z-index: 1000;
+  max-width: 280px;
+  /* select bar */
+  /* dropdown */
+  /* tag list */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000311}}
+.tag-select * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000315}}
+.tag-select.active {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000319}}
+.tag-select.active .dropdown {
+  height: auto;
+  padding: 4px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000326}}
+.tag-select .select-bar {
+  width: 100%;
+  cursor: pointer;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000330}}
+.tag-select .select-bar .selected-tag {
+  font-size: 1em;
+  color: #fff;
+  padding: 8px 12px;
+  margin: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000337}}
+.tag-select .select-bar .select-arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  right: 10px;
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000347}}
+.tag-select .dropdown {
+  position: absolute;
+  overflow: hidden;
+  background-color: #68686F;
+  width: 100%;
+  height: 0px;
+  z-index: 2;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  /* input field */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000358}}
+.tag-select .dropdown input[type="text"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  padding: 8px 10px;
+  padding-right: 50px;
+  margin-bottom: 0px;
+  border-color: transparent;
+  background-color: #EAEAEA;
+  box-shadow: none;
+  color: #77777a;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000372}}
+.tag-select .tag-list {
+  position: relative;
+  overflow: hidden;
+  max-height: 300px;
+  /* tag item */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000377}}
+.tag-select .tag-list * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000381}}
+.tag-select .tag-list ul {
+  list-style: none;
+  list-style-image: none;
+  margin-bottom: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\0000388}}
+.tag-select .tag-list .tag {
+  position: relative;
+  font-size: 1em;
+  line-height: 2.3em;
+  padding: 0 56px 0px 10px;
+  color: #8B8B8B;
+  border-radius: 3px;
+  margin: 4px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0px solid transparent;
+  background-color: transparent;
+  color: #FFF;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\00003105}}
+.tag-select .tag-list .tag:last-child {
+  margin: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\00003109}}
+.tag-select .tag-list .tag:hover {
+  background-color: #fff;
+  color: #1F1F1F;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\00003114}}
+.tag-select .tag-list .tag.active {
+  background-color: #56565A;
+  border-color: transparent;
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\00003119}}
+.tag-select .tag-list .tag.active:hover {
+  background-color: #fff;
+  color: #1F1F1F;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/tag_select\/tag_select\.scss}line{font-family:\00003125}}
+.tag-select .tag-list .tag.selected {
+  background-color: #3A3A3D;
+  color: #fff;
+}
+
+/* -----------------------------------------
+   TEXT EDITOR (REDACTOR)
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\000034}}
+#redactor_modal {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.37);
+}
+
+/* redactor toolbar */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\000039}}
+.redactor_toolbar {
+  z-index: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\0000314}}
+.redactor_toolbar li a {
+  width: 28px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\0000317}}
+.redactor_toolbar li a.redactor_btn_upload {
+  background-position: -199px 0px;
+}
+
+/* redactor box */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\0000325}}
+.redactor_box {
+  height: 100%;
+  border: none;
+}
+
+/* redactor editor */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\0000331}}
+.redactor_editor, .redactor_editor:focus {
+  height: 100%;
+  min-height: 90px;
+  top: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\0000336}}
+.redactor_editor *, .redactor_editor:focus * {
+  color: #2D2D2D;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\0000340}}
+.redactor_editor img, .redactor_editor:focus img {
+  height: auto !important;
+}
+
+/* editor */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/text_editor\/text_editor\.scss}line{font-family:\0000346}}
+.editor {
+  padding: 10px;
+}
+
+/* -----------------------------------------
+   VERTICAL TAGS
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\000034}}
+.vertical-tags {
+  position: relative;
+  background-color: #77777a;
+  border-radius: 6px;
+  overflow: hidden;
+  /* auto complete */
+  /* input field */
+  /* list button */
+  /* all-tags back button */
+  /* tag list */
+  /* selected tags */
+  /* all tags */
+  /* selected tag item */
+  /* delete icon */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000312}}
+.vertical-tags.pane2 .pane-content {
+  -webkit-transform: translate3d(-50%, 0px, 0px);
+  -moz-transform: translate3d(-50%, 0px, 0px);
+  -ms-transform: translate3d(-50%, 0px, 0px);
+  -o-transform: translate3d(-50%, 0px, 0px);
+  transform: translate3d(-50%, 0px, 0px);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000320}}
+.vertical-tags .auto-complete .filtered-terms {
+  padding-right: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000325}}
+.vertical-tags .pane-content {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  *zoom: 1;
+  width: 200%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003162}}
+.vertical-tags .pane-content:before, .vertical-tags .pane-content:after {
+  content: " ";
+  display: table;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/vendor\/foundation\/foundation\/components\/_global\.scss}line{font-family:\00003163}}
+.vertical-tags .pane-content:after {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000330}}
+.vertical-tags .pane-content .pane {
+  position: relative;
+  float: left;
+  width: 50%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000336}}
+.vertical-tags .pane-content .pane1 {
+  padding: 4px;
+  z-index: 2;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000341}}
+.vertical-tags .pane-content .pane2 {
+  padding: 4px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000350}}
+.vertical-tags input[type="text"] {
+  box-shadow: none;
+  padding-right: 50px;
+  margin-bottom: 6px;
+  border-color: transparent;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000358}}
+.vertical-tags .list-button {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  position: absolute;
+  top: 16px;
+  right: 3px;
+  cursor: pointer;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000366}}
+.vertical-tags .list-button:hover:before {
+  background-color: #737373;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000371}}
+.vertical-tags .list-button:before {
+  font-size: 1rem;
+  background-color: #616161;
+  border-radius: 3px;
+  padding: 6px;
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000381}}
+.vertical-tags .back-button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 100%;
+  margin-bottom: 13px;
+  border-radius: 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000389}}
+.vertical-tags .tag-list {
+  position: relative;
+  height: 195px;
+  overflow: auto;
+  /* non-touch device */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000395}}
+.no-touch .vertical-tags .tag-list {
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\0000399}}
+.vertical-tags .tag-list * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003103}}
+.vertical-tags .tag-list ul {
+  list-style: none;
+  list-style-image: none;
+  margin: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003117}}
+.vertical-tags .all-tags {
+  height: 195px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003120}}
+.vertical-tags .all-tags .tag {
+  cursor: pointer;
+  border: 0px solid transparent;
+  background-color: transparent;
+  color: #FFF;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003126}}
+.vertical-tags .all-tags .tag:hover {
+  background-color: #5A5A5C;
+  color: #fff;
+  border-color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003132}}
+.vertical-tags .all-tags .tag.active {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+  background-color: #fff;
+  border-color: transparent;
+  color: #3B3B3B;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003138}}
+.vertical-tags .all-tags .tag.active:hover {
+  background-color: #fff;
+  color: #1F1F1F;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003147}}
+.vertical-tags .tag {
+  position: relative;
+  font-size: 1rem;
+  line-height: 2.3em;
+  padding: 0 56px 0px 10px;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 3px;
+  margin: 4px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003160}}
+.vertical-tags .tag:hover {
+  background-color: #5A5A5C;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003166}}
+.vertical-tags .tag-delete {
+  -webkit-transition: 0.4s all;
+  -moz-transition: 0.4s all;
+  transition: 0.4s all;
+  position: absolute;
+  font-size: 1rem;
+  right: 21px;
+  width: 40px;
+  cursor: pointer;
+  /* tag icon */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003174}}
+.vertical-tags .tag-delete:hover {
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/vertical_tags\/vertical_tags\.scss}line{font-family:\00003179}}
+.vertical-tags .tag-delete:before {
+  left: 1em;
+  line-height: 2em;
+}

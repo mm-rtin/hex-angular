@@ -1,0 +1,43 @@
+<div class="vertical-tags" ng-class="{pane2: state.showPane2}">
+
+    <div class="pane-content">
+        <!-- tag search and list pane -->
+        <div class="pane pane1">
+
+            <div ng-switch on="autocomplete">
+                <!-- directive: autocomplete -->
+                <div auto-complete terms="tags" filtered-terms="filteredTerms" selected-terms="selectedTags" max-terms="4" placeholder="[[ placeholder ]]" ng-switch-when="true"></div>
+                <input type="text" placeholder="[[ placeholder ]]" ng-switch-default/>
+            </div>
+
+            <div class="list-button icon-list" ng-click="state.showPane2 = true" ng-show="showList"></div>
+
+            <!-- selected tags -->
+            <div class="tag-list selected-tags">
+                <ul>
+                    <li class="tag" ng-repeat="(key, value) in selectedTags">
+                        {{ key }}
+                        <span class="tag-delete icon-erase" ng-click="removeTag(key)"></span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- all tags pane -->
+        <div class="pane pane2">
+
+            <div class="back-button button secondary icon-chevron-left" ng-click="state.showPane2 = false">Back</div>
+
+            <div class="tag-list all-tags">
+                <ul>
+                    <li class="tag" ng-repeat="(key, value) in tags" ng-click="toggleTag(value)" ng-class="{active: isActive(value)}">
+                        {{ value }}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>

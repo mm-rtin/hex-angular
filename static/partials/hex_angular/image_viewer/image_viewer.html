@@ -1,0 +1,12 @@
+<div class="image-viewer" ng-show="imageViewer.open">
+    <button class="close-image-button button icon-remove" ng-click="closeImage()">Close</button>
+
+    <div class="image-slides" ng-click="closeImage()">
+
+        <div class="slide current">
+            <img class="image" ng-src="[[ imageViewer.image.url ]]" style="height: [[ imageViewer.image.height ]]px;">
+        </div>
+
+    </div>
+
+</div>

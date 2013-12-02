@@ -1,0 +1,33 @@
+<div class="tag-select" ng-class="{active: state.active}">
+
+    <!-- select bar -->
+    <div class="select-bar" ng-click="toggleDropdown()">
+        <h2 class="selected-tag" ng-bind="selectedTag">Select Tag</h2>
+        <div class="select-arrow icon-chevron-down"></div>
+    </div>
+
+    <!-- dropdown -->
+    <div class="dropdown">
+
+        <!-- search -->
+        <div ng-switch on="autocomplete">
+            <!-- directive: autocomplete -->
+            <div auto-complete terms="tags" filtered-terms="tagSelect.filteredTerms" selected-terms="tagSelect.selectedTags" render="false" max-terms="4" placeholder="Search Tags" ng-switch-when="true"></div>
+        </div>
+
+        <!-- tag list -->
+        <div class="tag-list">
+            <ul>
+                <li class="tag" ng-repeat="(key, value) in tags" ng-click="selectTag(value)" ng-class="{active: isActive(value), selected: key==state.activeTermIndex}" ng-show="tagSelect.filteredTerms.length == 0">
+                    <span ng-bind="value"><span>
+                </li>
+
+                <li class="tag" ng-repeat="(key, value) in tagSelect.filteredTerms" ng-click="selectActiveTag()" ng-class="{selected: key==state.activeTermIndex}" ng-show="tagSelect.filteredTerms.length > 0">
+                    <span ng-bind-html-unsafe="value"><span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>

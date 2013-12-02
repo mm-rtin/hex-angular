@@ -1,0 +1,47 @@
+<div class="image-panel inactive [[ mode ]]">
+
+    <div class="image-editor-container" ng-style="editorContainerStyle">
+        <div class="image-editor">
+            <div class="image" ng-mousedown="startCropSelection($event)" ng-style="imageStyle" ng-class="{'resizing-selection': !state.movingSelection};">
+                <div class="crop-overlay" ng-class="{active: state.cropActive}"></div>
+
+                <!-- crop selection -->
+                <div class="crop-selection" ng-style="cropStyle" ng-mousedown="moveCropSelection($event)" ng-class="{active: state.cropActive, 'show-guides': state.guidesActive};">
+
+                    <!-- west resize handle -->
+                    <div class="west-handle" ng-mousedown="westResize($event)">
+                        <div class="guide"></div>
+                    </div>
+
+                    <!-- east resize handle -->
+                    <div class="east-handle" ng-class="{'at-right': state.cropAtRightEdge}" ng-mousedown="eastResize($event)">
+                        <div class="guide"></div>
+                    </div>
+
+                    <!-- south resize handle -->
+                    <div class="south-handle" ng-class="{'at-bottom': state.cropAtBottomEdge}" ng-mousedown="southResize($event)">
+                        <div class="guide"></div>
+                    </div>
+
+                    <!-- north resize handle -->
+                    <div class="north-handle" ng-mousedown="northResize($event)">
+                        <div class="guide"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- directive: progress bar -->
+    <div progress-bar active="imageEditor.progress"></div>
+
+    <div class="editor-buttons">
+        <ul class="button-group radius" ng-hide="state.hideControls">
+            <li><button class="secondary" ng-tap="hideImageEditor()">Use As-Is</button></li>
+            <li><button class="success icon-crop" ng-disabled="!state.cropActive" ng-tap="saveImage()"> Crop</button></li>
+        </ul>
+    </div>
+
+</div>
+
