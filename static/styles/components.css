@@ -364,7 +364,7 @@ body {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/modifiers\/text\.scss}line{font-family:\000035}}
 .paragraph-content {
-  font-family: "proxima-nova", sans-serif;
+  font-family: "open-sans", sans-serif;
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.6;

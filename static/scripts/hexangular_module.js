@@ -304,6 +304,801 @@ App.directive('autoComplete', function($rootScope) {
 ;var App = angular.module('hexAngular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Content Gallery Directive -
+* Requires Modernizr detect: cssanimations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+App.directive('contentGallery', function($rootScope, $timeout, $q, $animate) {
+    'use strict';
+
+    return {
+        restrict: 'A',
+        templateUrl: '/static/partials/hex_angular/content_gallery/content_gallery.html',
+        replace: false,
+        scope: {
+            smallImageList: '=',
+            mediumImageList: '=',
+            largeImageList: '=',
+            thumbnailImageList: '=',
+
+            thumbnailWidth: '@',
+            thumbnailHeight: '@',
+
+            smallWidth: '@',
+            mediumWidth: '@',
+            largeWidth: '@'
+        },
+
+        link: function($scope, $element, $attrs) {
+
+            // contants
+            var DEBOUNCE_TIME = 350,                // time to delay keydown fire event
+                SCROLL_MARGIN = 15,                 // margin below height overflow images
+                SWIPE_VELOCITY = 0.4,               // swipe left/right activation velocity
+                DRAG_DISTANCE_THRESHOLD = 20;       // distance before dragging overrides tap
+
+            // properties
+            var frameID = null,
+                animationFrame = new AnimationFrame(60),
+                ctrlModifier = false,
+                slideInTransition = false,
+                cssanimations = false,
+                lastDelta = 0,
+                disableSlideNavigation = false,
+                currentGallerySize = null,
+
+                windowHeight = 0,
+                activeHeight = 0,
+                currentSlide = null;
+
+            // promises
+            var smallImagesDeferred = $q.defer(),
+                mediumImagesDeferred = $q.defer(),
+                largeImagesDeferred = $q.defer(),
+                thumbnailImagesDeferred = $q.defer();
+
+            // functions
+            var throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
+
+            // jquery elements
+            var $htmlRoot = $('html'),
+                $contentGallery = $element,
+                $galleryContainer = $element.find('.gallery-container'),
+                $slideContainer = $element.find('.slide-container'),
+                $activeSlide = null;
+
+            // scope data
+            $scope.imageList = [];
+            $scope.embeddedList = [];
+            $scope.fullscreenList = [];
+
+            $scope.state = {
+                'fullscreen': false,
+                'transitions': true,
+                'slideActive': false,
+                'slideCount': 0,
+                'currentSlideIndex': -1,
+                'slideContainerWidth': 0,
+                'slideWidth': 0
+            };
+
+            $scope.slideContainerStyle = {};
+            $scope.galleryContainerStyle = {};
+            $scope.galleryInterfaceStyle = {};
+            $scope.slideStyle = {};
+
+            initialize();
+
+            /* initialize -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function initialize() {
+
+                console.log('init content gallery');
+
+                // watch: smallImageList
+                $scope.$watch('smallImageList', function(smallImageList, oldValue) {
+
+                    // if smallImageList is string
+                    if (typeof smallImageList === 'string') {
+                        $scope.smallImageList = parseImageListString(smallImageList);
+                    }
+                    smallImagesDeferred.resolve();
+                });
+
+                // watch: mediumImageList
+                $scope.$watch('mediumImageList', function(mediumImageList, oldValue) {
+
+                    // if mediumImageList is string
+                    if (typeof mediumImageList === 'string') {
+                        $scope.mediumImageList = parseImageListString(mediumImageList);
+                    }
+                    mediumImagesDeferred.resolve();
+                });
+
+                // watch: largeImageList
+                $scope.$watch('largeImageList', function(largeImageList, oldValue) {
+
+                    // if largeImageList is string
+                    if (typeof largeImageList === 'string') {
+                        $scope.largeImageList = parseImageListString(largeImageList);
+                    }
+                    largeImagesDeferred.resolve();
+                });
+
+                // watch: thumbnailImageList
+                $scope.$watch('thumbnailImageList', function(thumbnailImageList, oldValue) {
+
+                    // if thumnailList is string
+                    if (typeof thumbnailImageList === 'string') {
+                        $scope.thumbnailImageList = parseImageListString(thumbnailImageList);
+                    }
+                    thumbnailImagesDeferred.resolve();
+                });
+
+                // wait for all promises to resolve
+                $q.all([smallImagesDeferred.promise, mediumImagesDeferred.promise, largeImagesDeferred.promise, thumbnailImagesDeferred.promise]).then(function(arrayOfResults) {
+
+                    renderContentGallery();
+                });
+            }
+
+             /* createEventHandlers -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function createEventHandlers() {
+
+                // window: resized
+                $(window).on('resize', function(e) {
+                    resizeUpdate();
+                });
+
+                // window: keyup
+                $(window).on('keydown', function(e) {
+                    throttledKeydownHandler(e.which);
+                });
+
+                // window: keyup
+                $(window).on('keyup', function(e) {
+
+                    disableSlideNavigation = false;
+
+                    // reset throttle
+                    throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
+
+                    // ctrl
+                    if (e.which === 17) {
+                        ctrlModifier = false;
+
+                    // escape
+                    } else if (e.which === 27) {
+
+                        $rootScope.safeApply(function() {
+                            disableFullscreen();
+                        });
+                    }
+                });
+
+                // content gallery: mousedown
+                $contentGallery.on('mousedown', function(e) {
+                    disableSlideNavigation = false;
+                });
+
+                // content gallery: drag
+                $contentGallery.hammer().on('drag', function(e) {
+
+                    if ($scope.state.fullscreen) {
+
+                        var delta = e.gesture.deltaY;
+
+                        frameID = animationFrame.request(function(time) {
+                            scrollCurrentSlideBy(delta);
+                        });
+
+                        e.gesture.preventDefault();
+                    }
+                });
+
+                // content gallery: drag end
+                $contentGallery.hammer().on('dragend', function(e) {
+
+                    if ($scope.state.fullscreen) {
+
+                        // disable slide navigation if drag distance greater than threshold
+                        if (e.gesture.distance > DRAG_DISTANCE_THRESHOLD) {
+                            disableSlideNavigation = true;
+                        }
+                        lastDelta = 0;
+
+                        e.gesture.preventDefault();
+                    }
+                });
+
+                // content gallery: tap
+                $contentGallery.hammer().on('tap', function(e) {
+                    disableSlideNavigation = false;
+                });
+
+                // content gallery: tap
+                $contentGallery.hammer().on('release', function(e) {
+                    disableSlideNavigation = false;
+                });
+
+                // content gallery: swipeleft
+                $contentGallery.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swipeleft', function(e) {
+                    $rootScope.safeApply(function() {
+                        nextSlide();
+                    });
+                });
+
+                // content gallery: swiperight
+                $contentGallery.hammer({'swipe_velocity': SWIPE_VELOCITY}).on('swiperight', function(e) {
+                    $rootScope.safeApply(function() {
+                        previousSlide();
+                    });
+                });
+
+                // slideContainer: transitionend
+                $slideContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
+                    slideInTransition = false;
+                });
+
+                // thumbnail-gallery:set-active
+                $scope.$on('thumbnail-gallery:set-active', function(e, index) {
+                    setActiveSlide(index, false);
+                });
+
+                // content-tabs:tab-active - when content-tab directive active state changes update gallery
+                $scope.$on('content-tabs:tab-active', function(e, index) {
+                    resizeUpdate();
+                });
+
+                // imageViewer: mousewheel
+                $contentGallery.bind('mousewheel', handleMouseWheelEvent);
+            }
+
+            /* parseImageListString -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function parseImageListString(imageListString) {
+
+                var imageURLs = imageListString.split(',');
+                var imageObjectList = [];
+
+                imageURLs.each(function(url) {
+
+                    if (url) {
+                        imageObjectList.push({'url': url});
+                    }
+                });
+
+                return imageObjectList;
+            }
+
+            /* renderContentGallery -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function renderContentGallery() {
+
+                createEventHandlers();
+
+                // set window height
+                windowHeight = $(window).height();
+
+                // convert to integer
+                $scope.thumbnailHeight = parseInt($scope.thumbnailHeight, 10);
+                $scope.thumbnailWidth = parseInt($scope.thumbnailWidth, 10);
+
+                // modernizr detect cssanimations
+                if ($htmlRoot.hasClass('cssanimations')) {
+                    cssanimations = true;
+                }
+
+                // calculate container and slide width
+                $scope.state.slideCount = $scope.largeImageList.length;
+                $scope.state.slideContainerWidth = $scope.state.slideCount * 100;
+                $scope.state.slideWidth = 100 / $scope.state.slideCount;
+
+                // apply basic gallery styles
+                $scope.slideContainerStyle = {
+                    'width': $scope.state.slideContainerWidth + '%'
+                };
+                $scope.galleryInterfaceStyle = {
+                    'bottom': $scope.thumbnailHeight + 'px'
+                };
+                $scope.slideStyle = {
+                    'width': $scope.state.slideWidth + '%'
+                };
+
+                // load gallery
+                loadGallery(0);
+            }
+
+            /* loadGallery -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function loadGallery(activeIndex) {
+
+                var currentGallerySize = getGallerySize($scope.state.fullscreen);
+
+                $scope.imageList = getImageList(currentGallerySize, $scope.state.fullscreen);
+
+                // load images
+                $scope.imageList.each(function(image, index) {
+                    loadImage(image, index, activeIndex);
+                });
+            }
+
+            /* loadImage
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function loadImage(image, index, activeIndex) {
+
+                var loadedImage = new Image();
+                loadedImage.src = image.url;
+
+                // on image load
+                loadedImage.onload = function() {
+
+                    // set image properties
+                    image.width = loadedImage.width;
+                    image.height = loadedImage.height;
+                    image.loaded = true;
+                    image.yPos = 0;
+                    image.atTop = true;
+                    image.atBottom = false;
+
+                    // get original url
+                    image.original = getOriginalURL(image.url);
+
+                    // set active image once first image has loaded
+                    if (index === activeIndex) {
+
+                        // wait for image to render on page
+                        $timeout(function() {
+
+                            // set slide to active state
+                            $scope.state.slideActive = true;
+                            setActiveSlide(activeIndex, true);
+
+                        }, 500);
+                    }
+                };
+            }
+
+            /* getOriginalURL -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getOriginalURL(imageURL) {
+
+                var originalURL = '';
+
+                var urlParts = imageURL.split('/');
+                var extensionParts = imageURL.split('.');
+
+                originalURL = [urlParts[0], urlParts[1], urlParts[2], urlParts[4], urlParts[5]].join('/');
+
+                // add extension
+                originalURL += '.' + extensionParts[extensionParts.length - 1];
+
+                return originalURL;
+            }
+
+            /* getImageList -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getImageList(gallerySize, fullscreen) {
+
+                var imageList = null;
+
+                switch(gallerySize) {
+
+                    case 'small':
+                        imageList = $scope.smallImageList;
+                        break;
+
+                    case 'medium':
+                        imageList = $scope.mediumImageList;
+                        break;
+
+                    case 'large':
+                        imageList = $scope.largeImageList;
+                        break;
+                }
+
+                return imageList;
+            }
+
+            /* getGallerySize -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getGallerySize(fullscreen) {
+
+                // get usable width
+                var usableWidth = $contentGallery.width();
+                if (fullscreen) {
+                    usableWidth = $(window).width();
+                }
+
+                var smallWidth = parseInt($scope.smallWidth, 10),
+                    mediumWidth = parseInt($scope.mediumWidth, 10),
+                    largeWidth = parseInt($scope.largeWidth, 10);
+
+                var imageSize = null;
+
+                // no width (must be hidden)
+                if (usableWidth === 0) {
+
+                    // if current gallery size defined, use it
+                    if (currentGallerySize) {
+                        imageSize = currentGallerySize;
+
+                    // otherwise use large
+                    } else {
+                        imageSize = 'large';
+                    }
+
+                // small
+                } else if (usableWidth <= smallWidth) {
+                    imageSize = 'small';
+
+                // medium
+                } else if (usableWidth <= mediumWidth) {
+                    imageSize = 'medium';
+
+                // large
+                } else {
+                    imageSize = 'large';
+                }
+
+                return imageSize;
+            }
+
+            /* resizeUpdate
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function resizeUpdate() {
+
+                // update window height
+                windowHeight = $(window).height();
+
+                var gallerySize = getGallerySize($scope.state.fullscreen);
+
+                // load new gallery
+                if (gallerySize !== currentGallerySize) {
+
+                    currentGallerySize = gallerySize;
+
+                    loadGallery($scope.state.currentSlideIndex);
+                }
+
+                $timeout(function() {
+                    setGalleryHeight();
+                }, 500);
+            }
+
+            /* keydownHandler
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function keydownHandler(key) {
+
+                if (key === 17) {
+                    // reset throttle
+                    throttledKeydownHandler = keydownHandler.throttle(DEBOUNCE_TIME);
+                    ctrlModifier = true;
+                }
+
+                // previous slide
+                if (key === 37) {
+                    $rootScope.safeApply(function() {
+                        if (ctrlModifier) {
+                            setActiveSlide(0);
+                        } else {
+                            previousSlide();
+                        }
+                    });
+
+                // next slide
+                } else if (key === 39) {
+                    $rootScope.safeApply(function() {
+                        if (ctrlModifier) {
+                            setActiveSlide($scope.state.slideCount - 1);
+                        } else {
+                            nextSlide();
+                        }
+                    });
+                }
+            }
+
+            /* setActiveSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setActiveSlide(index, emitEvent) {
+
+                if (disableSlideNavigation) return;
+
+                lastDelta = 0;
+
+                // emit event by default
+                emitEvent = (typeof emitEvent === 'undefined' || emitEvent) ? true : false;
+
+                // set active if index greater than -1, less than imageList length, and image at index is loaded
+                if (index > -1 && index < $scope.imageList.length && $scope.imageList[index].loaded) {
+
+                    if (cssanimations) {
+                        slideInTransition = true;
+                    }
+
+                    // save current index
+                    $scope.state.currentSlideIndex = index;
+
+                    // set active slide
+                    $activeSlide = $slideContainer.find('.slide-' + index);
+
+                    // set current slide
+                    currentSlide = $scope.imageList[index];
+
+                    // set slide container horizontal position
+                    scrollToActiveSlide(index);
+
+                    // broadcast active selection
+                    if (emitEvent) {
+                        $scope.$broadcast('content-gallery:set-active', index);
+                    }
+                }
+            }
+
+            /* scrollToActiveSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollToActiveSlide() {
+
+                // calculate translation amount
+                var xPosition = $scope.state.currentSlideIndex * $scope.state.slideWidth,
+                    translateType = '%';
+
+                // use different xPosition method for mobile
+                if (typeof window.orientation !== 'undefined') {
+                    xPosition = $activeSlide.position().left;
+                    translateType = 'px';
+                }
+
+                // apply transform/width styles
+                $scope.slideContainerStyle = {
+                    'width': ($scope.state.slideCount * 100) + '%',
+                    '-webkit-transform': 'translate3d(' + -xPosition + translateType + ', 0px, 0px)',
+                    '-moz-transform': 'translate3d(' + -xPosition + translateType + ', 0px, 0px)',
+                    '-ms-transform': 'translate(' + -xPosition + translateType + ', 0px)',
+                    '-o-transform': 'translate3d(' + -xPosition + translateType + ', 0px, 0px)',
+                    'transform': 'translate3d(' + -xPosition + translateType + ', 0px, 0px)'
+                };
+
+                setGalleryHeight();
+
+                resetScroll();
+            }
+
+            /* setGalleryHeight - set gallery height based on active slide height
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setGalleryHeight() {
+
+                if (!$activeSlide) return;
+
+                // get active slide element
+                windowHeight = $(window).height();
+                activeHeight = $activeSlide.height();
+
+                if (activeHeight <= 0) return;
+
+                var galleryStyles = {};
+
+                // fullscreen
+                if ($scope.state.fullscreen) {
+
+                    var fullScreenWindowHeight = windowHeight - $scope.thumbnailHeight;
+
+                    var topPadding = 0;
+
+                    if (!isImageTallerThanWindow()) {
+                        topPadding = (fullScreenWindowHeight - activeHeight) / 2;
+                    }
+
+                    // gallery styles
+                    galleryStyles = {
+                        'height': fullScreenWindowHeight + 'px',
+                        '-webkit-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                        '-moz-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                        '-ms-transform': 'translate(0px, ' + topPadding + 'px)',
+                        '-o-transform': 'translate3d(0px, ' + topPadding + 'px, 0px)',
+                        'transform': 'translate3d(0px, ' + topPadding + 'px, 0px)'
+                    };
+
+                // embedded
+                } else {
+
+                    // gallery styles
+                    galleryStyles.height = activeHeight + 'px';
+                }
+
+                // set styles
+                $scope.galleryContainerStyle = galleryStyles;
+            }
+
+            /* extractDelta - get mouse wheel delta
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function extractDelta(e) {
+
+                if (e.wheelDelta) {
+                    return e.wheelDelta;
+                }
+
+                if (e.originalEvent.detail) {
+                    return e.originalEvent.detail * -40;
+                }
+
+                if (e.originalEvent && e.originalEvent.wheelDelta) {
+                    return e.originalEvent.wheelDelta;
+                }
+            }
+
+            /* handleMouseWheelEvent - handle mouse scroll event
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function handleMouseWheelEvent(e) {
+
+                // only for fullscreen mode
+                if ($scope.state.fullscreen) {
+                    var delta = extractDelta(e);
+                    lastDelta = 0;
+
+                    // reduce delta
+                    delta = delta / 3;
+
+                    // set new scroll position
+                    scrollCurrentSlideBy(delta);
+                }
+            }
+
+            /* scrollCurrentSlideBy - add delta to current vertical position
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollCurrentSlideBy(delta) {
+
+                var yPosition = currentSlide.yPos;
+
+                yPosition += delta - lastDelta;
+
+                lastDelta = delta;
+
+                // scroll slide to new yPosition
+                scrollCurrentSlideTo(yPosition);
+            }
+
+            /* scrollCurrentSlideByTo - set new vertical position
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollCurrentSlideTo(yPosition) {
+
+                var negativeScrollLimit = windowHeight - activeHeight - SCROLL_MARGIN - $scope.thumbnailHeight;
+
+                $rootScope.safeApply(function() {
+
+                    currentSlide.atBottom = false;
+                    currentSlide.atTop = false;
+
+                    // restrict scroll down amount
+                    if (yPosition <= negativeScrollLimit) {
+                        yPosition = negativeScrollLimit;
+                        currentSlide.atBottom = true;
+                        currentSlide.atTop = false;
+                    }
+
+                    // restrict scroll up amount
+                    if (yPosition >= 0) {
+                        yPosition = 0;
+                        currentSlide.atBottom = false;
+                        currentSlide.atTop = true;
+                    }
+                });
+
+                currentSlide.yPos = yPosition;
+
+                // apply styles
+                $activeSlide.css({
+                    '-webkit-transform': 'translate3d(0px, ' + yPosition + 'px, 0px)',
+                    '-moz-transform': 'translate3d(0px, ' + yPosition + 'px, 0px)',
+                    '-ms-transform': 'translate(0px, ' + yPosition + 'px)',
+                    '-o-transform': 'translate3d(0px, ' + yPosition + 'px, 0px)',
+                    'transform': 'translate3d(0px, ' + yPosition + 'px, 0px)'
+                });
+            }
+
+            /* isImageTallerThanWindow - return true if image height larger than current window height
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function isImageTallerThanWindow() {
+
+                if ($activeSlide) {
+
+                    var $image = $activeSlide.find('img');
+
+                    var imageHeight = $image.height();
+
+                    return (imageHeight > windowHeight - $scope.thumbnailHeight);
+                }
+            }
+
+            /* resetScroll - reset scroll position to 0
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function resetScroll() {
+
+                lastDelta = 0;
+                scrollCurrentSlideTo(0);
+            }
+
+            /* nextSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function nextSlide() {
+                setActiveSlide($scope.state.currentSlideIndex + 1);
+            }
+
+            /* previousSlide -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function previousSlide() {
+                setActiveSlide($scope.state.currentSlideIndex - 1);
+            }
+
+            /* scrollUp - scroll up in fixed increment
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollUp() {
+                scrollCurrentSlideBy(100);
+                lastDelta = 0;
+            }
+
+            /* scrollDown - scroll down in fixed increment
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function scrollDown() {
+                scrollCurrentSlideBy(-100);
+                lastDelta = 0;
+            }
+
+            /* enableFullscreen -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function enableFullscreen() {
+
+                if ($scope.state.fullscreen) return;
+
+                $htmlRoot.addClass('overflow-hidden');
+                $scope.state.fullscreen = true;
+
+                // load gallery
+                loadGallery($scope.state.currentSlideIndex);
+            }
+
+            /* disableFullscreen -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function disableFullscreen() {
+
+                if (!$scope.state.fullscreen) return;
+
+                $htmlRoot.removeClass('overflow-hidden');
+                $scope.state.fullscreen = false;
+
+                // load gallery
+                loadGallery($scope.state.currentSlideIndex);
+            }
+
+            /* disableTransitions -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function disableTransitions(time) {
+
+                // disable transitions
+                $scope.state.transitions = false;
+
+                // renabled after delay
+                $timeout(function() {
+                    $scope.state.transitions = true;
+                }, time);
+            }
+
+            /* Scope Methods
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            $scope.setActiveSlide = setActiveSlide;
+            $scope.nextSlide = nextSlide;
+            $scope.previousSlide = previousSlide;
+            $scope.scrollUp = scrollUp;
+            $scope.scrollDown = scrollDown;
+            $scope.isImageTallerThanWindow = isImageTallerThanWindow;
+            $scope.enableFullscreen = enableFullscreen;
+            $scope.disableFullscreen = disableFullscreen;
+        }
+    };
+});
+;var App = angular.module('hexAngular');
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Image Editor Directive -
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('imageEditor', function($rootScope, $http, $timeout, Utilities) {
@@ -2444,6 +3239,375 @@ App.directive('textEditor', function($rootScope) {
 ;var App = angular.module('hexAngular');
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Thumbnail Gallery Directive -
+* Requires Modernizr detect: cssanimations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+App.directive('thumbnailGallery', function($rootScope, $timeout) {
+    'use strict';
+
+    return {
+        restrict: 'A',
+        templateUrl: '/static/partials/hex_angular/thumbnail_gallery/thumbnail_gallery.html',
+        replace: false,
+        scope: {
+            thumbnailList: '=',
+            width: '=',
+            fullscreen: '=',
+            spacing: '@'
+        },
+
+        link: function($scope, $element, $attrs) {
+
+            // constants
+            var CALCULATION_ERROR_PADDING = 2;
+
+            // properties
+            var thumbnailInTransition = false,
+                allThumbnailsLoaded = false,
+                cssanimations = false,
+
+                // viewport properties
+                vpProperties = {
+                    'width': 0,
+                    'height': 0,
+                    'fullyVisibleImages': 0,
+                    'maxTranslateAmount': 0,
+                    'innerWidth': 0
+                },
+
+                // thumbnail container properties
+                tcProperties = {
+                    'currentTranslation': 0,
+                    'thumbnailCount': 0,
+                    'width': 0
+                },
+
+                thumbnailDimensions = {
+                    'width': 0,
+                    'height': 0
+                };
+
+            var throttledResizeUpdate = resizeUpdate.debounce(500);
+
+            // jquery elements
+            var $thumbnailGallery = $element,
+                $viewportContainer = $element.find('.thumbnail-viewport-container'),
+                $thumbnailContainer = $element.find('.thumbnail-container'),
+                $activeThumbnail = null;
+
+            // scope data
+            $scope.state = {
+                'currentThumbnailIndex': -1,
+                'currentPageIndex': 0
+            };
+
+            $scope.thumbnailContainerStyle = {};
+            $scope.thumbnailStyle = {};
+            $scope.thumbnailImageStyle = {};
+
+            // wait for thumbnailList data before intialization
+            $scope.$watch('thumbnailList', function(thumbnailList, oldValue) {
+                initialize();
+            });
+
+            /* initialize -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function initialize() {
+
+                createEventHandlers();
+
+                // modernizr detect cssanimations
+                if ($('html').hasClass('cssanimations')) {
+                    cssanimations = true;
+                }
+
+                // calculate container and thumbnail width
+                tcProperties.thumbnailCount = $scope.thumbnailList.length;
+
+                // apply styles
+                $scope.thumbnailStyle = {
+                };
+                $scope.thumbnailImageStyle = {
+                    'padding-right': $scope.spacing + 'px',
+                    'width': $scope.width + 'px'
+                };
+            }
+
+            /* createEventHandlers -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function createEventHandlers() {
+
+                // watch: fullscreen
+                $scope.$watch('fullscreen', function(fullscreen, oldValue) {
+
+                    if (typeof fullscreen !== 'undefined') {
+                        (function() {
+                            resizeUpdate();
+                        }).delay(500);
+                    }
+                });
+
+                // window: resized
+                $(window).on('resize', function(e) {
+
+                    if (allThumbnailsLoaded) {
+                        throttledResizeUpdate();
+                    }
+                });
+
+                // thumbnailContainer: transitionend
+                $thumbnailContainer.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd msTransitionEnd', function() {
+
+                    thumbnailInTransition = false;
+                });
+
+                // viewportContainer: all images loaded
+                $viewportContainer.imagesLoaded(function() {
+
+                    // wait for image to render on page
+                    $timeout(function() {
+
+                        allThumbnailsLoaded = true;
+
+                        calculateDimensions();
+
+                        $scope.thumbnailContainerStyle = {
+                            'width': tcProperties.width
+                        };
+
+                    }, 0);
+                });
+
+                // content-gallery:set-active
+                $scope.$on('content-gallery:set-active', function(e, index) {
+                    setActiveThumbnail(index, false);
+                });
+
+                $scope.$on('content-tabs:tab-active', function(e, index) {
+                    resizeUpdate();
+                });
+            }
+
+            /* resizeUpdate -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function resizeUpdate() {
+
+                calculateDimensions();
+                setFirstViewableImage($scope.state.currentThumbnailIndex);
+            }
+
+            /* calculateDimensions -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function calculateDimensions() {
+
+                // if thumbnail container width is 0 - reset it
+                if (tcProperties.width === 0) {
+                    tcProperties.width = null;
+                }
+
+                var $thumbnail = $thumbnailContainer.find('.thumbnail-0');
+
+                var thumbnailWidth = $thumbnail.width(),
+                    thumbnailHeight = $thumbnail.height();
+
+                // thumbnail width 0 (must be hidden) - do not update dimensions if updated at least once
+                if (thumbnailWidth === 0 && tcProperties.width !== 0) {
+                    return;
+                }
+
+                // thumbnail dimensions
+                thumbnailDimensions.width = thumbnailWidth + 1;
+                thumbnailDimensions.height = thumbnailHeight;
+
+                // viewport properties
+                vpProperties.width = $viewportContainer.width();
+                vpProperties.height = $viewportContainer.height();
+                vpProperties.fullyVisibleImages = Math.floor(vpProperties.width / thumbnailDimensions.width);
+
+                // thumbnail container properties
+                tcProperties.width = tcProperties.thumbnailCount * thumbnailDimensions.width;
+
+                // calculate max translate (add in drift + spacing)
+                vpProperties.maxTranslateAmount = -(vpProperties.width - tcProperties.width + (tcProperties.thumbnailCount) + parseInt($scope.spacing, 10));
+
+                if (vpProperties.maxTranslateAmount < 0) {
+                    vpProperties.maxTranslateAmount = 0;
+                }
+            }
+
+            /* setActiveThumbnail -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setActiveThumbnail(index, emitEvent) {
+
+                // emit event by default
+                emitEvent = (typeof emitEvent === 'undefined') ? true : false;
+
+                // set active if index less than thumbnailList lenght, thumbnail not in transitions and image at index is loaded
+                if (index < $scope.thumbnailList.length && !thumbnailInTransition && allThumbnailsLoaded) {
+
+                    // previous image not in full view - go back
+                    if (!isImageFullyViewable(index - 1) && index !== tcProperties.thumbnailCount - 1) {
+                        setFirstViewableImage(index - 1);
+
+                    // next image not in full view - go forward
+                    } else if (!isImageFullyViewable(index + 1)) {
+                        setLastViewableImage(index + 1);
+                    }
+
+                    // save current index
+                    $scope.state.currentThumbnailIndex = index;
+                    $scope.state.currentPageIndex = index;
+
+                    // set active thumbnail
+                    $activeThumbnail = $thumbnailContainer.find('.thumbnail-' + index);
+
+                    // emit active selection
+                    if (emitEvent) {
+                        $scope.$emit('thumbnail-gallery:set-active', index);
+                    }
+                }
+            }
+
+            /* isImageFullyViewable -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function isImageFullyViewable(index) {
+
+                if (index < 0) {
+                    index = 0;
+                } else if (index > tcProperties.thumbnailCount - 1) {
+                    index = tcProperties.thumbnailCount - 1;
+                }
+
+                var imageStart = getImagePosition(index);
+                var imageEnd = imageStart + thumbnailDimensions.width;
+
+                var tcViewStart = tcProperties.currentTranslation;
+                var tcViewEnd = tcProperties.currentTranslation + vpProperties.width + parseInt($scope.spacing, 10) + CALCULATION_ERROR_PADDING;
+
+                if (imageStart >= tcViewStart && imageEnd <= tcViewEnd) {
+                    return true;
+                }
+                return false;
+            }
+
+            /* setFirstViewableImage -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setFirstViewableImage(index) {
+
+                if (index < 0) {
+                    index = 0;
+                }
+
+                var translateAmount = getImagePosition(index);
+                translateThumbnailContainer(translateAmount);
+            }
+
+            /* setLastViewableImage -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setLastViewableImage(index) {
+
+                if (index > tcProperties.thumbnailCount - 1) {
+                    index = tcProperties.thumbnailCount - 1;
+                }
+
+                var translateAmount = getImagePosition(index) - vpProperties.width + thumbnailDimensions.width - parseInt($scope.spacing, 10) - CALCULATION_ERROR_PADDING;
+
+                translateThumbnailContainer(translateAmount);
+            }
+
+            /* getImagePosition -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function getImagePosition(index) {
+                return (thumbnailDimensions.width * index) - (index * 1);
+            }
+
+            /* translateThumbnailContainer -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function translateThumbnailContainer(translateAmount) {
+
+                if (translateAmount > vpProperties.maxTranslateAmount) {
+                    translateAmount = vpProperties.maxTranslateAmount;
+
+                } else if (translateAmount < 0) {
+                    translateAmount = 0;
+                }
+
+                // set style
+                setThumbnailContainerStyle(translateAmount);
+            }
+
+            /* setThumbnailContainerStyle -
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function setThumbnailContainerStyle(translateAmount) {
+
+                tcProperties.currentTranslation = translateAmount;
+
+                $rootScope.safeApply(function() {
+
+                    // apply transform/width styles
+                    $scope.thumbnailContainerStyle = {
+                        'width': tcProperties.width,
+                        '-webkit-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        '-moz-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        '-ms-transform': 'translate(' + -translateAmount + 'px, 0px)',
+                        '-o-transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)',
+                        'transform': 'translate3d(' + -translateAmount + 'px, 0px, 0px)'
+                    };
+                });
+            }
+
+            /* nextPage - find first non-fully visible image moving forward and set as first viewable
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function nextPage() {
+
+                var thumbInFullView = true,
+                    currentIndex = $scope.state.currentPageIndex;
+
+                if (cssanimations) {
+                    thumbnailInTransition = true;
+                }
+
+                while (thumbInFullView) {
+                    thumbInFullView = isImageFullyViewable(currentIndex);
+                    currentIndex++;
+                }
+
+                $scope.state.currentPageIndex = --currentIndex;
+                setFirstViewableImage($scope.state.currentPageIndex);
+            }
+
+            /* previousPage - find first non-fully visible image moving backward and set as last viewable
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            function previousPage() {
+
+                var thumbInFullView = true,
+                    currentIndex = $scope.state.currentPageIndex;
+
+                if (cssanimations) {
+                    thumbnailInTransition = true;
+                }
+
+                while (thumbInFullView) {
+                    thumbInFullView = isImageFullyViewable(currentIndex);
+                    currentIndex--;
+                }
+
+                $scope.state.currentPageIndex = ++currentIndex;
+                setLastViewableImage($scope.state.currentPageIndex);
+            }
+
+            /* Scope Methods
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+            $scope.setActiveThumbnail = setActiveThumbnail;
+            $scope.isImageFullyViewable = isImageFullyViewable;
+            $scope.previousPage = previousPage;
+            $scope.nextPage = nextPage;
+        }
+    };
+});
+;var App = angular.module('hexAngular');
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Vertical Tags Directive -
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.directive('verticalTags', function($rootScope) {
@@ -2589,6 +3753,20 @@ App.directive('verticalTags', function($rootScope) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 App.factory('Utilities', function($rootScope) {
     'use strict';
+
+    console.log('load safeaply');
+
+    // add safeApply to rootScope
+    $rootScope.safeApply = function(fn) {
+        var phase = this.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
 
     /*ignore jslint start*/
 

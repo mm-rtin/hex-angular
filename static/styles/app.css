@@ -50,7 +50,7 @@ meta.foundation-mq-xxlarge {
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/app\.scss}line{font-family:\0000335}}
 .site-title {
   display: block;
-  background: transparent url(/static/src/images/logo.png) no-repeat;
+  background: transparent url(/static/images/logo.png) no-repeat;
   background-position: 0 0;
   background-size: contain;
   opacity: 1.0;
