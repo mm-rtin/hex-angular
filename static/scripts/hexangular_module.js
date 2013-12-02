@@ -31,7 +31,7 @@ App.directive('autoComplete', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/auto_complete/auto_complete.html',
+        templateUrl: 'static/partials/hex_angular/auto_complete/auto_complete.html',
         replace: true,
         scope: {
             terms: '=',
@@ -312,7 +312,7 @@ App.directive('contentGallery', function($rootScope, $timeout, $q, $animate) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/content_gallery/content_gallery.html',
+        templateUrl: 'static/partials/hex_angular/content_gallery/content_gallery.html',
         replace: false,
         scope: {
             smallImageList: '=',
@@ -1197,7 +1197,6 @@ App.directive('dropdown', function($rootScope, $timeout, $animate, Utilities) {
 
                 $scope.state.open = true;
 
-                $animate.addClass($element, $scope.settings.transition);
                 $animate.addClass($menu, $scope.settings.transition);
             }
 
@@ -1209,7 +1208,6 @@ App.directive('dropdown', function($rootScope, $timeout, $animate, Utilities) {
 
                 $scope.state.open = false;
 
-                $animate.removeClass($element, $scope.settings.transition);
                 $animate.removeClass($menu, $scope.settings.transition);
             }
 
@@ -1230,7 +1228,7 @@ App.directive('imageEditor', function($rootScope, $http, $timeout, Utilities) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/image_editor/image_editor.html',
+        templateUrl: 'static/partials/hex_angular/image_editor/image_editor.html',
         replace: true,
         scope: {
             imageSource: '=',
@@ -2165,7 +2163,7 @@ App.directive('imageViewer', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/image_viewer/image_viewer.html',
+        templateUrl: 'static/partials/hex_angular/image_viewer/image_viewer.html',
         replace: true,
         scope: {
         },
@@ -2912,7 +2910,7 @@ App.directive('progressBar', function($rootScope, $timeout) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/progress_bar/progress_bar.html',
+        templateUrl: 'static/partials/hex_angular/progress_bar/progress_bar.html',
         replace: true,
         scope: {
             'active': '=',
@@ -2969,7 +2967,7 @@ App.directive('tagSelect', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/tag_select/tag_select.html',
+        templateUrl: 'static/partials/hex_angular/tag_select/tag_select.html',
         replace: true,
         scope: {
             'tags': '=',
@@ -3371,7 +3369,7 @@ App.directive('thumbnailGallery', function($rootScope, $timeout) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/thumbnail_gallery/thumbnail_gallery.html',
+        templateUrl: 'static/partials/hex_angular/thumbnail_gallery/thumbnail_gallery.html',
         replace: false,
         scope: {
             thumbnailList: '=',
@@ -3739,7 +3737,7 @@ App.directive('verticalTags', function($rootScope) {
 
     return {
         restrict: 'A',
-        templateUrl: '/static/partials/hex_angular/vertical_tags/vertical_tags.html',
+        templateUrl: 'static/partials/hex_angular/vertical_tags/vertical_tags.html',
         replace: true,
         scope: {
             'tags': '=',

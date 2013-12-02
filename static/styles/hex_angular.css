@@ -1502,7 +1502,12 @@ meta.foundation-mq-xxlarge {
 .dropdown {
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/dropdown\/dropdown\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/dropdown\/dropdown\.scss}line{font-family:\0000311}}
+.dropdown > .text {
+  cursor: pointer;
+  display: inline-block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/dropdown\/dropdown\.scss}line{font-family:\0000316}}
 .dropdown .menu {
   -webkit-transition: 0.2s all;
   -moz-transition: 0.2s all;
@@ -1517,4 +1522,19 @@ meta.foundation-mq-xxlarge {
   background-color: #fff;
   min-width: 100%;
   white-space: nowrap;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/dropdown\/dropdown\.scss}line{font-family:\0000333}}
+.dropdown .menu li {
+  cursor: pointer;
+  color: #0f3f62;
+  padding: 0 1em;
+  font-size: 0.8rem;
+  line-height: 2.2rem;
+  text-align: left;
+  -webkit-touch-callout: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/dropdown\/dropdown\.scss}line{font-family:\0000343}}
+.dropdown .menu li:hover {
+  background-color: #d7d7d7;
+  color: #000;
 }
