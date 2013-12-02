@@ -175,7 +175,8 @@ module.exports = function(grunt) {
                     ignores: ['**/utility_service.js']
                 },
                 src: [
-                    'src/scripts/**/*.js'
+                    'src/scripts/**/*.js',
+                    'src/hex_angular/**/*.js'
                 ]
             }
         },
@@ -319,7 +320,7 @@ module.exports = function(grunt) {
         watch: {
 
             partials: {
-                files: ['src/partials/**', 'src/hex_angular/directives/**'],
+                files: ['src/partials/**/*.html', 'src/hex_angular/directives/**/*.html'],
                 tasks: ['copy:partials', 'copy:pages'],
                 options: {
                   nospawn: false,

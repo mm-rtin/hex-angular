@@ -1,0 +1,51 @@
+/* -----------------------------------------
+   TRANSITION
+----------------------------------------- */
+.transition {
+    @include transition(.4s all);
+    @include transform(translateZ(0));
+
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    /* ANGULAR ANIMATIONS
+    1. [class]-add              (pre-animation styles)
+    2. [class]-add-active       (transition to add style)
+    3. [class]-remove           (pre-remove styles)
+    4. [class]-remove-active    (transition to remove style)
+    ----------------------------------------- */
+
+    /* FADE
+    ----------------------------------------- */
+    &.fade-add {
+        display: block !important;
+        opacity: 0;
+    }
+    &.fade, .fade-add-active, &.fade-remove {
+        display: block !important;
+        opacity: 1;
+    }
+    &.fade-remove-active {
+        opacity: 0;
+    }
+
+    /* SCALE
+    ----------------------------------------- */
+    &.scale-add {
+        display: block !important;
+        @include transform(scale(0.7));
+        opacity: 0;
+    }
+    &.scale, &.scale-add-active, &.scale-remove {
+        display: block !important;
+        @include transform(scale(1.0));
+        opacity: 1;
+    }
+    &.scale-remove-active {
+        @include transform(scale(0.7));
+        opacity: 0;
+    }
+}
