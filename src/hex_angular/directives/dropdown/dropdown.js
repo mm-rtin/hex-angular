@@ -56,9 +56,6 @@ App.directive('dropdown', function($rootScope, $timeout, $animate, Utilities) {
 
                 // override defaults
                 Utilities.extendSettings($scope.settings, $attrs);
-
-                console.log($scope.settings);
-
             }
 
             /* createEventHandlers -

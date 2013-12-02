@@ -7,8 +7,8 @@ App.config(function($routeProvider) {
     $routeProvider.
 
         // home view
-        when('/', {templateUrl: '/static/partials/views/home_view.html', controller: 'HomeController'}).
+        when('/', {templateUrl: 'static/partials/views/home_view.html', controller: 'HomeController'}).
 
         // content gallery
-        when('/content_gallery', {templateUrl: '/static/partials/views/content_gallery_view.html', controller: 'ContentGalleryController'});
+        when('/content_gallery', {templateUrl: 'static/partials/views/content_gallery_view.html', controller: 'ContentGalleryController'});
 });

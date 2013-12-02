@@ -119,10 +119,10 @@ App.config([
   function ($routeProvider) {
     'use strict';
     $routeProvider.when('/', {
-      templateUrl: '/static/partials/views/home_view.html',
+      templateUrl: 'static/partials/views/home_view.html',
       controller: 'HomeController'
     }).when('/content_gallery', {
-      templateUrl: '/static/partials/views/content_gallery_view.html',
+      templateUrl: 'static/partials/views/content_gallery_view.html',
       controller: 'ContentGalleryController'
     });
   }
