@@ -18,6 +18,10 @@
 
         <script src="static/scripts/custom.modernizr.js"></script>
 
+        <script>
+            document.write('<base href="' + document.location + '" />');
+        </script>
+
     </head>
 
     <body ng-class="{'overflow-hidden': state.showImagePanel, 'home-page': state.homePage}">
