@@ -1494,3 +1494,27 @@ meta.foundation-mq-xxlarge {
   margin: 0 auto;
   padding-top: 5px;
 }
+
+/* -----------------------------------------
+   DROPDOWN
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/dropdown\/dropdown\.scss}line{font-family:\000034}}
+.dropdown {
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/hex_angular\/directives\/dropdown\/dropdown\.scss}line{font-family:\0000315}}
+.dropdown .menu {
+  -webkit-transition: 0.2s all;
+  -moz-transition: 0.2s all;
+  transition: 0.2s all;
+  list-style: none;
+  display: none;
+  position: absolute;
+  z-index: 11;
+  top: 100%;
+  left: 0;
+  margin: 0;
+  background-color: #fff;
+  min-width: 100%;
+  white-space: nowrap;
+}

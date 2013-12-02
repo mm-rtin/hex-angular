@@ -75,8 +75,8 @@ body {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("/static/fonts/icomoon/icomoon.eot");
-  src: url("/static/fonts/icomoon/icomoon.eot?#iefix") format("embedded-opentype"), url("/static/fonts/icomoon/icomoon.svg#icomoon") format("svg"), url("/static/fonts/icomoon/icomoon.woff") format("woff"), url("/static/fonts/icomoon/icomoon.ttf") format("truetype");
+  src: url("/static/fonts/icomoon/icomoon.eot?hixw7w");
+  src: url("/static/fonts/icomoon/icomoon.eot?#iefixhixw7w") format("embedded-opentype"), url("/static/fonts/icomoon/icomoon.svg?hixw7w#icomoon") format("svg"), url("/static/fonts/icomoon/icomoon.ttf?hixw7w") format("truetype"), url("/static/fonts/icomoon/icomoon.woff?hixw7w") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -88,221 +88,601 @@ body {
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  position: relative;
-  left: -5px;
+  line-height: 0.9em;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000328}}
 .only-icon:before {
-  position: relative;
-  left: 0px;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000334}}
-.right-icon:before {
   line-height: 1em;
   position: relative;
   top: 0px;
-  position: relative;
-  left: 5px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000343}}
-.icon-erase:before {
-  content: "\e000";
+/* icomoon generated */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000335}}
+.icon-arrow-circle-down:before {
+  content: "\e61d";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000346}}
-.icon-remove:before {
-  content: "\f00d";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000338}}
+.icon-arrow-circle-up:before {
+  content: "\e61e";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000349}}
-.icon-list:before {
-  content: "\e003";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000341}}
+.icon-file:before {
+  content: "\e61f";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000352}}
-.icon-arrow-left:before {
-  content: "\f060";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000344}}
+.icon-chevron-down:before {
+  content: "\e622";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000355}}
-.icon-arrow-right:before {
-  content: "\f061";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000347}}
+.icon-chevron-up:before {
+  content: "\e623";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000358}}
-.icon-chevron-left:before {
-  content: "\f053";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000350}}
 .icon-chevron-right:before {
-  content: "\f054";
+  content: "\e624";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000364}}
-.icon-circleselect:before {
-  content: "\f0d3";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000353}}
+.icon-chevron-left:before {
+  content: "\e625";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000356}}
+.icon-thumbs-up-outline:before {
+  content: "\e612";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000359}}
+.icon-thumbs-down-outline:before {
+  content: "\e613";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000362}}
+.icon-card:before {
+  content: "\e614";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000365}}
+.icon-camera:before {
+  content: "\e600";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000368}}
+.icon-comment2:before {
+  content: "\e601";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000371}}
+.icon-comment:before {
+  content: "\e602";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000374}}
+.icon-activity:before {
+  content: "\e60a";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000377}}
+.icon-dashboard:before {
+  content: "\e603";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000380}}
+.icon-layers:before {
+  content: "\e604";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000383}}
+.icon-pin:before {
+  content: "\e605";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000386}}
+.icon-eye:before {
+  content: "\e606";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000389}}
+.icon-map:before {
+  content: "\e607";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000392}}
+.icon-projects:before {
+  content: "\e608";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000395}}
+.icon-screw:before {
+  content: "\e609";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000398}}
+.icon-dashboard-2:before {
+  content: "\e60b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003101}}
+.icon-options:before {
+  content: "\e60c";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003104}}
+.icon-config:before {
+  content: "\e60d";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003107}}
+.icon-comment3:before {
+  content: "\e60e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003110}}
+.icon-layers2:before {
+  content: "\e60f";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003113}}
+.icon-prize:before {
+  content: "\e610";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003116}}
+.icon-vimeo:before {
+  content: "\e056";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003119}}
+.icon-linkedin:before {
+  content: "\e05a";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003122}}
+.icon-pinterest:before {
+  content: "\e05b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003125}}
+.icon-twitter:before {
+  content: "\e048";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003128}}
+.icon-googleplus:before {
+  content: "\e04a";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003131}}
+.icon-facebook:before {
+  content: "\e058";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003134}}
+.icon-instagram:before {
+  content: "\e05c";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003137}}
+.icon-flickr:before {
+  content: "\e05e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003140}}
+.icon-tumblr:before {
+  content: "\e05f";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003143}}
+.icon-reply:before {
+  content: "\f112";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003146}}
+.icon-share-alt:before {
+  content: "\f064";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003149}}
+.icon-tag:before {
+  content: "\f02b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003152}}
+.icon-zoom-in:before {
+  content: "\f00e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003155}}
+.icon-zoom-out:before {
+  content: "\f010";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003158}}
+.icon-asterisk:before {
+  content: "\f069";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003161}}
+.icon-retweet:before {
+  content: "\f079";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003164}}
+.icon-repeat:before {
+  content: "\f01e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003167}}
 .icon-star:before {
   content: "\f005";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003170}}
+.icon-flag:before {
+  content: "\e049";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003173}}
+.icon-reply2:before {
+  content: "\e061";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003176}}
+.icon-plus:before {
+  content: "\f067";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003179}}
+.icon-minus:before {
+  content: "\f068";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003182}}
+.icon-ban-circle:before {
+  content: "\f05e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003185}}
+.icon-edit:before {
+  content: "\f040";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003188}}
+.icon-erase:before {
+  content: "\e003";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003191}}
+.icon-designs:before {
+  content: "\f03e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003194}}
+.icon-watch:before {
+  content: "\e019";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003197}}
+.icon-check-inverted:before {
+  content: "\e006";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003200}}
+.icon-chat2:before {
+  content: "\e013";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003203}}
+.icon-search:before {
+  content: "\e01c";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003206}}
+.icon-checkbox-unchecked:before {
+  content: "\e033";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003209}}
+.icon-checkbox-checked:before {
+  content: "\e034";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003212}}
+.icon-radio-checked:before {
+  content: "\e032";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003215}}
+.icon-radio-unchecked:before {
+  content: "\e02b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003218}}
+.icon-location:before {
+  content: "\e008";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003221}}
+.icon-plus2:before {
+  content: "\e009";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003224}}
+.icon-eye2:before {
+  content: "\e012";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003227}}
+.icon-mail:before {
+  content: "\e01e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003230}}
+.icon-menu:before {
+  content: "\e00c";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003233}}
+.icon-new:before {
+  content: "\e00d";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003236}}
+.icon-video:before {
+  content: "\e00e";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003239}}
+.icon-photo:before {
+  content: "\e00f";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003242}}
+.icon-delete:before {
+  content: "\f014";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003245}}
+.icon-history:before {
+  content: "\e00a";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003248}}
+.icon-bookmark:before {
+  content: "\e010";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003251}}
+.icon-options2:before {
+  content: "\e024";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003254}}
+.icon-remove:before {
+  content: "\e00b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003257}}
+.icon-thumbs-up:before {
+  content: "\e021";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003260}}
+.icon-thumbs-down:before {
+  content: "\e020";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003263}}
+.icon-attachments:before {
+  content: "\e01f";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003266}}
 .icon-ok:before {
   content: "\f00c";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000373}}
-.icon-chevron-up:before {
-  content: "\f077";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003269}}
+.icon-upload:before {
+  content: "\e01a";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000376}}
-.icon-chevron-down:before {
-  content: "\f078";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003272}}
+.icon-cart:before {
+  content: "\e615";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000379}}
-.icon-globe:before {
-  content: "\f0ac";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003275}}
+.icon-download:before {
+  content: "\e618";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000382}}
-.icon-off:before {
-  content: "\f011";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000385}}
-.icon-zoom-in:before {
-  content: "\e001";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000388}}
-.icon-zoom-out:before {
-  content: "\e002";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000391}}
-.icon-search:before {
-  content: "\e004";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000394}}
-.icon-clock:before {
-  content: "\e005";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\0000397}}
-.icon-hyperlink:before {
-  content: "\e006";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003100}}
-.icon-user:before {
-  content: "\e007";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003103}}
-.icon-comments:before {
-  content: "\e008";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003106}}
-.icon-exclamation:before {
-  content: "\e009";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003109}}
-.icon-question:before {
-  content: "\e00a";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003112}}
-.icon-close:before {
-  content: "\e00b";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003115}}
-.icon-add:before {
-  content: "\e00c";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003118}}
-.icon-subtract:before {
-  content: "\e00d";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003121}}
-.icon-maximize:before {
-  content: "\e00e";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003124}}
-.icon-in-alt:before {
-  content: "\e00f";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003127}}
-.icon-trash:before {
-  content: "\e010";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003130}}
-.icon-grid-alt:before {
-  content: "\e011";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003133}}
-.icon-menu:before {
-  content: "\e012";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003136}}
-.icon-list-2:before {
-  content: "\e013";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003139}}
-.icon-gallery:before {
-  content: "\e014";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003142}}
-.icon-compose:before {
-  content: "\e015";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003145}}
-.icon-tags:before {
-  content: "\e016";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003148}}
-.icon-tag:before {
-  content: "\e017";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003151}}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003278}}
 .icon-crop:before {
-  content: "\e018";
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003154}}
-.icon-screenshot:before {
   content: "\f109";
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003157}}
-.icon-picture:before {
-  content: "\f03e";
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003281}}
+.icon-clock:before {
+  content: "\e628";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003284}}
+.icon-calendar:before {
+  content: "\e629";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003287}}
+.icon-group:before {
+  content: "\e62b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003290}}
+.icon-ideas2:before {
+  content: "\e620";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003293}}
+.icon-pictures:before {
+  content: "\e621";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003296}}
+.icon-card2:before {
+  content: "\e611";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003299}}
+.icon-ideas:before {
+  content: "\e626";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003302}}
+.icon-chat:before {
+  content: "\e627";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003305}}
+.icon-factory:before {
+  content: "\e62a";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003308}}
+.icon-challenges:before {
+  content: "\e616";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003311}}
+.icon-share:before {
+  content: "\e617";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003314}}
+.icon-arrow-left:before {
+  content: "\e619";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003317}}
+.icon-arrow-down:before {
+  content: "\e61a";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003320}}
+.icon-arrow-up:before {
+  content: "\e61b";
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003323}}
+.icon-arrow-right:before {
+  content: "\e61c";
+}
+
+/* adjustments */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003329}}
+.icon-file:before {
+  top: 4px;
+  position: relative;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003333}}
+.icon-chevron-left:before, .icon-chevron-right:before, .icon-chevron-up:before, .icon-chevron-down:before {
+  position: relative;
+  top: 2px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003337}}
+.icon-arrow-left:before, .icon-arrow-right:before, .icon-arrow-up:before, .icon-arrow-down:before {
+  position: relative;
+  top: 2px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/icomoon\.scss}line{font-family:\00003341}}
+.icon-plus:before {
+  position: relative;
+  top: 1px;
+}
+
+/* -----------------------------------------
+   TRANSITION
+----------------------------------------- */
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/transitions\.scss}line{font-family:\000034}}
+.transition {
+  -webkit-transition: 0.4s all;
+  -moz-transition: 0.4s all;
+  transition: 0.4s all;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* ANGULAR ANIMATIONS
+  1. [class]-add              (pre-animation styles)
+  2. [class]-add-active       (transition to add style)
+  3. [class]-remove           (pre-remove styles)
+  4. [class]-remove-active    (transition to remove style)
+  ----------------------------------------- */
+  /* FADE
+  ----------------------------------------- */
+  /* SCALE
+  ----------------------------------------- */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/transitions\.scss}line{font-family:\0000323}}
+.transition.fade-add {
+  display: block !important;
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/transitions\.scss}line{font-family:\0000327}}
+.transition.fade, .transition .fade-add-active, .transition.fade-remove {
+  display: block !important;
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/transitions\.scss}line{font-family:\0000331}}
+.transition.fade-remove-active {
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/transitions\.scss}line{font-family:\0000337}}
+.transition.scale-add {
+  display: block !important;
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/transitions\.scss}line{font-family:\0000342}}
+.transition.scale, .transition.scale-add-active, .transition.scale-remove {
+  display: block !important;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/components\/transitions\.scss}line{font-family:\0000347}}
+.transition.scale-remove-active {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/d\:\/Dropbox\/Github\/hex-angular\/src\/styles\/mixins\/_alignment\.scss}line{font-family:\000033}}
