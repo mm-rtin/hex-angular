@@ -75,8 +75,8 @@ body {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("/static/fonts/icomoon/icomoon.eot?hixw7w");
-  src: url("/static/fonts/icomoon/icomoon.eot?#iefixhixw7w") format("embedded-opentype"), url("/static/fonts/icomoon/icomoon.svg?hixw7w#icomoon") format("svg"), url("/static/fonts/icomoon/icomoon.ttf?hixw7w") format("truetype"), url("/static/fonts/icomoon/icomoon.woff?hixw7w") format("woff");
+  src: url("static/fonts/icomoon/icomoon.eot?hixw7w");
+  src: url("static/fonts/icomoon/icomoon.eot?#iefixhixw7w") format("embedded-opentype"), url("static/fonts/icomoon/icomoon.svg?hixw7w#icomoon") format("svg"), url("static/fonts/icomoon/icomoon.ttf?hixw7w") format("truetype"), url("static/fonts/icomoon/icomoon.woff?hixw7w") format("woff");
   font-weight: normal;
   font-style: normal;
 }
