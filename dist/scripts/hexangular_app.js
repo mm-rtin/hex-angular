@@ -2,12 +2,13 @@
   'use strict';
   $(document).ready(function () {
   });
-  var App = angular.module('overmind', [
+  var App = angular.module('app', [
       'ngCookies',
       'ngRoute',
       'ngSanitize',
       'ngTouch',
-      'ngAnimate'
+      'ngAnimate',
+      'hexAngular'
     ]);
   App.config([
     '$locationProvider',
@@ -20,8 +21,8 @@
   ]);
 }(this, jQuery, angular));
 ;
-var App = angular.module('overmind');
-App.controller('OvermindController', [
+var App = angular.module('app');
+App.controller('AppController', [
   '$rootScope',
   '$scope',
   '$http',
@@ -30,53 +31,27 @@ App.controller('OvermindController', [
   'User',
   function ($rootScope, $scope, $http, $routeParams, $location, User) {
     'use strict';
-    $scope.state = {
-      'showImagePanel': false,
-      'homePage': false
-    };
-    $scope.overmindData = {};
+    $scope.state = {};
     initialize();
     function initialize() {
-      if (!User.isUserLoggedIn()) {
-        $location.url('/');
-      }
       createEventHandlers();
     }
     function createEventHandlers() {
-      $scope.$on('image-editor:enabled', function (e, data) {
-        $scope.state.showImagePanel = true;
-      });
-      $scope.$on('image-editor:disabled', function (e, data) {
-        $scope.state.showImagePanel = false;
-      });
-      $scope.$on('$routeChangeSuccess', function (scope, next, current) {
-        if ($location.path() == '/') {
-          $scope.state.homePage = true;
-        } else {
-          $scope.state.homePage = false;
-        }
-      });
     }
   }
 ]);
 ;
-var App = angular.module('overmind');
+var App = angular.module('app');
 App.config([
   '$routeProvider',
   function ($routeProvider) {
     'use strict';
     $routeProvider.when('/', {
-      templateUrl: '/static/partials/views/home_view.html',
+      templateUrl: '/static/partials/views/index.html',
       controller: 'HomeController'
-    }).when('/add', {
-      templateUrl: '/static/partials/views/item_detail_view.html',
-      controller: 'AddItemController'
-    }).when('/item/:itemID', {
-      templateUrl: '/static/partials/views/item_detail_view.html',
-      controller: 'ItemDetailController'
-    }).when('/:username', {
-      templateUrl: '/static/partials/views/user_home_view.html',
-      controller: 'UserHomeController'
+    }).when('/page', {
+      templateUrl: '/static/partials/views/page.html',
+      controller: 'PageController'
     });
   }
 ]);

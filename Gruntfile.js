@@ -34,6 +34,12 @@ module.exports = function(grunt) {
                 ]
             },
 
+            pages: {
+                files: [
+                    {expand: true, cwd: 'dist/', src: ['**'], dest: '../hex-angular-pages/static/'}
+                ]
+            },
+
             // fixes bug with ngmin
             ng_min: {
                 files: [
@@ -366,6 +372,7 @@ module.exports = function(grunt) {
             'clean',
             'jshint',
             'copy:partials',
+            'copy:pages',
             'concat',
             'ngmin',
             'copy:ng_min',
@@ -380,6 +387,7 @@ module.exports = function(grunt) {
             'clean',
             'jshint',
             'copy:partials',
+            'copy:pages',
             'concat',
             'ngmin',
             'copy:ng_min',
